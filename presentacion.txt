@@ -1,9 +1,6 @@
 Integrante 1:
-
-
-
-
-
+Nombre: Andres Mauricio Padilla Ucros 
+Soy ingeniero mecanico egresado de la universidad Autonoma del caribe. Mi area de experticia es en la ciencia de datos, con python.
 
 Integrante 2:
 
