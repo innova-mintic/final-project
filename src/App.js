@@ -11,7 +11,7 @@ function App() {
     <Auth0Provider
     domain="innova-mintic.us.auth0.com"
     clientId="4OfDznBV7xftZ5kCuQm2VNebA4mXk5Rp"
-    redirectUri={'http://localhost:3000/dashboard'}
+    redirectUri={'https://mysterious-hollows-06532.herokuapp.com/dashboard'}
     >
       <div>
         <Router>
