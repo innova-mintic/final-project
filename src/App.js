@@ -1,24 +1,32 @@
-import logo from './logo.svg';
+import React from 'react';
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import { Auth0Provider } from "@auth0/auth0-react";
+
 import './App.css';
+import Home from './Pages/Home';
+import Dashboard from './Pages/Dashboard';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Auth0Provider
+    domain="innova-mintic.us.auth0.com"
+    clientId="4OfDznBV7xftZ5kCuQm2VNebA4mXk5Rp"
+    redirectUri={'http://localhost:3000/dashboard'}
+    >
+      <div>
+        <Router>
+          <Routes>
+            <Route exact 
+              path="/" element={<Home/>}
+            />
+            <Route exact 
+              path="/dashboard" element={<Dashboard/>}
+            />
+          </Routes>
+        </Router>
+      </div>
+    </Auth0Provider>
+      
   );
 }
 
