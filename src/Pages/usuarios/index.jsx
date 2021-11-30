@@ -5,6 +5,7 @@ import {toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {Link} from 'react-router-dom';
 
+
 const Usuarios= () => {
   const {data, error, loading}=useQuery(GET_USUARIOS);
 

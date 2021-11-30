@@ -7,6 +7,7 @@ const SidebarLinks = () => {
       <SidebarRoute to='inicio' title='Inicio' icon='fas fa-home' />
       <SidebarRoute to='perfil' title='Perfil' icon='fas fa-smile-wink' />
       <SidebarRoute to='usuarios' title='Usuarios' icon='fas fa-user' />
+      <SidebarRoute to='usuarios2' title='Usuarios2' icon='fas fa-user' />
       <SidebarRoute to='proyectos' title='Proyectos' icon='fas fa-book-open' />
     </ul>
   );
