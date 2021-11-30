@@ -6,9 +6,13 @@ import { GET_USUARIO } from 'graphql/usuarios/queries';
 import { EDITAR_USUARIO } from 'graphql/usuarios/mutations';
 import ButtonLoading from 'components/ButtonLoading';
 import useFormData from 'hook/useFormData';
+import {toast } from 'react-toastify';
+import DropDown from 'components/Dropdown';
+import { Enum_EstadoUsuario } from 'utils/enums';
 
 function EditarUsuario() {
     const{form, formData,updateFormData} = useFormData(null);
+
     const {_id}=useParams();
 
     const{data:queryData,error:queryError,loading:queryLoading}=useQuery(GET_USUARIO,{
@@ -17,20 +21,29 @@ function EditarUsuario() {
 
     const [editarUsuario, {data:mutationData, loading:mutationLoading, error:mutationError}] = useMutation(EDITAR_USUARIO);
 
-    
-    
     const submitForm = (e)=>{
         e.preventDefault(); 
         console.log("fg",formData)
+        delete formData.rol;
         editarUsuario({
-            variables:{_id,...formData,rol:'ADMINISTRADOR'}
+            variables:{_id,...formData}
         })
     };
     
     useEffect(()=>{
-        console.log('mutacion edicion',mutationData);
+        if (mutationData){
+            toast.success('Usuario modificado con exito');
+        }
     }, [mutationData])
-    
+
+    useEffect(()=>{
+        if (mutationError){
+          toast.error("Error al editar el usuario");
+        }
+        if (queryError){
+        toast.error("Error al consultar el usuario");
+        }
+      },[queryError,mutationError]);
     
     if (queryLoading) return <div> Cargando...</div>
 
@@ -74,17 +87,17 @@ function EditarUsuario() {
                     defaultValue={queryData.Usuario.identificacion}
                     required={true}
                 />
-{/*                 <DropDown
+                <DropDown
                     label='Estado de la persona:'
                     name='estado'
                     defaultValue={queryData.Usuario.estado}
                     required={true}
                     options={Enum_EstadoUsuario}
-                /> */}
-                 {/* <span>Rol del usuario: {queryData.Usuario.rol}</span> */}
+                />
+                 <span>Rol del usuario: {queryData.Usuario.rol}</span>
                 <ButtonLoading
-                    disabled={false}
-                    loading={false}
+                    disabled={Object.keys(formData).length === 0}
+                    loading={mutationLoading}
                     text='Confirmar'
                 /> 
             </form>
