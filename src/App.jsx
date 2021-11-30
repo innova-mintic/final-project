@@ -25,9 +25,9 @@ function App() {
 
     <ApolloProvider client={client}>
        <Auth0Provider
-        domain="innova-mintic.us.auth0.com"
-        clientId="4OfDznBV7xftZ5kCuQm2VNebA4mXk5Rp"
-        redirectUri={'https://mysterious-hollows-06532.herokuapp.com/dashboard'}
+        domain="dev-6v2sbo5u.us.auth0.com"
+        clientId="aaMuAlzmMFWPgr8COfZ3ucjEqFY2QeS9"
+        redirectUri={'http://localhost:3000/inicio'}
         >
           <Router>
             <Routes>
