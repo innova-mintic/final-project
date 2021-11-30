@@ -1,4 +1,14 @@
 .background{
-    background-color: rgb(0, 156, 140);
+    background-color: rgb(229, 231, 235);
     height: 100vh;
+}
+
+.intro{
+    margin-top: 5%;
+    width: 100%;
+    height: 50%;
+    border-radius: 10%;
+    background-image: url('https://us.123rf.com/450wm/wrightstudio/wrightstudio1909/wrightstudio190900128/129938746-concepto-de-optimizaci%C3%B3n-de-procesos-de-negocio-de-diagrama-de-plan-de-programaci%C3%B3n-de-gesti%C3%B3n-de-pr.jpg?ver=6');
+    background-repeat: no-repeat;
+    background-size: cover;
 }
