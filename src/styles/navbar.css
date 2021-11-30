@@ -2,3 +2,8 @@
     position: absolute;
     right: 5%;
 }
+
+.container{
+    border-radius: 10%;
+    border: 5px black solid;
+}

@@ -7,7 +7,9 @@ import 'styles/home.css';
     return (
         <div className="background">
             <Navbar />
-            este es el index
+            <div className="intro">
+                inscribe tus proyectos
+            </div>
         </div>
     )
 }

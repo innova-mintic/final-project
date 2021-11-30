@@ -1,7 +1,18 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
+import { useAuth0 } from "@auth0/auth0-react";
+import '../styles/sidebar.css'
+
 const SidebarLinks = () => {
+
+  const { logout } = useAuth0();
+    
+    const cerrarSesion = () => {
+        logout({ returnTo: window.location.origin });
+        localStorage.setItem('token', null);
+    }
+
   return (
     <ul className='mt-12'>
       <SidebarRoute to='inicio' title='Inicio' icon='fas fa-home' />
@@ -9,6 +20,12 @@ const SidebarLinks = () => {
       <SidebarRoute to='usuarios' title='Usuarios' icon='fas fa-user' />
       <SidebarRoute to='usuarios2' title='Usuarios2' icon='fas fa-user' />
       <SidebarRoute to='proyectos' title='Proyectos' icon='fas fa-book-open' />
+      <div className="logout">
+        <button className="btn btn-outline-primary" onClick={() => cerrarSesion()}>
+          Log Out
+        </button>
+      </div>
+     
     </ul>
   );
 };
