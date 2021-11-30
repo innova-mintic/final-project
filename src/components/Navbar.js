@@ -23,7 +23,7 @@ const Navbar = () => {
                         <ul className="navbar-nav mb-2 mb-lg-0">
                             <li className="nav-item border2">
                                 <div className="login">
-                                    <button className="btn btn-outline-primary" onClick={() => loginWithRedirect()}>Log In</button>
+                                    <button className="btn btn-outline-primary" onClick={() => loginWithRedirect()}><i class="fa-solid fa-arrow-right-to-bracket"></i>Log In</button>
                                 </div>
                             </li>
                         </ul>
