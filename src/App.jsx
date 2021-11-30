@@ -4,6 +4,7 @@ import { Auth0Provider } from "@auth0/auth0-react";
 import {ApolloProvider, ApolloClient,createHttpLink,InMemoryCache} from "@apollo/client";
 import 'styles/globals.css';
 import 'styles/tabla.css';
+/* import 'styles/styles.css';  no esta funcionando  */
 
 import Home from 'Pages/Home';
 import Dashboard from 'Pages/inicio/index';
@@ -12,7 +13,7 @@ import Proyectos from 'Pages/proyectos/index';
 import Usuarios from 'Pages/usuarios/index';
 import EditarUsuario from 'Pages/usuarios/editar';
 import LayoutAdmin from 'layouts/LayoutAdmin';
-
+import ListaUsuariosC4 from 'Pages/ListaUsuarios';
 
 
 const client= new ApolloClient({
@@ -36,6 +37,7 @@ function App() {
                 <Route  path='inicio' element={<Dashboard/>}/>
                 <Route  path='perfil' element={<Perfil/>}/>
                 <Route  path='proyectos' element={<Proyectos/>}/>
+                <Route  path='usuarios2' element={<ListaUsuariosC4/>}/>
                 <Route  path='usuarios' element={<Usuarios/>}/>
                 <Route  path='usuarios/editar/:_id' element={<EditarUsuario/>}/>
               </Route>
