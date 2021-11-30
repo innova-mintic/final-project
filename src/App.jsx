@@ -24,18 +24,24 @@ function App() {
   return (
 
     <ApolloProvider client={client}>
-      <Router>
-        <Routes>
-          <Route  path='/' element={<Home/>}/>
-          <Route  path='/' element={<LayoutAdmin/>}>
-            <Route  path='inicio' element={<Dashboard/>}/>
-            <Route  path='perfil' element={<Perfil/>}/>
-            <Route  path='proyectos' element={<Proyectos/>}/>
-            <Route  path='usuarios' element={<Usuarios/>}/>
-            <Route  path='usuarios/editar/:_id' element={<EditarUsuario/>}/>
-          </Route>
-        </Routes>
-      </Router>
+       <Auth0Provider
+        domain="innova-mintic.us.auth0.com"
+        clientId="4OfDznBV7xftZ5kCuQm2VNebA4mXk5Rp"
+        redirectUri={'https://mysterious-hollows-06532.herokuapp.com/dashboard'}
+        >
+          <Router>
+            <Routes>
+              <Route  path='/' element={<Home/>}/>
+              <Route  path='/' element={<LayoutAdmin/>}>
+                <Route  path='inicio' element={<Dashboard/>}/>
+                <Route  path='perfil' element={<Perfil/>}/>
+                <Route  path='proyectos' element={<Proyectos/>}/>
+                <Route  path='usuarios' element={<Usuarios/>}/>
+                <Route  path='usuarios/editar/:_id' element={<EditarUsuario/>}/>
+              </Route>
+            </Routes>
+          </Router>
+        </Auth0Provider>
     </ApolloProvider>  
       
    

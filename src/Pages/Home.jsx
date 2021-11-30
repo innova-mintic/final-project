@@ -1,21 +1,13 @@
 import React from 'react';
-import { useAuth0 } from "@auth0/auth0-react";
-import { Link
- } from 'react-router-dom';
-const Home = () => {
+import Navbar from 'components/NavBar';
 
-    const { loginWithRedirect } = useAuth0();
+ const Home = () => {
 
     return (
-        <>
-        
-            <Link to="inicio">
-                <button type="button" className='w-full bg-green-400 p-2 rounded-full shadow-md hover:bg-green-600 text-white text my-2 ml-4'>
-                    Iniciar sesion
-                </button>
-            </Link>
-
-        </>
+        <div className="background">
+            <Navbar />
+            este es el index
+        </div>
     )
 }
 
