@@ -26,20 +26,20 @@ function App() {
 
     <ApolloProvider client={client}>
        <Auth0Provider
-        domain="innova-mintic.us.auth0.com"
-        clientId="jlroiJjwDC8Pei1OYEHyUAfDlwyl0FiM"
-        redirectUri={'https://mysterious-hollows-06532.herokuapp.com/inicio'}
+          domain="innova-mintic.us.auth0.com"
+          clientId="4OfDznBV7xftZ5kCuQm2VNebA4mXk5Rp"
+          redirectUri={'https://mysterious-hollows-06532.herokuapp.com/inicio'}
         >
           <Router>
             <Routes>
               <Route  path='/' element={<Home/>}/>
               <Route  path='/' element={<LayoutAdmin/>}>
-                <Route  path='inicio' element={<Dashboard/>}/>
-                <Route  path='perfil' element={<Perfil/>}/>
-                <Route  path='proyectos' element={<Proyectos/>}/>
-                <Route  path='usuarios2' element={<ListaUsuariosC4/>}/>
-                <Route  path='usuarios' element={<Usuarios/>}/>
-                <Route  path='usuarios/editar/:_id' element={<EditarUsuario/>}/>
+                <Route  path='/inicio' element={<Dashboard/>}/>
+                <Route  path='/perfil' element={<Perfil/>}/>
+                <Route  path='/proyectos' element={<Proyectos/>}/>
+                <Route  path='/usuarios2' element={<ListaUsuariosC4/>}/>
+                <Route  path='/usuarios' element={<Usuarios/>}/>
+                <Route  path='/usuarios/editar/:_id' element={<EditarUsuario/>}/>
               </Route>
             </Routes>
           </Router>
