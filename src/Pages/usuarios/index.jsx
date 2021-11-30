@@ -1,25 +1,17 @@
 import React, {useEffect} from 'react';
 import { useQuery } from '@apollo/client';
 import { GET_USUARIOS } from 'graphql/usuarios/queries';
-import {toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {Link} from 'react-router-dom';
+import { Enum_Rol , Enum_EstadoUsuario } from 'utils/enums';
 
 
 const Usuarios= () => {
   const {data, error, loading}=useQuery(GET_USUARIOS);
 
-  useEffect(()=>{
-    console.log("data servidor",data)
-  },[data]);
+  console.log("los datos son",data); 
 
-  useEffect(()=>{
-    if (error){
-      toast.error("Error consultando los usuarios");
-    }
-  },[error]);
-
-  if (loading) return <div> Cargando...</div>
+  if (loading) return <div> Cargando usuarios...</div>
 
   return (
     <div>
@@ -46,8 +38,8 @@ const Usuarios= () => {
                       <td>{u.apellido}</td>
                       <td>{u.correo}</td>
                       <td>{u.identificacion}</td>
-                      <td>{u.rol}</td>
-                      <td>{u.estado}</td>
+                      <td>{Enum_Rol[u.rol]}</td>
+                      <td>{Enum_EstadoUsuario[u.estado]}</td>
                       <td>
                         <Link to={`/usuarios/editar/${u._id}`}>
                           <i className='fas fa-pen text-yellow-600 hover:text-yellow-400 cursor-pointer' />
