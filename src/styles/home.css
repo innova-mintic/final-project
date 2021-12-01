@@ -7,8 +7,35 @@
     margin-top: 5%;
     width: 100%;
     height: 50%;
-    border-radius: 10%;
-    background-image: url('https://us.123rf.com/450wm/wrightstudio/wrightstudio1909/wrightstudio190900128/129938746-concepto-de-optimizaci%C3%B3n-de-procesos-de-negocio-de-diagrama-de-plan-de-programaci%C3%B3n-de-gesti%C3%B3n-de-pr.jpg?ver=6');
-    background-repeat: no-repeat;
-    background-size: cover;
+    background-image: url('https://www.ampersand.net/wp-content/uploads/2020/04/business-background-illustration-people.jpg');
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.description{
+    background-color: rgb(33, 37, 41);
+    color: white;
+    position: absolute;
+    padding: 3%;
+    border-radius: 100%;
+}
+
+.h3main{
+    text-align: center;
+}
+
+@media screen and (max-width:700px) {
+    
+    .intro{
+        height: 60%;
+        background-size: cover;
+        align-items: flex-start;
+    }
+
+    .description{
+        border-radius: 0;
+        padding-bottom: 5%;
+        padding-top: 5%;
+    }
 }
