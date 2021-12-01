@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
 
-const ListaUsuariosC4 = ()=>{
+const ListaUsuarios = ()=>{
   const [MostrarTabla,setMostratTabla] = useState(true);
   const [vistaUsuario, setVistaUsuario] = useState(false);
   const [Usuarios,setUsuarios] =useState([
@@ -225,4 +225,4 @@ const ListaUsuariosC4 = ()=>{
     
     };
 
-export default ListaUsuariosC4;
+export default ListaUsuarios;
