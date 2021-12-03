@@ -15,9 +15,18 @@ import EditarUsuario from 'Pages/usuarios/editar';
 import LayoutAdmin from 'layouts/LayoutAdmin';
 import ListaUsuariosC4 from 'Pages/ListaUsuarios';
 
+import EditarProyecto from 'Pages/proyectos/editar';
+import Creacion from 'Pages/creacion';
+import CreacionProyecto from 'Pages/crearProyecto';
+
+
+/* const client= new ApolloClient({
+  uri:'https://innova1.herokuapp.com/graphql',
+  cache:new InMemoryCache(),
+}); */
 
 const client= new ApolloClient({
-  uri:'https://innova1.herokuapp.com/graphql',
+  uri:'http://localhost:4000/graphql',
   cache:new InMemoryCache(),
 });
 
@@ -28,16 +37,18 @@ function App() {
        <Auth0Provider
           domain="innova-mintic.us.auth0.com"
           clientId="4OfDznBV7xftZ5kCuQm2VNebA4mXk5Rp"
-          redirectUri={'https://mysterious-hollows-06532.herokuapp.com/inicio'}
+          redirectUri={'http://localhost:3000/inicio'}
         >
           <Router>
             <Routes>
               <Route  path='/' element={<Home/>}/>
               <Route  path='/' element={<LayoutAdmin/>}>
                 <Route  path='/inicio' element={<Dashboard/>}/>
+                <Route  path='/creacion' element={<Creacion/>}/>
                 <Route  path='/perfil' element={<Perfil/>}/>
                 <Route  path='/proyectos' element={<Proyectos/>}/>
-                <Route  path='/usuarios2' element={<ListaUsuariosC4/>}/>
+                <Route  path='/proyectos/editar/:_id' element={<EditarProyecto/>}/>
+                <Route  path='/creacionProyecto' element={<CreacionProyecto/>}/>
                 <Route  path='/usuarios' element={<Usuarios/>}/>
                 <Route  path='/usuarios/editar/:_id' element={<EditarUsuario/>}/>
               </Route>

@@ -16,10 +16,11 @@ const SidebarLinks = () => {
   return (
     <ul className='mt-12'>
       <SidebarRoute to='inicio' title='Inicio' icon='fas fa-home' />
+      <SidebarRoute to='creacion' title='Registro' icon='fas fa-smile-wink' />
       <SidebarRoute to='perfil' title='Perfil' icon='fas fa-smile-wink' />
       <SidebarRoute to='usuarios' title='Usuarios' icon='fas fa-user' />
-      <SidebarRoute to='usuarios2' title='Usuarios2' icon='fas fa-user' />
       <SidebarRoute to='proyectos' title='Proyectos' icon='fas fa-book-open' />
+      <SidebarRoute to='creacionProyecto' title='Crear Proyecto' icon='fas fa-book-open' />
       <div className="logout">
         <button className="btn btn-outline-primary" onClick={() => cerrarSesion()}>
           Log Out

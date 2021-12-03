@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect } from "react/cjs/react.development";
 import { useRef } from "react/cjs/react.development";
 import {nanoid} from 'nanoid'
-
+import {toast , ToastContainer} from 'react-toastify';
 import {Dialog} from '@mui/material'
 import { useState } from "react";
 import { faTrashAlt , faPencilAlt,faCheck, faTimes} from "@fortawesome/free-solid-svg-icons";
@@ -11,6 +11,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
 const ListaUsuariosC4 = ()=>{
+
+
+
+
+
+
   const [MostrarTabla,setMostratTabla] = useState(true);
   const [vistaUsuario, setVistaUsuario] = useState(false);
   const [Usuarios,setUsuarios] =useState([
@@ -50,6 +56,7 @@ const ListaUsuariosC4 = ()=>{
     },
 
   ]);
+
     
     return(
         <div>
@@ -117,6 +124,11 @@ const ListaUsuariosC4 = ()=>{
             </div>
               
           </div>
+          <ToastContainer
+                position='top-right'
+                autoClose={2000}
+                hideProgressBar={true}
+            />
         </div>
     );
 
