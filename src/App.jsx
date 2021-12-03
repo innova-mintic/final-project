@@ -4,7 +4,7 @@ import { Auth0Provider } from "@auth0/auth0-react";
 import {ApolloProvider, ApolloClient,createHttpLink,InMemoryCache} from "@apollo/client";
 import 'styles/globals.css';
 import 'styles/tabla.css';
-/* import 'styles/styles.css';  no esta funcionando  */
+/* import 'styles/styles.css'; */
 
 import Home from 'Pages/Home';
 import Dashboard from 'Pages/inicio/index';

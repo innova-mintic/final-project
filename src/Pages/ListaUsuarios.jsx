@@ -7,24 +7,13 @@ import {Dialog} from '@mui/material'
 import { useState } from "react";
 import { faTrashAlt , faPencilAlt,faCheck, faTimes} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import "../styles/styles.css"
+/* import "styles/styles.css" */
 import { Enum_Rol , Enum_EstadoUsuario } from 'utils/enums';
 import { useQuery } from '@apollo/client';
 import { GET_USUARIOS } from 'graphql/usuarios/queries';
 
 
-<<<<<<< HEAD
 const ListaUsuarios = ()=>{
-=======
-
-const ListaUsuariosC4 = ()=>{
-
-
-
-
-
-
->>>>>>> queries
   const [MostrarTabla,setMostratTabla] = useState(true);
   const [vistaUsuario, setVistaUsuario] = useState(false);
   const {data, error, loading}=useQuery(GET_USUARIOS);
