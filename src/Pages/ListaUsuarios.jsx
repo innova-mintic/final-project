@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect } from "react";
 import { useRef } from "react";
 import {nanoid} from 'nanoid'
-
+import {toast , ToastContainer} from 'react-toastify';
 import {Dialog} from '@mui/material'
 import { useState } from "react";
 import { faTrashAlt , faPencilAlt,faCheck, faTimes} from "@fortawesome/free-solid-svg-icons";
@@ -13,7 +13,18 @@ import { useQuery } from '@apollo/client';
 import { GET_USUARIOS } from 'graphql/usuarios/queries';
 
 
+<<<<<<< HEAD
 const ListaUsuarios = ()=>{
+=======
+
+const ListaUsuariosC4 = ()=>{
+
+
+
+
+
+
+>>>>>>> queries
   const [MostrarTabla,setMostratTabla] = useState(true);
   const [vistaUsuario, setVistaUsuario] = useState(false);
   const {data, error, loading}=useQuery(GET_USUARIOS);
@@ -54,6 +65,7 @@ const ListaUsuarios = ()=>{
     },
 
   ]);
+
     
     return(
         <div>
@@ -122,6 +134,11 @@ const ListaUsuarios = ()=>{
             </div>
               
           </div>
+          <ToastContainer
+                position='top-right'
+                autoClose={2000}
+                hideProgressBar={true}
+            />
         </div>
     );
 

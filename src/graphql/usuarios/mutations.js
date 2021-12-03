@@ -16,7 +16,8 @@ const EDITAR_USUARIO = gql`
       identificacion: $identificacion
       correo: $correo
       estado: $estado
-    ) {
+    ) 
+    {  
       _id
       nombre
       apellido
@@ -28,4 +29,52 @@ const EDITAR_USUARIO = gql`
   }
 `;
 
-export { EDITAR_USUARIO };
+const ELIMINAR_USUARIO = gql`
+  mutation EliminarUsuario(
+    $id: String, 
+    $correo: String
+    ) {
+    eliminarUsuario(
+      _id: $id, 
+      correo: $correo
+      ) {
+      _id
+      nombre
+      apellido
+      correo
+      estado
+      identificacion
+      rol
+    }
+  }
+`;
+
+const CREAR_USUARIO = gql`
+  mutation CrearUsuario(
+    $nombre: String!, 
+    $apellido: String!, 
+    $identificacion: String!, 
+    $correo: String!, 
+    $rol: Enum_Rol!, 
+    $estado: Enum_EstadoUsuario
+    ) {
+    crearUsuario(
+      nombre: $nombre, 
+      apellido: $apellido, 
+      identificacion: $identificacion, 
+      correo: $correo, 
+      rol: $rol, 
+      estado: $estado
+      ) {
+      _id
+    }
+  }
+`;
+
+
+
+
+export { EDITAR_USUARIO ,ELIMINAR_USUARIO,CREAR_USUARIO};
+
+
+/*  deben ir los campos que se van actualizar  la base de datos en las ultimas llavesen */

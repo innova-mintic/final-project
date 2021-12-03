@@ -3,7 +3,7 @@ import Input from 'components/Input'
 import {useParams, Link} from 'react-router-dom'
 import { useQuery, useMutation } from '@apollo/client';
 import { GET_USUARIO } from 'graphql/usuarios/queries';
-import { EDITAR_USUARIO } from 'graphql/usuarios/mutations';
+import { EDITAR_USUARIO, ELIMINAR_USUARIO } from 'graphql/usuarios/mutations';
 import ButtonLoading from 'components/ButtonLoading';
 import useFormData from 'hook/useFormData';
 import {toast } from 'react-toastify';
@@ -19,7 +19,12 @@ function EditarUsuario() {
         variables:{_id}
     });
 
+    console.log("el id es",_id); 
+    console.log("los datos son",queryData); 
+
     const [editarUsuario, {data:mutationData, loading:mutationLoading, error:mutationError}] = useMutation(EDITAR_USUARIO);
+
+    const [eliminarUsuario, {data:mutationDataEliminar, loading:mutationLoadingEliminar, error:mutationErrorEliminar}] = useMutation(ELIMINAR_USUARIO);
 
     const submitForm = (e)=>{
         e.preventDefault(); 
@@ -32,7 +37,12 @@ function EditarUsuario() {
     
     useEffect(()=>{
         if (mutationData){
-            toast.success('Usuario modificado con exito');
+            toast.success('Usuario modificado con exito',{
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+            });
         }
     }, [mutationData])
 
@@ -99,6 +109,11 @@ function EditarUsuario() {
                     disabled={Object.keys(formData).length === 0}
                     loading={mutationLoading}
                     text='Confirmar'
+                /> 
+                <ButtonLoading
+                    disabled={false}
+                    loading={mutationLoadingEliminar}
+                    text='Eliminar'
                 /> 
             </form>
       </div>
