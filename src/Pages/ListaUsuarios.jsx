@@ -1,18 +1,22 @@
 import React from "react";
-import { useEffect } from "react/cjs/react.development";
-import { useRef } from "react/cjs/react.development";
+import { useEffect } from "react";
+import { useRef } from "react";
 import {nanoid} from 'nanoid'
-
+import {toast , ToastContainer} from 'react-toastify';
 import {Dialog} from '@mui/material'
 import { useState } from "react";
 import { faTrashAlt , faPencilAlt,faCheck, faTimes} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+/* import "styles/styles.css" */
+import { Enum_Rol , Enum_EstadoUsuario } from 'utils/enums';
+import { useQuery } from '@apollo/client';
+import { GET_USUARIOS } from 'graphql/usuarios/queries';
 
 
-
-const ListaUsuariosC4 = ()=>{
+const ListaUsuarios = ()=>{
   const [MostrarTabla,setMostratTabla] = useState(true);
   const [vistaUsuario, setVistaUsuario] = useState(false);
+  const {data, error, loading}=useQuery(GET_USUARIOS);
   const [Usuarios,setUsuarios] =useState([
       {Nombre:"Carlos",
       Identificacion:"1234566",
@@ -50,12 +54,13 @@ const ListaUsuariosC4 = ()=>{
     },
 
   ]);
+
     
     return(
         <div>
           <h2 className= "text-center">Usuarios registrados</h2>
 
-          {MostrarTabla ? <TablaUsuarios ListaUsuarios={Usuarios} />: <VistaUsuarios />}
+          {MostrarTabla ? <TablaUsuarios ListaUsuarios={data.Usuarios} />: <VistaUsuarios />}
         </div>
     )
   };
@@ -86,11 +91,12 @@ const ListaUsuariosC4 = ()=>{
                   <thead>
                   <tr>
                     <th >Nombre</th>
-                    <th scope="col">Identificacion</th>
-                    <th >Email</th>
-                    <th >Tipo de usuario</th>
+                    <th>Apellidos</th>
+                    <th >Correo</th>
+                    <th>Identificacion</th>
+                    <th >Rol</th>
                     <th >Estado</th>
-                    <th>Acciones</th>
+                    <th>Editar</th>
                     
                       
                   </tr>
@@ -117,6 +123,11 @@ const ListaUsuariosC4 = ()=>{
             </div>
               
           </div>
+          <ToastContainer
+                position='top-right'
+                autoClose={2000}
+                hideProgressBar={true}
+            />
         </div>
     );
 
@@ -126,10 +137,11 @@ const ListaUsuariosC4 = ()=>{
       const [Actualizar,setActualizar] = useState(false)
       const [OpenDialog,setOpenDialog] = useState(false)
       const [infoNuevoUsuario,setinfoNuevoUsuario] = useState({
-        Nombre:Usuario.Nombre,
-        Identificacion:Usuario.Identificacion,
-        Email:Usuario.Email,
-        Tipo_Usuario:Usuario.Tipo_Usuario,
+        nombre:Usuario.nombre,
+        apellidos:Usuario.apellido,
+        correo:Usuario.correo,
+        identificacion:Usuario.identificacion,
+        Enum_Rol:Usuario.Tipo_Usuario,
         Estado:Usuario.Estado
       })
 
@@ -147,9 +159,10 @@ const ListaUsuariosC4 = ()=>{
           <tr>
                 {Actualizar?
                   <>
-                      <th>{infoNuevoUsuario.Nombre} </th>
-                      <td>{infoNuevoUsuario.Identificacion} </td>
-                      <td>{infoNuevoUsuario.Email}</td>
+                      <th>{infoNuevoUsuario.nombre} </th>
+                      <th>{infoNuevoUsuario.apellido} </th>
+                      <td>{infoNuevoUsuario.correo}</td>
+                      <td>{infoNuevoUsuario.identificacion} </td>
                       <td><select name="Tipo_Usuario" value={infoNuevoUsuario.Tipo_Usuario}
                       onChange={e=>setinfoNuevoUsuario({...infoNuevoUsuario,Tipo_Usuario:e.target.value})}
                       className="form-select">
@@ -171,11 +184,12 @@ const ListaUsuariosC4 = ()=>{
                   :
 
                   <>
-                  <td scope="row">{Usuario.Nombre}</td>
-                  <td>{Usuario.Identificacion}</td>
-                  <td>{Usuario.Email}</td>
-                  <td>{Usuario.Tipo_Usuario}</td>
-                  <td>{Usuario.Estado}</td>
+                  <td>{Usuario.nombre}</td>
+                  <td>{Usuario.apellido}</td>
+                  <td>{Usuario.correo}</td>
+                  <td>{Usuario.identificacion}</td>
+                  <td>{Enum_Rol[Usuario.rol]}</td>
+                  <td>{Enum_EstadoUsuario[Usuario.estado]}</td>
                   </>
                 }
                 <td>
@@ -225,4 +239,4 @@ const ListaUsuariosC4 = ()=>{
     
     };
 
-export default ListaUsuariosC4;
+export default ListaUsuarios;

@@ -23,12 +23,13 @@ const GET_USUARIO=gql`
             identificacion
             correo
             estado
-            rol
-        
+            rol    
         }
     }
-  
+`;
 
-`
+
+
+
 
 export {GET_USUARIOS,GET_USUARIO};
