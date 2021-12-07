@@ -20,15 +20,16 @@ import Creacion from 'Pages/creacion';
 import CreacionProyecto from 'Pages/crearProyecto';
 
 
+
 const client= new ApolloClient({
   uri:'https://innova1.herokuapp.com/graphql',
   cache:new InMemoryCache(),
-});
+}); 
 
-/* const client= new ApolloClient({
+/*  const client= new ApolloClient({
   uri:'http://localhost:4000/graphql',
   cache:new InMemoryCache(),
-}); */
+});  */
 
 function App() {
   return (
