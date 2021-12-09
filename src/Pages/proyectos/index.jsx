@@ -4,6 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import {Link} from 'react-router-dom';
 import { Enum_EstadoProyecto , Enum_FaseProyecto } from 'utils/enums';
 import { GET_PROYECTOS } from 'graphql/proyectos/queries';
+import PrivateComponent from 'components/PrivateComponent';
 
 
 
@@ -16,6 +17,7 @@ const Proyectos= () => {
 
   return (
     <div>
+      <PrivateComponent rolelist={['rol']}>
         Datos Proyectos:
         <table className='tabla'>
           <thead>
@@ -53,6 +55,8 @@ const Proyectos= () => {
             )}
           </tbody>
         </table>
+      </PrivateComponent>
+        
     </div>
   )
 };
