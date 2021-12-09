@@ -19,6 +19,8 @@ import EditarProyecto from 'Pages/proyectos/editar';
 import Creacion from 'Pages/creacion';
 import CreacionProyecto from 'Pages/crearProyecto';
 
+import Solicitudes from 'Pages/solicitudes/index';
+
 
 
 const client= new ApolloClient({
@@ -53,6 +55,9 @@ function App() {
                 <Route  path='/usuarios' element={<Usuarios/>}/>
                 <Route  path='/usuarios/editar/:_id' element={<EditarUsuario/>}/>
                 <Route  path='/usuarios2' element={<ListaUsuariosC4/>}/>
+
+                <Route  path='/solicitudes' element={<Solicitudes/>}/>
+                
               </Route>
             </Routes>
           </Router>

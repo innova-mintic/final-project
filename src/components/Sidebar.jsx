@@ -4,6 +4,11 @@ import { NavLink } from 'react-router-dom';
 import { useAuth0 } from "@auth0/auth0-react";
 import '../styles/sidebar.css'
 
+import Accordion from '@mui/material/Accordion';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import AccordionSummary from '@mui/material/AccordionSummary';
+
+
 const SidebarLinks = () => {
 
   const { logout } = useAuth0();
@@ -20,9 +25,21 @@ const SidebarLinks = () => {
       <SidebarRoute to='perfil' title='Perfil' icon='fas fa-smile-wink' />
       <SidebarRoute to='usuarios' title='Usuarios' icon='fas fa-user' />
       <SidebarRoute to='usuarios2' title='Usuarios2' icon='fas fa-user' />
-      <SidebarRoute to='proyectos' title='Proyectos' icon='fas fa-book-open' />
-      <SidebarRoute to='creacionProyecto' title='Crear Proyecto' icon='fas fa-book-open' />
-
+      <div class="accordion accordion-flush" id="accordionFlushExample">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="flush-headingOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+              Proyectos
+            </button>
+          </h2>
+          <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+            <SidebarRoute to='proyectos' title='Mis proyectos' icon='fas fa-book-open' />
+            <SidebarRoute to='creacionProyecto' title='Crear proyectos' icon='fas fa-book-open' />
+            <SidebarRoute to='solicitudes' title='Solicitudes' icon='fas fa-book-open' />
+          </div>
+        </div>
+      </div>
+      
       <div className="logout">
         <button className="btn btn-outline-primary" onClick={() => cerrarSesion()}>
           Log Out
