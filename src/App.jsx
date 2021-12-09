@@ -19,16 +19,19 @@ import EditarProyecto from 'Pages/proyectos/editar';
 import Creacion from 'Pages/creacion';
 import CreacionProyecto from 'Pages/crearProyecto';
 
+import Solicitudes from 'Pages/solicitudes/index';
+
+
 
 const client= new ApolloClient({
   uri:'https://innova1.herokuapp.com/graphql',
   cache:new InMemoryCache(),
-});
+}); 
 
-/* const client= new ApolloClient({
+/*  const client= new ApolloClient({
   uri:'http://localhost:4000/graphql',
   cache:new InMemoryCache(),
-}); */
+});  */
 
 function App() {
   return (
@@ -52,6 +55,9 @@ function App() {
                 <Route  path='/usuarios' element={<Usuarios/>}/>
                 <Route  path='/usuarios/editar/:_id' element={<EditarUsuario/>}/>
                 <Route  path='/usuarios2' element={<ListaUsuariosC4/>}/>
+
+                <Route  path='/solicitudes' element={<Solicitudes/>}/>
+                
               </Route>
             </Routes>
           </Router>
