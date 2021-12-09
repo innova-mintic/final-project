@@ -10,6 +10,7 @@ const GET_PROYECTOS= gql`
         lider {
             nombre
             apellido
+            correo
         }
         }
     }

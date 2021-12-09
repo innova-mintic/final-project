@@ -60,7 +60,7 @@ const ListaUsuarios = ()=>{
         <div>
           <h2 className= "text-center">Usuarios registrados</h2>
 
-          {MostrarTabla ? <TablaUsuarios ListaUsuarios={data.Usuarios} />: <VistaUsuarios />}
+          {MostrarTabla ? <TablaUsuarios ListaUsuarios={data.GET_USUARIOS} />: <VistaUsuarios />}
         </div>
     )
   };
