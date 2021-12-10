@@ -11,6 +11,7 @@ import {useParams, Link} from 'react-router-dom'
 import { Enum_FaseProyecto } from 'utils/enums';
 import { Enum_EstadoProyecto } from 'utils/enums';
 import {toast } from 'react-toastify';
+import PrivateComponent from 'components/PrivateComponent';
 
 const CreacionProyecto= () => {
 
@@ -50,61 +51,66 @@ const CreacionProyecto= () => {
     }, [mutationData])
     
     return (
-        <div className='flew flex-col w-full h-full items-center justify-center p-10'>
-            <h1 className='m-4 text-3xl text-gray-800 font-bold text-center'>Creacion de Proyecto</h1>
-            <form
-                onSubmit={submitForm}
-                onChange={updateFormData}
-                ref={form} 
-                className='flex flex-col items-center justify-center'
-            >
+        <>
+        <PrivateComponent roleList={['rol']}>
+            <div className='flew flex-col w-full h-full items-center justify-center p-10'>
+                        <h1 className='m-4 text-3xl text-gray-800 font-bold text-center'>Creacion de Proyecto</h1>
+                        <form
+                            onSubmit={submitForm}
+                            onChange={updateFormData}
+                            ref={form} 
+                            className='flex flex-col items-center justify-center'
+                        >
 
-                {/* <span className='uppercase'>Lider del proyecto: {queryData.Usuario.nombre + ' ' + queryData.Usuario.apellido}</span> */}
-                <Input
-                    label='Nombre del proyecto:'
-                    type='text'
-                    name='nombre'
-                    defaultValue={''}
-                    required={true}
-                />
-                <Input
-                    label='Presupuesto:'
-                    type='text'
-                    name='presupuesto'
-                    defaultValue={''}
-                    required={true}
-                />
-                <Input
-                    label='Fecha de inicio:'
-                    type='date'
-                    name='fechaInicio'
-                    defaultValue={''}
-                    required={true}
-                />
+                            {/* <span className='uppercase'>Lider del proyecto: {queryData.Usuario.nombre + ' ' + queryData.Usuario.apellido}</span> */}
+                            <Input
+                                label='Nombre del proyecto:'
+                                type='text'
+                                name='nombre'
+                                defaultValue={''}
+                                required={true}
+                            />
+                            <Input
+                                label='Presupuesto:'
+                                type='text'
+                                name='presupuesto'
+                                defaultValue={''}
+                                required={true}
+                            />
+                            <Input
+                                label='Fecha de inicio:'
+                                type='date'
+                                name='fechaInicio'
+                                defaultValue={''}
+                                required={true}
+                            />
 
-                <DropDown
-                    label='Estado:'
-                    name='estado'
-                    defaultValue={''}
-                    required={true}
-                    options={Enum_EstadoProyecto}
-                />
-                <DropDown
-                    label='Fase:'
-                    name='fase'
-                    defaultValue={''}
-                    required={true}
-                    options={Enum_FaseProyecto}
-                />        
-                <ButtonLoading
-                    disabled={''}
-                    loading={mutationLoading}
-                    text='Crear Proyecto'
-                /> 
+                            <DropDown
+                                label='Estado:'
+                                name='estado'
+                                defaultValue={''}
+                                required={true}
+                                options={Enum_EstadoProyecto}
+                            />
+                            <DropDown
+                                label='Fase:'
+                                name='fase'
+                                defaultValue={''}
+                                required={true}
+                                options={Enum_FaseProyecto}
+                            />        
+                            <ButtonLoading
+                                disabled={''}
+                                loading={mutationLoading}
+                                text='Crear Proyecto'
+                            /> 
 
-            </form>
-            
-    </div>
+                        </form>
+                        
+                    </div>
+        </PrivateComponent>
+        </>
+        
     )
     };
 

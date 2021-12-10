@@ -7,7 +7,7 @@ import { GET_PROYECTOS } from 'graphql/proyectos/queries';
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
-
+import PrivateComponent from 'components/PrivateComponent';
 
 const Proyectos= () => {
   const {data, error, loading}=useQuery(GET_PROYECTOS);
@@ -32,6 +32,7 @@ const Proyectos= () => {
 
   return (
     <div>
+      <PrivateComponent roleList={['rol']}>
         Datos Proyectos:
         <table className='tabla'>
           <thead>
@@ -80,6 +81,8 @@ const Proyectos= () => {
             )}
           </tbody>
         </table>
+      </PrivateComponent>
+        
     </div>
   )
 };

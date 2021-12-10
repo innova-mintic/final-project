@@ -1,11 +1,14 @@
 import React from 'react'
 import Input from 'components/Input'
+import PrivateComponent from 'components/PrivateComponent';
 
 
 const Perfil= () => {
 
   return (
-    <div className='flew flex-col w-full h-full items-center justify-center p-10'>
+    <>
+    <PrivateComponent roleList={['lider']}>
+      <div className='flew flex-col w-full h-full items-center justify-center p-10'>
         <h1 className='m-4 text-3xl text-gray-800 font-bold text-center'>Editar Perfil</h1>
         <form
             className='flex flex-col  items-center justify-center'
@@ -42,7 +45,11 @@ const Perfil= () => {
 
         </form>
         
-  </div>
+    </div>  
+    </PrivateComponent>
+    
+    </>
+    
 )
 };
 

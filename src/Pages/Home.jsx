@@ -6,7 +6,8 @@ import Footer from 'components/Footer';
  const Home = () => {
 
     return (
-        <div className="background">
+        <React.Fragment>
+            <div className="background">
             <Navbar />
             <div className="intro">
                 <div className="description">
@@ -16,6 +17,8 @@ import Footer from 'components/Footer';
             </div>
             <Footer />
         </div>
+        </React.Fragment>
+        
     )
 }
 
