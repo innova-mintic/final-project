@@ -1,29 +1,29 @@
 import React,{useEffect} from 'react'
-import Input from 'components/Input'
-import { Enum_Rol , Enum_EstadoUsuario } from 'utils/enums';
-import DropDown from 'components/Dropdown';
-import ButtonLoading from 'components/ButtonLoading';
-import { useQuery, useMutation } from '@apollo/client';
-import { CREAR_PROYECTO } from 'graphql/proyectos/mutations';
-import { GET_USUARIO } from 'graphql/usuarios/queries';
-import useFormData from 'hook/useFormData';
 import {useParams, Link} from 'react-router-dom'
-import { Enum_FaseProyecto } from 'utils/enums';
-import { Enum_EstadoProyecto } from 'utils/enums';
+import { useQuery, useMutation } from '@apollo/client';
+import useFormData from 'hook/useFormData';
 import {toast } from 'react-toastify';
 
-const CreacionProyecto= () => {
+import Input from 'components/Input'
+import ButtonLoading from 'components/ButtonLoading';
+import DropDown from 'components/Dropdown';
+
+import { CREAR_PROYECTO } from 'graphql/proyectos/mutations';
+import { GET_USUARIO } from 'graphql/usuarios/queries';
+
+import { Enum_FaseProyecto } from 'utils/enums';
+import { Enum_EstadoProyecto } from 'utils/enums';
+
+
+const CrearProyecto= () => {
 
     const{form, formData,updateFormData} = useFormData(null);
 
-    const _id='619e7781082598103644488e'
+    const _id='61ae26807de7e64c94128677'
 
     const{data:queryData,error:queryError,loading:queryLoading}=useQuery(GET_USUARIO,{
         variables:{_id}
     });
-
-    console.log("el id es",_id); 
-    console.log("los datos son",queryData); 
 
     const [crearProyecto, {data:mutationData, loading:mutationLoading, error:mutationError}] = useMutation(CREAR_PROYECTO);
 
@@ -49,6 +49,8 @@ const CreacionProyecto= () => {
         }
     }, [mutationData])
     
+    if (queryLoading) return <div> Cargando ...</div>
+
     return (
         <div className='flew flex-col w-full h-full items-center justify-center p-10'>
             <h1 className='m-4 text-3xl text-gray-800 font-bold text-center'>Creacion de Proyecto</h1>
@@ -59,13 +61,14 @@ const CreacionProyecto= () => {
                 className='flex flex-col items-center justify-center'
             >
 
-                {/* <span className='uppercase'>Lider del proyecto: {queryData.Usuario.nombre + ' ' + queryData.Usuario.apellido}</span> */}
+                <span className='uppercase'>Lider del proyecto: {queryData.Usuario.nombre + ' ' + queryData.Usuario.apellido}</span>
                 <Input
                     label='Nombre del proyecto:'
                     type='text'
                     name='nombre'
                     defaultValue={''}
                     required={true}
+                    disabled={false}
                 />
                 <Input
                     label='Presupuesto:'
@@ -73,6 +76,7 @@ const CreacionProyecto= () => {
                     name='presupuesto'
                     defaultValue={''}
                     required={true}
+                    disabled={false}
                 />
                 <Input
                     label='Fecha de inicio:'
@@ -80,22 +84,9 @@ const CreacionProyecto= () => {
                     name='fechaInicio'
                     defaultValue={''}
                     required={true}
+                    disabled={false}
                 />
-
-                <DropDown
-                    label='Estado:'
-                    name='estado'
-                    defaultValue={''}
-                    required={true}
-                    options={Enum_EstadoProyecto}
-                />
-                <DropDown
-                    label='Fase:'
-                    name='fase'
-                    defaultValue={''}
-                    required={true}
-                    options={Enum_FaseProyecto}
-                />        
+      
                 <ButtonLoading
                     disabled={''}
                     loading={mutationLoading}
@@ -108,4 +99,4 @@ const CreacionProyecto= () => {
     )
     };
 
-export default CreacionProyecto;
+export default CrearProyecto;

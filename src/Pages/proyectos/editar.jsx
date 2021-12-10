@@ -1,11 +1,13 @@
 import React,{useEffect} from 'react'
-import Input from 'components/Input'
 import {useParams, Link} from 'react-router-dom'
 import { useQuery, useMutation } from '@apollo/client';
-import ButtonLoading from 'components/ButtonLoading';
 import useFormData from 'hook/useFormData';
 import {toast } from 'react-toastify';
+
+import Input from 'components/Input'
+import ButtonLoading from 'components/ButtonLoading';
 import DropDown from 'components/Dropdown';
+
 import { Enum_EstadoProyecto , Enum_FaseProyecto} from 'utils/enums';
 import { GET_PROYECTO } from 'graphql/proyectos/queries';
 import {EDITAR_PROYECTO} from 'graphql/proyectos/mutations';

@@ -1,14 +1,17 @@
-import React from 'react'
-import Input from 'components/Input'
-import { Enum_Rol , Enum_EstadoUsuario } from 'utils/enums';
-import DropDown from 'components/Dropdown';
-import ButtonLoading from 'components/ButtonLoading';
-import { useQuery, useMutation } from '@apollo/client';
-import { CREAR_USUARIO } from 'graphql/usuarios/mutations';
-import useFormData from 'hook/useFormData';
+import React,{useEffect} from 'react'
 import {useParams, Link} from 'react-router-dom'
+import { useQuery, useMutation } from '@apollo/client';
+import useFormData from 'hook/useFormData';
+import {toast } from 'react-toastify';
 
-const Creacion= () => {
+import Input from 'components/Input'
+import ButtonLoading from 'components/ButtonLoading';
+import DropDown from 'components/Dropdown';
+
+import { Enum_Rol , Enum_EstadoUsuario } from 'utils/enums';
+import { CREAR_USUARIO } from 'graphql/usuarios/mutations';
+
+const CrearUsuario= () => {
 
     const{form, formData,updateFormData} = useFormData(null);
     const {_id}=useParams();
@@ -23,7 +26,18 @@ const Creacion= () => {
         })
     };
 
-    
+    useEffect(()=>{
+        if (mutationData){
+            toast.success('Proyecto creado con exito',{
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+            });
+        }
+    }, [mutationData])
+
+
     return (
         <div className='flew flex-col w-full h-full items-center justify-center p-10'>
             <h1 className='m-4 text-3xl text-gray-800 font-bold text-center'>Creacion de usuario</h1>
@@ -69,13 +83,7 @@ const Creacion= () => {
                     required={true}
                     options={Enum_Rol}
                 />
-                <DropDown
-                    label='Estado:'
-                    name='estado'
-                    defaultValue={''}
-                    required={true}
-                    options={Enum_EstadoUsuario}
-                />        
+
                 <ButtonLoading
                     disabled={''}
                     loading={mutationLoading}
@@ -88,4 +96,4 @@ const Creacion= () => {
     )
     };
 
-export default Creacion;
+export default CrearUsuario;

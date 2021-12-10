@@ -11,7 +11,7 @@ const Solicitudes= () => {
   const {data, error, loading}=useQuery(GET_PROYECTOS);
   console.log("los datos son",data); 
 
-  if (loading) return <div> Cargando proyectos...</div>
+  if (loading) return <div> Cargando solicitudes...</div>
 
   return (
     <div>
