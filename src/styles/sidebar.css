@@ -1,5 +1,6 @@
 .logout{
-    position: absolute;
-    bottom: 5%;
-    margin-left: 3%;
+    position: relative;
+    margin-top: 15%;
+    display: flex;
+    justify-content: center;
 }

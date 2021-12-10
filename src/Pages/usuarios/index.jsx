@@ -7,6 +7,7 @@ import {Link} from 'react-router-dom';
 import { Enum_Rol , Enum_EstadoUsuario } from 'utils/enums';
 import { Tooltip, Dialog } from '@material-ui/core';
 import ButtonLoading from 'components/ButtonLoading';
+import PrivateComponent from 'components/PrivateComponent';
 
 const Usuarios= () => {
   const {data, error, loading}=useQuery(GET_USUARIOS);
@@ -19,6 +20,7 @@ const Usuarios= () => {
 
   return (
     <div>
+      <PrivateComponent roleList={['Líder']}>
         Datos Usuarios:
         <table className='tabla'>
           <thead>
@@ -87,6 +89,8 @@ const Usuarios= () => {
             )}
           </tbody>
         </table>
+      </PrivateComponent>
+        
     </div>
   )
 };
