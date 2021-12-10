@@ -7,7 +7,7 @@ const Perfil= () => {
 
   return (
     <>
-    <PrivateComponent rolelist={['lider']}>
+    <PrivateComponent roleList={['lider']}>
       <div className='flew flex-col w-full h-full items-center justify-center p-10'>
         <h1 className='m-4 text-3xl text-gray-800 font-bold text-center'>Editar Perfil</h1>
         <form

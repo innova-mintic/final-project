@@ -32,7 +32,7 @@ const Proyectos= () => {
 
   return (
     <div>
-      <PrivateComponent rolelist={['rol']}>
+      <PrivateComponent roleList={['rol']}>
         Datos Proyectos:
         <table className='tabla'>
           <thead>
