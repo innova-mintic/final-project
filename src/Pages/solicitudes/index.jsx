@@ -1,6 +1,7 @@
 import React  from 'react';
 import { useQuery } from '@apollo/client';
 import 'react-toastify/dist/ReactToastify.css';
+import PrivateComponent from 'components/PrivateComponent';
 
 import { Enum_EstadoProyecto } from 'utils/enums';
 import { GET_PROYECTOS } from 'graphql/proyectos/queries';
@@ -15,6 +16,7 @@ const Solicitudes= () => {
 
   return (
     <div>
+      <PrivateComponent roleList={['rol']}>
         Lista de solicitudes:
         <table className='tabla'>
           <thead>
@@ -44,6 +46,8 @@ const Solicitudes= () => {
             )}
           </tbody>
         </table>
+      </PrivateComponent>
+        
     </div>
   )
 };

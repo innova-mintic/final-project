@@ -20,7 +20,7 @@ const Usuarios= () => {
 
   return (
     <div>
-      <PrivateComponent rolelist={['rol']}>
+      <PrivateComponent roleList={['Líder']}>
         Datos Usuarios:
         <table className='tabla'>
           <thead>
