@@ -21,7 +21,7 @@ const SidebarLinks = () => {
   return (
     <ul className='mt-12'>
       <SidebarRoute to='inicio' title='Inicio' icon='fas fa-home' />
-      <SidebarRoute to='creacion' title='Registro' icon='fas fa-smile-wink' />
+      <SidebarRoute to='crearUsuario' title='Registro' icon='fas fa-smile-wink' />
       <SidebarRoute to='perfil' title='Perfil' icon='fas fa-smile-wink' />
       <SidebarRoute to='usuarios' title='Usuarios' icon='fas fa-user' />
       <SidebarRoute to='usuarios2' title='Usuarios2' icon='fas fa-user' />
@@ -34,7 +34,7 @@ const SidebarLinks = () => {
           </h2>
           <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
             <SidebarRoute to='proyectos' title='Mis proyectos' icon='fas fa-book-open' />
-            <SidebarRoute to='creacionProyecto' title='Crear proyectos' icon='fas fa-book-open' />
+            <SidebarRoute to='crearProyecto' title='Crear proyecto' icon='fas fa-book-open' />
             <SidebarRoute to='solicitudes' title='Solicitudes' icon='fas fa-book-open' />
           </div>
         </div>

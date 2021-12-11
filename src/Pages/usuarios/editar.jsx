@@ -1,13 +1,15 @@
 import React,{useEffect} from 'react'
-import Input from 'components/Input'
 import {useParams, Link} from 'react-router-dom'
 import { useQuery, useMutation } from '@apollo/client';
-import { GET_USUARIO } from 'graphql/usuarios/queries';
-import { EDITAR_USUARIO, ELIMINAR_USUARIO } from 'graphql/usuarios/mutations';
-import ButtonLoading from 'components/ButtonLoading';
 import useFormData from 'hook/useFormData';
 import {toast } from 'react-toastify';
+
+import Input from 'components/Input'
+import ButtonLoading from 'components/ButtonLoading';
 import DropDown from 'components/Dropdown';
+
+import { GET_USUARIO } from 'graphql/usuarios/queries';
+import { EDITAR_USUARIO, ELIMINAR_USUARIO } from 'graphql/usuarios/mutations';
 import { Enum_EstadoUsuario } from 'utils/enums';
 
 function EditarUsuario() {
@@ -18,7 +20,7 @@ function EditarUsuario() {
     const{data:queryData,error:queryError,loading:queryLoading}=useQuery(GET_USUARIO,{
         variables:{_id}
     });
-
+    
     console.log("el id es",_id); 
     console.log("los datos son",queryData); 
 
@@ -76,6 +78,7 @@ function EditarUsuario() {
                     name='nombre'
                     defaultValue={queryData.Usuario.nombre}
                     required={true}
+                    disabled={true}
                 />
                 <Input
                     label='Apellido de la persona:'
@@ -83,6 +86,7 @@ function EditarUsuario() {
                     name='apellido'
                     defaultValue={queryData.Usuario.apellido}
                     required={true}
+                    disabled={true}
                 />
                 <Input
                     label='Correo de la persona:'
@@ -90,6 +94,7 @@ function EditarUsuario() {
                     name='correo'
                     defaultValue={queryData.Usuario.correo}
                     required={true}
+                    disabled={true}
                 />
                 <Input
                     label='Identificación de la persona:'
@@ -97,6 +102,7 @@ function EditarUsuario() {
                     name='identificacion'
                     defaultValue={queryData.Usuario.identificacion}
                     required={true}
+                    disabled={true}
                 />
                 <DropDown
                     label='Estado de la persona:'
@@ -110,6 +116,7 @@ function EditarUsuario() {
                     disabled={Object.keys(formData).length === 0}
                     loading={mutationLoading}
                     text='Confirmar'
+                    
                 /> 
                 <ButtonLoading
                     disabled={false}

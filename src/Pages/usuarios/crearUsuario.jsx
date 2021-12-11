@@ -1,15 +1,19 @@
-import React from 'react'
-import Input from 'components/Input'
-import { Enum_Rol , Enum_EstadoUsuario } from 'utils/enums';
-import DropDown from 'components/Dropdown';
-import ButtonLoading from 'components/ButtonLoading';
-import { useQuery, useMutation } from '@apollo/client';
-import { CREAR_USUARIO } from 'graphql/usuarios/mutations';
-import useFormData from 'hook/useFormData';
+import React,{useEffect} from 'react'
 import {useParams, Link} from 'react-router-dom'
+import { useQuery, useMutation } from '@apollo/client';
+import useFormData from 'hook/useFormData';
+import {toast } from 'react-toastify';
+
+import Input from 'components/Input'
+import ButtonLoading from 'components/ButtonLoading';
+import DropDown from 'components/Dropdown';
+
+import { Enum_Rol , Enum_EstadoUsuario } from 'utils/enums';
+import { CREAR_USUARIO } from 'graphql/usuarios/mutations';
+
 import PrivateComponent from 'components/PrivateComponent'
 
-const Creacion= () => {
+const CrearUsuario= () => {
 
     const{form, formData,updateFormData} = useFormData(null);
     const {_id}=useParams();
@@ -24,7 +28,18 @@ const Creacion= () => {
         })
     };
 
-    
+    useEffect(()=>{
+        if (mutationData){
+            toast.success('Proyecto creado con exito',{
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+            });
+        }
+    }, [mutationData])
+
+
     return (
         <>
         <PrivateComponent roleList={['rol']}>
@@ -65,25 +80,19 @@ const Creacion= () => {
                         required={true}
                     />
 
-                    <DropDown
-                        label='Rol:'
-                        name='rol'
-                        defaultValue={''}
-                        required={true}
-                        options={Enum_Rol}
-                    />
-                    <DropDown
-                        label='Estado:'
-                        name='estado'
-                        defaultValue={''}
-                        required={true}
-                        options={Enum_EstadoUsuario}
-                    />        
-                    <ButtonLoading
-                        disabled={''}
-                        loading={mutationLoading}
-                        text='Crear Usuario'
-                    /> 
+                <DropDown
+                    label='Rol:'
+                    name='rol'
+                    defaultValue={''}
+                    required={true}
+                    options={Enum_Rol}
+                />
+
+                <ButtonLoading
+                    disabled={''}
+                    loading={mutationLoading}
+                    text='Crear Usuario'
+                /> 
 
                 </form>
                 
@@ -95,4 +104,4 @@ const Creacion= () => {
     )
     };
 
-export default Creacion;
+export default CrearUsuario;

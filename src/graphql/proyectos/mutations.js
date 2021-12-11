@@ -2,7 +2,6 @@ import {gql} from '@apollo/client'
 
 const EDITAR_PROYECTO = gql`
     mutation EditarProyecto(
-    $_id: String!, 
     $nombre: String, 
     $presupuesto: String, 
     $fechaInicio: Date, 
@@ -21,36 +20,33 @@ const EDITAR_PROYECTO = gql`
         fase: $fase, 
         lider: $lider
         ) {
-        nombre
-        fase
-        presupuesto
-        fechaInicio
-        fechaFin
-        estado
+            nombre
+            fase
+            presupuesto
+            fechaInicio
+            fechaFin
+            estado
     }
 }
 `;
 
 const CREAR_PROYECTO = gql`
-    mutation CrearProyecto(
-    $nombre: String!,
+    mutation CrearProyectoH12(
+    $nombre: String!, 
     $presupuesto: String!, 
     $fechaInicio: Date!, 
-    $fechaFin: Date, 
-    $estado: Enum_EstadoProyecto!, 
-    $fase: Enum_FaseProyecto!, 
-    $lider: String!
+    $lider: String!, 
+    $objetivos: [crearObjetivo]
     ) {
     crearProyecto(
         nombre: $nombre, 
         presupuesto: $presupuesto, 
         fechaInicio: $fechaInicio, 
-        fechaFin: $fechaFin, 
-        estado: $estado, 
-        fase: $fase, 
-        lider: $lider
-        ) {
-        _id
+        lider: $lider, 
+        objetivos: $objetivos
+         ) {
+            nombre
+            presupuesto
     }
     }
 `;

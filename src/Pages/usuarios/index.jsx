@@ -1,13 +1,23 @@
-import React, {useEffect,useState} from 'react';
+import React,{useEffect,useState} from 'react'
+import {useParams, Link} from 'react-router-dom'
 import { useQuery, useMutation } from '@apollo/client';
+import useFormData from 'hook/useFormData';
+import {toast } from 'react-toastify';
+
+import Input from 'components/Input'
+import ButtonLoading from 'components/ButtonLoading';
+import DropDown from 'components/Dropdown';
+
+import 'react-toastify/dist/ReactToastify.css';
+import { Tooltip, Dialog } from '@material-ui/core';
+
 import { GET_USUARIOS } from 'graphql/usuarios/queries';
 import { ELIMINAR_USUARIO } from 'graphql/usuarios/mutations';
-import 'react-toastify/dist/ReactToastify.css';
-import {Link} from 'react-router-dom';
 import { Enum_Rol , Enum_EstadoUsuario } from 'utils/enums';
-import { Tooltip, Dialog } from '@material-ui/core';
-import ButtonLoading from 'components/ButtonLoading';
+
 import PrivateComponent from 'components/PrivateComponent';
+
+
 
 const Usuarios= () => {
   const {data, error, loading}=useQuery(GET_USUARIOS);
