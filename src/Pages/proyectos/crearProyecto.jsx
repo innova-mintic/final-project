@@ -1,8 +1,9 @@
-import React,{useEffect} from 'react'
+import React,{useEffect,useState} from 'react'
 import {useParams, Link} from 'react-router-dom'
 import { useQuery, useMutation } from '@apollo/client';
 import useFormData from 'hook/useFormData';
 import {toast } from 'react-toastify';
+import { nanoid } from 'nanoid';
 
 import Input from 'components/Input'
 import ButtonLoading from 'components/ButtonLoading';
@@ -13,7 +14,10 @@ import { GET_USUARIO } from 'graphql/usuarios/queries';
 
 import { Enum_FaseProyecto } from 'utils/enums';
 import { Enum_EstadoProyecto } from 'utils/enums';
+import { Enum_TipoObjetivo } from 'utils/enums';
 
+import { ObjContext } from 'context/objContext';
+import { useObj } from 'context/objContext';
 
 const CrearProyecto= () => {
 
@@ -31,8 +35,10 @@ const CrearProyecto= () => {
         e.preventDefault(); 
         console.log("fg",formData)
         formData.lider=_id;
+        formData.objetivos = Object.values(formData.objetivos);
 
         console.log("fg2",formData)
+        
         crearProyecto({
             variables:{_id,...formData}
         })
@@ -86,7 +92,7 @@ const CrearProyecto= () => {
                     required={true}
                     disabled={false}
                 />
-      
+                <Objetivos />
                 <ButtonLoading
                     disabled={''}
                     loading={mutationLoading}
@@ -98,5 +104,59 @@ const CrearProyecto= () => {
     </div>
     )
     };
+
+
+const Objetivos=()=>{
+    const [listaObjetivos ,setListaObjetivos]=useState([]);
+
+    const eliminarObjetivo =(id)=>{
+        setListaObjetivos(listaObjetivos.filter(el=>el.props.id !== id));
+    }
+
+
+    const componenteObjetivoAgregado =()=>{
+        const id =nanoid();
+        return <FormObjetivo key={id} id={id} />
+        
+    }
+    return (
+        <ObjContext.Provider value={{eliminarObjetivo}}>
+            <div>
+                <span> Objetivos del proyecto</span>
+                <i
+                    onClick={()=>setListaObjetivos([...listaObjetivos,componenteObjetivoAgregado()])}
+                    className='fas fa-plus rounded-full bg-green-500 hover:bg-green-400 text-white p-2 mx-2 cursor-pointer'
+                />
+                {listaObjetivos.map(objetivo=>{
+                    return objetivo;
+                })}
+            </div>
+        </ObjContext.Provider>
+    );
+}
+
+
+const FormObjetivo=({id})=>{
+    const {eliminarObjetivo} =useObj();
+
+    return(
+        <div className='flex items-center'>
+            <Input 
+                name={`nested||objetivos||${id}||descripcion`}  
+                label='Descripcion' 
+                type='text' 
+                required={true} 
+                />
+            <DropDown 
+                name={`nested||objetivos||${id}||tipo`}
+                options={Enum_TipoObjetivo} 
+                label='Tipo de Objetivo' 
+                required={true} 
+            />
+            <i onClick={()=>eliminarObjetivo(id)} className='fas fa-minus rounded-full bg-red-500 hover:bg-red-400 text-white p-2 mx-2 cursor-pointer mt-6' />
+        </div>
+    )
+}
+
 
 export default CrearProyecto;

@@ -20,31 +20,33 @@ const EDITAR_PROYECTO = gql`
         fase: $fase, 
         lider: $lider
         ) {
-        nombre
-        fase
-        presupuesto
-        fechaInicio
-        fechaFin
-        estado
+            nombre
+            fase
+            presupuesto
+            fechaInicio
+            fechaFin
+            estado
     }
 }
 `;
 
 const CREAR_PROYECTO = gql`
-    mutation CrearProyecto(
+    mutation CrearProyectoH12(
     $nombre: String!, 
     $presupuesto: String!, 
     $fechaInicio: Date!, 
-    $lider: String!
+    $lider: String!, 
+    $objetivos: [crearObjetivo]
     ) {
     crearProyecto(
         nombre: $nombre, 
         presupuesto: $presupuesto, 
         fechaInicio: $fechaInicio, 
-        lider: $lider
-        ) {
-        nombre
-        presupuesto
+        lider: $lider, 
+        objetivos: $objetivos
+         ) {
+            nombre
+            presupuesto
     }
     }
 `;

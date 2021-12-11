@@ -1,8 +1,11 @@
-import React,{useEffect} from 'react'
+import React,{useEffect,useState} from 'react'
 import {useParams, Link} from 'react-router-dom'
 import { useQuery, useMutation } from '@apollo/client';
 import useFormData from 'hook/useFormData';
 import {toast } from 'react-toastify';
+import Accordion from '@mui/material/Accordion';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import AccordionSummary from '@mui/material/AccordionSummary';
 
 import Input from 'components/Input'
 import ButtonLoading from 'components/ButtonLoading';
@@ -11,17 +14,43 @@ import DropDown from 'components/Dropdown';
 import { Enum_EstadoProyecto , Enum_FaseProyecto} from 'utils/enums';
 import { GET_PROYECTO } from 'graphql/proyectos/queries';
 import {EDITAR_PROYECTO} from 'graphql/proyectos/mutations';
+import { GET_AVANCES } from 'graphql/proyectos/queries';
 
 function EditarProyecto() {
     const{form, formData,updateFormData} = useFormData(null);
 
+
+
+    const [tablaAvances,setTablaAvances]=useState([
+        {
+          avance:"Avance 1 : ffdsfds"
+        },
+        {
+          avance:"Avance 2 : ffdsfsdfads"
+        },
+        {
+          avance:"Avance 3 : ffddsafdsfasfds"
+        },
+        {
+          avance:"Avance 4 : ffdsfdsfadfds"
+        },
+    
+      ])
+      
     const {_id}=useParams();
 
     const{data:queryData,error:queryError,loading:queryLoading}=useQuery(GET_PROYECTO,{
         variables:{_id}
     });
 
+    const{data:queryDataAvances,error:queryErrorAvances,loading:queryLoadingAvances}=useQuery(GET_AVANCES,{
+        variables:{_id}
+    });
+
+    
+
     const [editarProyecto, {data:mutationData, loading:mutationLoading, error:mutationError}] = useMutation(EDITAR_PROYECTO);
+    
 
     const submitForm = (e)=>{
         e.preventDefault(); 
@@ -52,7 +81,9 @@ function EditarProyecto() {
       },[queryError,mutationError]);
     
     if (queryLoading) return <div> Cargando...</div>
-
+    if (queryLoadingAvances) return <div> Cargando...</div>
+    console.log('los avances son:',queryDataAvances.buscarAvances.map( (u)=> u.descripcion ))
+    
     return (
         <div className='flew flex-col w-full h-full items-center justify-center p-10'>
             <Link to='/proyectos'>
@@ -65,68 +96,79 @@ function EditarProyecto() {
                 ref={form} 
                 className='flex flex-col items-center justify-center'
             >
-                <Input
-                    label='Nombre del proyecto:'
-                    type='text'
-                    name='nombre'
-                    defaultValue={queryData.Proyecto.nombre}
-                    required={true}
-                />
-                <Input
-                    label='Nombre del lider:'
-                    type='text'
-                    name='nombre lider'
-                    defaultValue={queryData.Proyecto.lider.nombre}
-                    required={true}
-                />
-                <Input
-                    label='Apellido del lider:'
-                    type='text'
-                    name='apellido lider'
-                    defaultValue={queryData.Proyecto.lider.apellido}
-                    required={true}
-                />
-                <Input
-                    label='Presupuesto del proyecto:'
-                    type='string'
-                    name='presupuesto'
-                    defaultValue={queryData.Proyecto.presupuesto}
-                    required={true}
-                />
-                <DropDown
-                    label='Estado del proyecto:'
-                    name='estado'
-                    defaultValue={queryData.Proyecto.estado}
-                    required={true}
-                    options={Enum_EstadoProyecto}
-                />
-                <DropDown
-                    label='Fase del proyecto:'
-                    name='fase'
-                    defaultValue={queryData.Proyecto.fase}
-                    required={true}
-                    options={Enum_FaseProyecto}
-                />
-                <Input
-                    label='Fecha Inicio:'
-                    type='text'
-                    name='fechaInicio'
-                    defaultValue={queryData.Proyecto.fechaInicio}
-                    required={true}
-                />
-                <Input
-                    label='Fecha Fin:'
-                    type='text'
-                    name='fechaFin'
-                    defaultValue={queryData.Proyecto.fechaFin}
-                    required={true}
-                />
-            
-                <ButtonLoading
-                    disabled={Object.keys(formData).length === 0}
-                    loading={mutationLoading}
-                    text='Confirmar'
-                /> 
+                    
+                    <Input
+                        label='Nombre del proyecto:'
+                        type='text'
+                        name='nombre'
+                        defaultValue={queryData.Proyecto.nombre}
+                        required={true}
+                    />
+                    <Input
+                        label='Nombre del lider:'
+                        type='text'
+                        name='nombre lider'
+                        defaultValue={queryData.Proyecto.lider.nombre}
+                        required={true}
+                    />
+                    <Input
+                        label='Apellido del lider:'
+                        type='text'
+                        name='apellido lider'
+                        defaultValue={queryData.Proyecto.lider.apellido}
+                        required={true}
+                    />     
+                    <Input
+                        label='Presupuesto del proyecto:'
+                        type='string'
+                        name='presupuesto'
+                        defaultValue={queryData.Proyecto.presupuesto}
+                        required={true}
+                    />
+
+                    <DropDown
+                        label='Estado del proyecto:'
+                        name='estado'
+                        defaultValue={queryData.Proyecto.estado}
+                        required={true}
+                        options={Enum_EstadoProyecto}
+                    />
+                    <DropDown
+                        label='Fase del proyecto:'
+                        name='fase'
+                        defaultValue={queryData.Proyecto.fase}
+                        required={true}
+                        options={Enum_FaseProyecto}
+                    />
+                    <Input
+                        label='Fecha Inicio:'
+                        type='text'
+                        name='fechaInicio'
+                        defaultValue={queryData.Proyecto.fechaInicio}
+                        required={true}
+                    />
+                    <Input
+                        label='Fecha Fin:'
+                        type='text'
+                        name='fechaFin'
+                        defaultValue={queryData.Proyecto.fechaFin}
+                        required={true}
+                    />
+
+                    <div>
+                          <Accordion>
+                            <AccordionSummary>Ver avances</AccordionSummary>
+                            {queryDataAvances.buscarAvances.map( (u)=>{
+                              return (<AccordionDetails> {u.descripcion}</AccordionDetails>)
+                            })}
+                          </Accordion>
+                    </div>
+                
+                    <ButtonLoading
+                        disabled={Object.keys(formData).length === 0}
+                        loading={mutationLoading}
+                        text='Confirmar'
+                    /> 
             </form>
       </div>
     )

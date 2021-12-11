@@ -33,4 +33,15 @@ const GET_PROYECTO=gql`
     }
 `;
 
-export {GET_PROYECTOS,GET_PROYECTO};
+
+const GET_AVANCES=gql`
+    query BuscarAvances($_id: String!) {
+    buscarAvances(_id: $_id) {
+        descripcion
+    }
+    }
+`;
+
+
+
+export {GET_PROYECTOS,GET_PROYECTO,GET_AVANCES};
