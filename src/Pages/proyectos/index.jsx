@@ -32,7 +32,6 @@ const Proyectos= () => {
 
   return (
     <div>
-      <PrivateComponent roleList={['rol']}>
         Datos Proyectos:
         <table className='tabla'>
           <thead>
@@ -81,7 +80,6 @@ const Proyectos= () => {
             )}
           </tbody>
         </table>
-      </PrivateComponent>
         
     </div>
   )

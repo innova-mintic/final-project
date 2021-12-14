@@ -16,7 +16,6 @@ const Solicitudes= () => {
 
   return (
     <div>
-      <PrivateComponent roleList={['rol']}>
         Lista de solicitudes:
         <table className='tabla'>
           <thead>
@@ -46,7 +45,6 @@ const Solicitudes= () => {
             )}
           </tbody>
         </table>
-      </PrivateComponent>
         
     </div>
   )

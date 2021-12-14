@@ -13,7 +13,7 @@ const PrivateRoute = ({ children }) => {
                 audience: 'innova-mintic-api',
             });
             localStorage.setItem('token', accessToken);
-            console.log(accessToken);
+            console.log('token:', accessToken);
             await obtenerDatosUsuariosIngresados(
                 (res) => {
                     console.log('response datos usuarios', res);

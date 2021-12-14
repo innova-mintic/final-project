@@ -20,9 +20,7 @@ import EditarProyecto from 'Pages/proyectos/editar';
 import Creacion from 'Pages/creacion';
 import CreacionProyecto from 'Pages/crearProyecto';
 import { UserContext } from 'context/user';
-//import PrivateLayout from 'layouts/PrivateLayout';
-//import PublicLayout from 'layouts/PublicLayout';
-
+import PublicLayout from 'layouts/PublicLayout';
 
 const client= new ApolloClient({
   uri:'https://innova1.herokuapp.com/graphql',
@@ -50,20 +48,21 @@ function App() {
           <UserContext.Provider value={{userData, setUserData}}>
             <Router>
               <Routes>
-                <Route  path='/' element={<Home/>}/>
+                <Route path='/' element={<PublicLayout />}>
+                  <Route  path='' element={<Home/>}/>
+                </Route>
+                
                 <Route  path='/' element={<LayoutAdmin/>}>
-                  <Route  path='/inicio' element={<Dashboard/>}/>
-                  <Route  path='/creacion' element={<Creacion/>}/>
-                  <Route  path='/perfil' element={<Perfil/>}/>
-                  <Route  path='/proyectos' element={<Proyectos/>}/>
-                  <Route  path='/proyectos/editar/:_id' element={<EditarProyecto/>}/>
-                  <Route  path='/creacionProyecto' element={<CreacionProyecto/>}/>
-                  <Route  path='/usuarios' element={<Usuarios/>}/>
-                  <Route  path='/usuarios/editar/:_id' element={<EditarUsuario/>}/>
-                  <Route  path='/usuarios2' element={<ListaUsuariosC4/>}/>
-
-                  <Route  path='/solicitudes' element={<Solicitudes/>}/>
-                  
+                  <Route  path='inicio' element={<Dashboard/>}/>
+                  <Route  path='creacion' element={<Creacion/>}/>
+                  <Route  path='perfil' element={<Perfil/>}/>
+                  <Route  path='proyectos' element={<Proyectos/>}/>
+                  <Route  path='proyectos/editar/:_id' element={<EditarProyecto/>}/>
+                  <Route  path='creacionProyecto' element={<CreacionProyecto/>}/>
+                  <Route  path='usuarios' element={<Usuarios/>}/>
+                  <Route  path='usuarios/editar/:_id' element={<EditarUsuario/>}/>
+                  <Route  path='usuarios2' element={<ListaUsuariosC4/>}/>
+                  <Route  path='/solicitudes' element={<Solicitudes/>}/>       
                 </Route>
               </Routes>
             </Router>

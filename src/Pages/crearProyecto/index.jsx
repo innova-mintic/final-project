@@ -52,7 +52,6 @@ const CreacionProyecto= () => {
     
     return (
         <>
-        <PrivateComponent roleList={['rol']}>
             <div className='flew flex-col w-full h-full items-center justify-center p-10'>
                         <h1 className='m-4 text-3xl text-gray-800 font-bold text-center'>Creacion de Proyecto</h1>
                         <form
@@ -108,7 +107,6 @@ const CreacionProyecto= () => {
                         </form>
                         
                     </div>
-        </PrivateComponent>
         </>
         
     )
