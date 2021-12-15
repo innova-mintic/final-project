@@ -35,7 +35,9 @@ const CrearProyecto= () => {
         e.preventDefault(); 
         console.log("fg",formData)
         formData.lider=_id;
-        formData.objetivos = Object.values(formData.objetivos);
+        if (formData.objetivosEspecificos){
+            formData.objetivosEspecificos = Object.values(formData.objetivos);
+        }
 
         console.log("fg2",formData)
         
@@ -74,7 +76,7 @@ const CrearProyecto= () => {
                     name='nombre'
                     defaultValue={''}
                     required={true}
-                    disabled={false}
+                    className='input widthInput'
                 />
                 <Input
                     label='Presupuesto:'
@@ -82,7 +84,6 @@ const CrearProyecto= () => {
                     name='presupuesto'
                     defaultValue={''}
                     required={true}
-                    disabled={false}
                 />
                 <Input
                     label='Fecha de inicio:'
@@ -90,11 +91,19 @@ const CrearProyecto= () => {
                     name='fechaInicio'
                     defaultValue={''}
                     required={true}
-                    disabled={false}
+                />
+                <Input
+                    label='Objetivo general:'
+                    type='text'
+                    name='objetivoGeneral'
+                    defaultValue={''}
+                    required={true}
+                    className='input widthInput '
                 />
                 <Objetivos />
+
                 <ButtonLoading
-                    disabled={''}
+                    disabled={Object.keys(formData).length === 0}
                     loading={mutationLoading}
                     text='Crear Proyecto'
                 /> 
@@ -122,7 +131,7 @@ const Objetivos=()=>{
     return (
         <ObjContext.Provider value={{eliminarObjetivo}}>
             <div>
-                <span> Objetivos del proyecto</span>
+                <span> Objetivos especificos</span>
                 <i
                     onClick={()=>setListaObjetivos([...listaObjetivos,componenteObjetivoAgregado()])}
                     className='fas fa-plus rounded-full bg-green-500 hover:bg-green-400 text-white p-2 mx-2 cursor-pointer'
@@ -147,12 +156,7 @@ const FormObjetivo=({id})=>{
                 type='text' 
                 required={true} 
                 />
-            <DropDown 
-                name={`nested||objetivos||${id}||tipo`}
-                options={Enum_TipoObjetivo} 
-                label='Tipo de Objetivo' 
-                required={true} 
-            />
+
             <i onClick={()=>eliminarObjetivo(id)} className='fas fa-minus rounded-full bg-red-500 hover:bg-red-400 text-white p-2 mx-2 cursor-pointer mt-6' />
         </div>
     )

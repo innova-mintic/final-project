@@ -24,22 +24,8 @@ const SidebarLinks = () => {
       <SidebarRoute to='crearUsuario' title='Registro' icon='fas fa-smile-wink' />
       <SidebarRoute to='perfil' title='Perfil' icon='fas fa-smile-wink' />
       <SidebarRoute to='usuarios' title='Usuarios' icon='fas fa-user' />
-      <SidebarRoute to='usuarios2' title='Usuarios2' icon='fas fa-user' />
-      <div class="accordion accordion-flush" id="accordionFlushExample">
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="flush-headingOne">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-              Proyectos
-            </button>
-          </h2>
-          <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-            <SidebarRoute to='proyectos' title='Mis proyectos' icon='fas fa-book-open' />
-            <SidebarRoute to='crearProyecto' title='Crear proyecto' icon='fas fa-book-open' />
-            <SidebarRoute to='solicitudes' title='Solicitudes' icon='fas fa-book-open' />
-          </div>
-        </div>
-      </div>
-      
+      <SidebarRoute to='proyectos' title='Lista de proyectos' icon='fas fa-book-open' />
+      <Acordeon />
       <div className="logout">
         <button className="btn btn-outline-primary" onClick={() => cerrarSesion()}>
           Log Out
@@ -116,5 +102,26 @@ const SidebarRoute = ({ to, title, icon }) => {
     </li>
   );
 };
+
+const Acordeon = () => {
+  return (
+      <div class="accordion accordion-flush" id="accordionFlushExample">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="flush-headingOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+              Mis Proyectos
+            </button>
+          </h2>
+          <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+            <SidebarRoute to='misProyectos' title='Ver mis proyectos' icon='fas fa-book-open' />
+            <SidebarRoute to='crearProyecto' title='Crear proyecto' icon='fas fa-book-open' />
+            <SidebarRoute to='solicitudes' title='Solicitudes' icon='fas fa-book-open' />
+          </div>
+        </div>
+      </div>
+  );
+};
+
+
 
 export default Sidebar;

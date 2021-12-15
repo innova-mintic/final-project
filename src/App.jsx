@@ -19,6 +19,7 @@ import EditarUsuario from 'Pages/usuarios/editar';
 import ListaUsuarios from 'Pages/ListaUsuarios';
 
 import Proyectos from 'Pages/proyectos/index';
+import MisProyectos from 'Pages/proyectos/misProyectos';
 import CrearProyecto from 'Pages/proyectos/crearProyecto';
 import EditarProyecto from 'Pages/proyectos/editar';
 import Solicitudes from 'Pages/proyectos/solicitudes';
@@ -58,6 +59,7 @@ function App() {
 
                         <Route  path='/proyectos' element={<Proyectos/>}/>
                         <Route  path='/proyectos/editar/:_id' element={<EditarProyecto/>}/>
+                        <Route  path='/misProyectos' element={<MisProyectos/>}/>
                         <Route  path='/crearProyecto' element={<CrearProyecto/>}/>
                         <Route  path='/solicitudes' element={<Solicitudes/>}/>        
                       </Route>
