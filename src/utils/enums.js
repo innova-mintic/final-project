@@ -23,5 +23,9 @@ const Enum_FaseProyecto={
     NULO:'Nulo',
 }
 
+const Enum_TipoObjetivo={
+  GENERAL:'General',
+  ESPECIFICO:'Especifico',
+}
 
-  export { Enum_Rol, Enum_EstadoUsuario, Enum_EstadoProyecto , Enum_FaseProyecto};
+  export { Enum_Rol, Enum_EstadoUsuario, Enum_EstadoProyecto , Enum_FaseProyecto,Enum_TipoObjetivo};

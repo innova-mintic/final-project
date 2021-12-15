@@ -1,15 +1,23 @@
-import React from 'react'
-import Input from 'components/Input'
-import { Enum_Rol , Enum_EstadoUsuario } from 'utils/enums';
-import DropDown from 'components/Dropdown';
-import ButtonLoading from 'components/ButtonLoading';
+import React,{useEffect} from 'react'
+import {useParams, Link} from 'react-router-dom'
 import { useQuery, useMutation } from '@apollo/client';
+import useFormData from 'hook/useFormData';
+import {toast } from 'react-toastify';
+
+import Input from 'components/Input'
+import ButtonLoading from 'components/ButtonLoading';
+import DropDown from 'components/Dropdown';
+
+import { Enum_Rol , Enum_EstadoUsuario } from 'utils/enums';
 import { CREAR_USUARIO } from 'graphql/usuarios/mutations';
+<<<<<<< HEAD:src/Pages/usuarios/crearUsuario.jsx
+=======
 import useFormData from 'hook/useFormData';
 import {useParams, Link} from 'react-router-dom'
 import PrivateComponent from 'components/PrivateComponent'
+>>>>>>> jesus:src/Pages/creacion/index.jsx
 
-const Creacion= () => {
+const CrearUsuario= () => {
 
     const{form, formData,updateFormData} = useFormData(null);
     const {_id}=useParams();
@@ -24,7 +32,18 @@ const Creacion= () => {
         })
     };
 
-    
+    useEffect(()=>{
+        if (mutationData){
+            toast.success('Proyecto creado con exito',{
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+            });
+        }
+    }, [mutationData])
+
+
     return (
         <>
             <div className='flew flex-col w-full h-full items-center justify-center p-10'>
@@ -64,6 +83,21 @@ const Creacion= () => {
                         required={true}
                     />
 
+<<<<<<< HEAD:src/Pages/usuarios/crearUsuario.jsx
+                <DropDown
+                    label='Rol:'
+                    name='rol'
+                    defaultValue={''}
+                    required={true}
+                    options={Enum_Rol}
+                />
+
+                <ButtonLoading
+                    disabled={''}
+                    loading={mutationLoading}
+                    text='Crear Usuario'
+                /> 
+=======
                     <DropDown
                         label='Rol:'
                         name='rol'
@@ -83,6 +117,7 @@ const Creacion= () => {
                         loading={mutationLoading}
                         text='Crear Usuario'
                     /> 
+>>>>>>> jesus:src/Pages/creacion/index.jsx
 
                 </form>
                 
@@ -94,4 +129,4 @@ const Creacion= () => {
     )
     };
 
-export default Creacion;
+export default CrearUsuario;

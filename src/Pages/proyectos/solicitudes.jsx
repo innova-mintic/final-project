@@ -4,15 +4,23 @@ import 'react-toastify/dist/ReactToastify.css';
 import PrivateComponent from 'components/PrivateComponent';
 
 import { Enum_EstadoProyecto } from 'utils/enums';
-import { GET_PROYECTOS } from 'graphql/proyectos/queries';
+import { GET_INSCRIPCIONES } from 'graphql/inscripcion/queries';
 
 
 
 const Solicitudes= () => {
-  const {data, error, loading}=useQuery(GET_PROYECTOS);
-  console.log("los datos son",data); 
 
-  if (loading) return <div> Cargando proyectos...</div>
+  const _idLider='61ae26807de7e64c94128677'
+
+  const{data:queryData,error:queryError,loading:queryLoading}=useQuery(GET_INSCRIPCIONES,{
+    variables:{_id:_idLider}
+});
+
+
+
+if (queryLoading) return <div> Cargando solicitudes...</div>
+
+console.log("los datos son",queryData.SolicitudesInscripcion.proyectosLiderados.map( (u)=> u.inscripciones ) ) ; 
 
   return (
     <div>
@@ -27,9 +35,9 @@ const Solicitudes= () => {
             </tr>
           </thead>
           <tbody>
-            {data && data.Proyectos ? (
+            {queryData && queryData.Proyectos ? (
               <>
-                {data.Proyectos.map((u) => {
+                {queryData.Proyectos.map((u) => {
                   return (
                     <tr key={u._id}>
                       <td>{u.lider.nombre}</td>

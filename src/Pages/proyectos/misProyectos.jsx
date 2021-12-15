@@ -11,46 +11,46 @@ import DropDown from 'components/Dropdown';
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
-<<<<<<< HEAD
 import 'react-toastify/dist/ReactToastify.css';
 
 import { Enum_EstadoProyecto , Enum_FaseProyecto } from 'utils/enums';
-import { GET_PROYECTOS } from 'graphql/proyectos/queries';
+import { GET_PROYECTO_LIDER } from 'graphql/proyectos/queries';
 
-=======
-import PrivateComponent from 'components/PrivateComponent';
->>>>>>> jesus
 
-const Proyectos= () => {
-  const {data, error, loading}=useQuery(GET_PROYECTOS);
+const MisProyectos= () => {
 
-  console.log("los datos son",data); 
+  const _idUsuario='61ae26807de7e64c94128677'
 
-  if (loading) return <div> Cargando proyectos...</div>
+  const{data:queryDataProyecto,error:queryErrorProyecto,loading:queryLoadingProyecto}=useQuery(GET_PROYECTO_LIDER,{variables:{_id:_idUsuario} } );
+
+  
+  if (queryLoadingProyecto) return <div> Cargando proyectos...</div>
+  
+  console.log("los datos son",queryDataProyecto.FiltrarProyectoPorLider); 
 
   return (
     <div>
-        <h1 className='m-4 text-3xl text-gray-800 font-bold text-center'>Lista de Proyectos</h1>
+        <h1 className='m-4 text-3xl text-gray-800 font-bold text-center'>Mis proyectos</h1>
         <table className='tabla'>
           <thead>
             <tr>
               <th>Nombre Proyecto</th>
-              <th>Nombre Lider</th>
               <th>Fase</th>
               <th>Estado</th>
+              <th>Nombre Lider</th>
               <th>Ver mas</th>
             </tr>
           </thead>
           <tbody>
-            {data && data.Proyectos ? (
+            {queryDataProyecto && queryDataProyecto.FiltrarProyectoPorLider ? (
               <>
-                {data.Proyectos.map((u) => {
+                {queryDataProyecto.FiltrarProyectoPorLider.map((u) => {
                   return (
                     <tr key={u._id}>
                       <td>{u.nombre}</td>
-                      <td>{u.lider.nombre} {u.lider.apellido}</td>
                       <td>{Enum_EstadoProyecto[u.estado]}</td>
                       <td>{Enum_FaseProyecto[u.fase]}</td>
+                      <td>{u.lider.nombre} {u.lider.apellido}</td>
                       <td>
                         <Link to={`/proyectos/editar/${u._id}`}>
                           <i className='fas fa-book-reader text-yellow-600 hover:text-yellow-400 cursor-pointer' />
@@ -65,9 +65,8 @@ const Proyectos= () => {
             )}
           </tbody>
         </table>
-        
     </div>
   )
 };
 
-export default Proyectos;
+export default MisProyectos;

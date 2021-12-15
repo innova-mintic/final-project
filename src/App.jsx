@@ -6,16 +6,24 @@ import 'styles/globals.css';
 import 'styles/tabla.css';
 /* import 'styles/styles.css'; */
 
+import PrivateRoute from 'components/PrivateRoute';
+
+import LayoutAdmin from 'layouts/LayoutAdmin';
 import Home from 'Pages/Home';
 import Dashboard from 'Pages/inicio/index';
-import Perfil from 'Pages/perfil/index';
-import Proyectos from 'Pages/proyectos/index';
+
+import CrearUsuario from 'Pages/usuarios/crearUsuario';
+import EditarPerfil from 'Pages/usuarios/perfil';
 import Usuarios from 'Pages/usuarios/index';
 import EditarUsuario from 'Pages/usuarios/editar';
+import ListaUsuarios from 'Pages/ListaUsuarios';
 import LayoutAdmin from 'layouts/LayoutAdmin';
 import ListaUsuariosC4 from 'Pages/ListaUsuarios';
 import Solicitudes from 'Pages/solicitudes';
 
+import Proyectos from 'Pages/proyectos/index';
+import MisProyectos from 'Pages/proyectos/misProyectos';
+import CrearProyecto from 'Pages/proyectos/crearProyecto';
 import EditarProyecto from 'Pages/proyectos/editar';
 import Creacion from 'Pages/creacion';
 import CreacionProyecto from 'Pages/crearProyecto';

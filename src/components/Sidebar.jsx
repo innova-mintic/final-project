@@ -135,4 +135,25 @@ const SidebarRoute = ({ to, title, icon }) => {
   );
 };
 
+const Acordeon = () => {
+  return (
+      <div class="accordion accordion-flush" id="accordionFlushExample">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="flush-headingOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+              Mis Proyectos
+            </button>
+          </h2>
+          <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+            <SidebarRoute to='misProyectos' title='Ver mis proyectos' icon='fas fa-book-open' />
+            <SidebarRoute to='crearProyecto' title='Crear proyecto' icon='fas fa-book-open' />
+            <SidebarRoute to='solicitudes' title='Solicitudes' icon='fas fa-book-open' />
+          </div>
+        </div>
+      </div>
+  );
+};
+
+
+
 export default Sidebar;
