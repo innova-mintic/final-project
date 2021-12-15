@@ -1,6 +1,7 @@
 import React  from 'react';
 import { useQuery } from '@apollo/client';
 import 'react-toastify/dist/ReactToastify.css';
+import PrivateComponent from 'components/PrivateComponent';
 
 import { Enum_EstadoProyecto } from 'utils/enums';
 import { GET_INSCRIPCIONES } from 'graphql/inscripcion/queries';
@@ -52,6 +53,7 @@ console.log("los datos son",queryData.SolicitudesInscripcion.proyectosLiderados.
             )}
           </tbody>
         </table>
+        
     </div>
   )
 };

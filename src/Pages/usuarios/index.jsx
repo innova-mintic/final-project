@@ -14,8 +14,14 @@ import { Tooltip, Dialog } from '@material-ui/core';
 import { GET_USUARIOS } from 'graphql/usuarios/queries';
 import { ELIMINAR_USUARIO } from 'graphql/usuarios/mutations';
 import { Enum_Rol , Enum_EstadoUsuario } from 'utils/enums';
+<<<<<<< HEAD
 
 
+=======
+import { Tooltip, Dialog } from '@material-ui/core';
+import ButtonLoading from 'components/ButtonLoading';
+import PrivateComponent from 'components/PrivateComponent';
+>>>>>>> jesus
 
 const Usuarios= () => {
   const {data, error, loading}=useQuery(GET_USUARIOS);
@@ -75,6 +81,7 @@ const Usuarios= () => {
             )}
           </tbody>
         </table>
+        
     </div>
   )
 };

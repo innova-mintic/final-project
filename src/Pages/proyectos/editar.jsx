@@ -13,9 +13,14 @@ import DropDown from 'components/Dropdown';
 
 import { Enum_EstadoProyecto , Enum_FaseProyecto} from 'utils/enums';
 import { GET_PROYECTO } from 'graphql/proyectos/queries';
+<<<<<<< HEAD
 import {APROBAR_PROYECTO} from 'graphql/proyectos/mutations';
 import { CREAR_INSCRIPCION } from 'graphql/inscripcion/mutations';
 import { GET_USUARIO } from 'graphql/usuarios/queries';
+=======
+import {EDITAR_PROYECTO} from 'graphql/proyectos/mutations';
+import PrivateComponent from 'components/PrivateComponent';
+>>>>>>> jesus
 
 function EditarProyecto() {
 
@@ -58,6 +63,7 @@ function EditarProyecto() {
 
     if (queryDataProyecto.Proyecto) {
     return (
+<<<<<<< HEAD
         <div className='flew flex-col w-full h-full items-center justify-center p-10'>
             <Link to='/proyectos'>
                 <i className='fas fa-arrow-left text-gray-600 cursor-pointer font-bold text-xl hover:text-gray-900' />
@@ -70,10 +76,25 @@ function EditarProyecto() {
                 className='flex flex-col items-center justify-center'
             >     
                     <span className='uppercase'>Lider del proyecto: {queryDataProyecto.Proyecto.lider.nombre+ ' ' + queryDataProyecto.Proyecto.lider.apellido}</span>
+=======
+        <>
+            <div className='flew flex-col w-full h-full items-center justify-center p-10'>
+                <Link to='/proyectos'>
+                    <i className='fas fa-arrow-left text-gray-600 cursor-pointer font-bold text-xl hover:text-gray-900' />
+                </Link>
+                <h1 className='m-4 text-3xl text-gray-800 font-bold text-center'>Editar Proyecto</h1>
+                <form
+                    onSubmit={submitForm}
+                    onChange={updateFormData}
+                    ref={form} 
+                    className='flex flex-col items-center justify-center'
+                >
+>>>>>>> jesus
                     <Input
                         label='Nombre del proyecto:'
                         type='text'
                         name='nombre'
+<<<<<<< HEAD
                         defaultValue={queryDataProyecto.Proyecto.nombre}
                         required={true}
                         className='input widthInput'
@@ -116,28 +137,82 @@ function EditarProyecto() {
                     />
                     <VerAvancesProyecto 
                         avances={queryDataProyecto.Proyecto.avances}
+=======
+                        defaultValue={queryData.Proyecto.nombre}
+                        required={true}
+                    />
+                    <Input
+                        label='Nombre del lider:'
+                        type='text'
+                        name='nombre lider'
+                        defaultValue={queryData.Proyecto.lider.nombre}
+                        required={true}
+                    />
+                    <Input
+                        label='Apellido del lider:'
+                        type='text'
+                        name='apellido lider'
+                        defaultValue={queryData.Proyecto.lider.apellido}
+                        required={true}
+                    />
+                    <Input
+                        label='Presupuesto del proyecto:'
+                        type='string'
+                        name='presupuesto'
+                        defaultValue={queryData.Proyecto.presupuesto}
+                        required={true}
+>>>>>>> jesus
                     />
                     <DropDown
                         label='Estado del proyecto:'
                         name='estado'
+<<<<<<< HEAD
                         defaultValue={queryDataProyecto.Proyecto.estado}
                         required={true}
                         options={Enum_EstadoProyecto}
                         disabled={true}
+=======
+                        defaultValue={queryData.Proyecto.estado}
+                        required={true}
+                        options={Enum_EstadoProyecto}
+>>>>>>> jesus
                     />
                     <DropDown
                         label='Fase del proyecto:'
                         name='fase'
+<<<<<<< HEAD
                         defaultValue={queryDataProyecto.Proyecto.fase}
                         required={true}
                         options={Enum_FaseProyecto}
                         disabled={true}
                     />
+=======
+                        defaultValue={queryData.Proyecto.fase}
+                        required={true}
+                        options={Enum_FaseProyecto}
+                    />
+                    <Input
+                        label='Fecha Inicio:'
+                        type='text'
+                        name='fechaInicio'
+                        defaultValue={queryData.Proyecto.fechaInicio}
+                        required={true}
+                    />
+                    <Input
+                        label='Fecha Fin:'
+                        type='text'
+                        name='fechaFin'
+                        defaultValue={queryData.Proyecto.fechaFin}
+                        required={true}
+                    />
+                
+>>>>>>> jesus
                     <ButtonLoading
                         disabled={Object.keys(formData).length === 0}
                         loading={mutationLoading}
                         text='Confirmar'
                     /> 
+<<<<<<< HEAD
             </form>
             <InscricpionProyecto
                 idProyecto={queryDataProyecto.Proyecto._id}
@@ -173,6 +248,13 @@ const VerAvancesProyecto= ({avances})=>{
             </Accordion>                 
         </>
     );
+=======
+                </form>
+            </div>
+            
+        </>
+    )
+>>>>>>> jesus
 }
 
 

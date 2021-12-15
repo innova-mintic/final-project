@@ -10,6 +10,12 @@ import DropDown from 'components/Dropdown';
 
 import { Enum_Rol , Enum_EstadoUsuario } from 'utils/enums';
 import { CREAR_USUARIO } from 'graphql/usuarios/mutations';
+<<<<<<< HEAD:src/Pages/usuarios/crearUsuario.jsx
+=======
+import useFormData from 'hook/useFormData';
+import {useParams, Link} from 'react-router-dom'
+import PrivateComponent from 'components/PrivateComponent'
+>>>>>>> jesus:src/Pages/creacion/index.jsx
 
 const CrearUsuario= () => {
 
@@ -39,43 +45,45 @@ const CrearUsuario= () => {
 
 
     return (
-        <div className='flew flex-col w-full h-full items-center justify-center p-10'>
-            <h1 className='m-4 text-3xl text-gray-800 font-bold text-center'>Creacion de usuario</h1>
-            <form
-                onSubmit={submitForm}
-                onChange={updateFormData}
-                ref={form} 
-                className='flex flex-col items-center justify-center'
-            >
-                <Input
-                    label='Nombre:'
-                    type='text'
-                    name='nombre'
-                    defaultValue={''}
-                    required={true}
-                />
-                <Input
-                    label='Apellido:'
-                    type='text'
-                    name='apellido'
-                    defaultValue={''}
-                    required={true}
-                />
-                <Input
-                    label='Identificacion:'
-                    type='text'
-                    name='identificacion'
-                    defaultValue={''}
-                    required={true}
-                />
-                <Input
-                    label='Correo:'
-                    type='email'
-                    name='correo'
-                    defaultValue={''}
-                    required={true}
-                />
+        <>
+            <div className='flew flex-col w-full h-full items-center justify-center p-10'>
+                <h1 className='m-4 text-3xl text-gray-800 font-bold text-center'>Creacion de usuario</h1>
+                <form
+                    onSubmit={submitForm}
+                    onChange={updateFormData}
+                    ref={form} 
+                    className='flex flex-col items-center justify-center'
+                >
+                    <Input
+                        label='Nombre:'
+                        type='text'
+                        name='nombre'
+                        defaultValue={''}
+                        required={true}
+                    />
+                    <Input
+                        label='Apellido:'
+                        type='text'
+                        name='apellido'
+                        defaultValue={''}
+                        required={true}
+                    />
+                    <Input
+                        label='Identificacion:'
+                        type='text'
+                        name='identificacion'
+                        defaultValue={''}
+                        required={true}
+                    />
+                    <Input
+                        label='Correo:'
+                        type='email'
+                        name='correo'
+                        defaultValue={''}
+                        required={true}
+                    />
 
+<<<<<<< HEAD:src/Pages/usuarios/crearUsuario.jsx
                 <DropDown
                     label='Rol:'
                     name='rol'
@@ -89,10 +97,35 @@ const CrearUsuario= () => {
                     loading={mutationLoading}
                     text='Crear Usuario'
                 /> 
+=======
+                    <DropDown
+                        label='Rol:'
+                        name='rol'
+                        defaultValue={''}
+                        required={true}
+                        options={Enum_Rol}
+                    />
+                    <DropDown
+                        label='Estado:'
+                        name='estado'
+                        defaultValue={''}
+                        required={true}
+                        options={Enum_EstadoUsuario}
+                    />        
+                    <ButtonLoading
+                        disabled={''}
+                        loading={mutationLoading}
+                        text='Crear Usuario'
+                    /> 
+>>>>>>> jesus:src/Pages/creacion/index.jsx
 
-            </form>
+                </form>
+                
+            </div>
             
-    </div>
+            
+        </>
+        
     )
     };
 

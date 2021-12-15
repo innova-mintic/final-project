@@ -14,7 +14,12 @@ import { GET_USUARIO } from 'graphql/usuarios/queries';
 
 import { Enum_FaseProyecto } from 'utils/enums';
 import { Enum_EstadoProyecto } from 'utils/enums';
+<<<<<<< HEAD:src/Pages/proyectos/crearProyecto.jsx
 import { Enum_TipoObjetivo } from 'utils/enums';
+=======
+import {toast } from 'react-toastify';
+import PrivateComponent from 'components/PrivateComponent';
+>>>>>>> jesus:src/Pages/crearProyecto/index.jsx
 
 import { ObjContext } from 'context/objContext';
 import { useObj } from 'context/objContext';
@@ -60,15 +65,17 @@ const CrearProyecto= () => {
     if (queryLoading) return <div> Cargando ...</div>
 
     return (
-        <div className='flew flex-col w-full h-full items-center justify-center p-10'>
-            <h1 className='m-4 text-3xl text-gray-800 font-bold text-center'>Creacion de Proyecto</h1>
-            <form
-                onSubmit={submitForm}
-                onChange={updateFormData}
-                ref={form} 
-                className='flex flex-col items-center justify-center'
-            >
+        <>
+            <div className='flew flex-col w-full h-full items-center justify-center p-10'>
+                        <h1 className='m-4 text-3xl text-gray-800 font-bold text-center'>Creacion de Proyecto</h1>
+                        <form
+                            onSubmit={submitForm}
+                            onChange={updateFormData}
+                            ref={form} 
+                            className='flex flex-col items-center justify-center'
+                        >
 
+<<<<<<< HEAD:src/Pages/proyectos/crearProyecto.jsx
                 <span className='uppercase'>Lider del proyecto: {queryData.Usuario.nombre + ' ' + queryData.Usuario.apellido}</span>
                 <Input
                     label='Nombre del proyecto:'
@@ -107,10 +114,56 @@ const CrearProyecto= () => {
                     loading={mutationLoading}
                     text='Crear Proyecto'
                 /> 
+=======
+                            {/* <span className='uppercase'>Lider del proyecto: {queryData.Usuario.nombre + ' ' + queryData.Usuario.apellido}</span> */}
+                            <Input
+                                label='Nombre del proyecto:'
+                                type='text'
+                                name='nombre'
+                                defaultValue={''}
+                                required={true}
+                            />
+                            <Input
+                                label='Presupuesto:'
+                                type='text'
+                                name='presupuesto'
+                                defaultValue={''}
+                                required={true}
+                            />
+                            <Input
+                                label='Fecha de inicio:'
+                                type='date'
+                                name='fechaInicio'
+                                defaultValue={''}
+                                required={true}
+                            />
 
-            </form>
-            
-    </div>
+                            <DropDown
+                                label='Estado:'
+                                name='estado'
+                                defaultValue={''}
+                                required={true}
+                                options={Enum_EstadoProyecto}
+                            />
+                            <DropDown
+                                label='Fase:'
+                                name='fase'
+                                defaultValue={''}
+                                required={true}
+                                options={Enum_FaseProyecto}
+                            />        
+                            <ButtonLoading
+                                disabled={''}
+                                loading={mutationLoading}
+                                text='Crear Proyecto'
+                            /> 
+>>>>>>> jesus:src/Pages/crearProyecto/index.jsx
+
+                        </form>
+                        
+                    </div>
+        </>
+        
     )
     };
 

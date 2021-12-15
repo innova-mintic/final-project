@@ -1,28 +1,47 @@
-import React , {useEffect} from "react";
-import { useAuth0 } from "@auth0/auth0-react";
+import React, { useEffect } from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
+import { useUser } from '../context/user';
+import { obtenerDatosUsuariosIngresados } from 'utils/api';
 
-
-const PrivateRoute=({children})=>{
-    const {isAuthenticated, isLoading, loginWithRedirect, getAccessTokenSilently}=useAuth0();
+const PrivateRoute = ({ children }) => {
+    const { isAuthenticated, isLoading, loginWithRedirect, getAccessTokenSilently } = useAuth0();
+    const  { setUserData } = useUser();
 
     useEffect(() => {
-        const fetchAuth0Token=async()=>{
-            const accessToken=await getAccessTokenSilently({
-                audience:`innova-mintic-api`
-             });
-             console.log(accessToken)
-            };
-            if (isAuthenticated){
-                fetchAuth0Token();
-            }
-    }, [isAuthenticated,getAccessTokenSilently])
+        const fetchAuth0Token = async() => {
+            const accessToken = await getAccessTokenSilently({
+                audience: `innova-mintic-api`,
+            });
+            localStorage.setItem('token', accessToken);
+            console.log('token:', accessToken);
+            await obtenerDatosUsuariosIngresados(
+                (res) => {
+                    console.log('obtener datos usuario ingresado')
+                    console.log('response datos usuarios', res);
+                    setUserData(res.data);
+                },
+                (error) => {
+                  console.error('Salio un error:', error);
+                }
+            );
+            
+        };
+        if (isAuthenticated){
+            fetchAuth0Token();
+        }
+    }, [isAuthenticated, getAccessTokenSilently, setUserData])
 
-    if (isLoading) return <div>Cargando...</div>
+    if (isLoading) return <div>loading...</div>
 
-    if (!isAuthenticated){
-        return loginWithRedirect();
+    if(!isAuthenticated){
+        return loginWithRedirect()
     }
-    return <>{children}</>;
-}
+
+    return isAuthenticated ? (
+    <>{children}</>
+    ):(
+    <div>No estas autorizado.</div>
+    )
+};
 
 export default PrivateRoute;
