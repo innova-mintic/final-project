@@ -29,10 +29,16 @@ const GET_PROYECTO=gql`
             nombre
             apellido
             }
+        inscripciones {
+            _id
+            estado
+             }
+        avances {
+             descripcion
+             }
         }
     }
 `;
-
 
 const GET_AVANCES=gql`
     query BuscarAvances($_id: String!) {

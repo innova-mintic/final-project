@@ -14,60 +14,27 @@ import DropDown from 'components/Dropdown';
 import { Enum_EstadoProyecto , Enum_FaseProyecto} from 'utils/enums';
 import { GET_PROYECTO } from 'graphql/proyectos/queries';
 import {EDITAR_PROYECTO} from 'graphql/proyectos/mutations';
-import { GET_AVANCES } from 'graphql/proyectos/queries';
+import { CREAR_INSCRIPCION } from 'graphql/inscripcion/mutations';
+import { GET_USUARIO } from 'graphql/usuarios/queries';
 
 function EditarProyecto() {
+
     const{form, formData,updateFormData} = useFormData(null);
-
-
-
-    const [tablaAvances,setTablaAvances]=useState([
-        {
-          avance:"Avance 1 : ffdsfds"
-        },
-        {
-          avance:"Avance 2 : ffdsfsdfads"
-        },
-        {
-          avance:"Avance 3 : ffddsafdsfasfds"
-        },
-        {
-          avance:"Avance 4 : ffdsfdsfadfds"
-        },
     
-      ])
-      
     const {_id}=useParams();
 
-    const{data:queryData,error:queryError,loading:queryLoading}=useQuery(GET_PROYECTO,{
-        variables:{_id}
-    });
-
-    const{data:queryDataAvances,error:queryErrorAvances,loading:queryLoadingAvances}=useQuery(GET_AVANCES,{
-        variables:{_id}
-    });
-
-    
+    const{data:queryDataProyecto,error:queryErrorProyecto,loading:queryLoadingProyecto}=useQuery(GET_PROYECTO,{variables:{_id} } );
 
     const [editarProyecto, {data:mutationData, loading:mutationLoading, error:mutationError}] = useMutation(EDITAR_PROYECTO);
-    
 
     const submitForm = (e)=>{
-        e.preventDefault(); 
-        console.log("fg",formData)
-        editarProyecto({
-            variables:{_id,...formData}
-        })
+        e.preventDefault() 
+        editarProyecto({ variables:{_id,...formData} } )    
     };
-    
+
     useEffect(()=>{
         if (mutationData){
-            toast.success('Proyecto modificado con exito', {
-                position: "top-right",
-                autoClose: 2000,
-                hideProgressBar: true,
-                closeOnClick: true,
-            });
+            toast.success('Proyecto modificado con exito', {position: "top-right", autoClose: 2000, hideProgressBar: true,closeOnClick: true});
         }
     }, [mutationData])
 
@@ -75,15 +42,20 @@ function EditarProyecto() {
         if (mutationError){
           toast.error("Error al editar el proyecto");
         }
-        if (queryError){
+        if (queryErrorProyecto){
         toast.error("Error al consultar el proyecto");
         }
-      },[queryError,mutationError]);
+      },[queryErrorProyecto,mutationError]);
     
-    if (queryLoading) return <div> Cargando...</div>
-    if (queryLoadingAvances) return <div> Cargando...</div>
-    console.log('los avances son:',queryDataAvances.buscarAvances.map( (u)=> u.descripcion ))
+
+    if (queryLoadingProyecto) return <div> Cargando...</div>
     
+    
+    /* console.log('los avances son:',queryDataAvances.buscarAvances.map( (u)=> u.descripcion ) ) */
+
+    /* console.log('los avances con el otro query son:',queryDataProyecto.Proyecto.avances.map( (u)=> u.descripcion ) ) */
+
+    if (queryDataProyecto.Proyecto) {
     return (
         <div className='flew flex-col w-full h-full items-center justify-center p-10'>
             <Link to='/proyectos'>
@@ -95,48 +67,46 @@ function EditarProyecto() {
                 onChange={updateFormData}
                 ref={form} 
                 className='flex flex-col items-center justify-center'
-            >
-                    
+            >     
                     <Input
                         label='Nombre del proyecto:'
                         type='text'
                         name='nombre'
-                        defaultValue={queryData.Proyecto.nombre}
+                        defaultValue={queryDataProyecto.Proyecto.nombre}
                         required={true}
                     />
                     <Input
                         label='Nombre del lider:'
                         type='text'
                         name='nombre lider'
-                        defaultValue={queryData.Proyecto.lider.nombre}
+                        defaultValue={queryDataProyecto.Proyecto.lider.nombre}
                         required={true}
                     />
                     <Input
                         label='Apellido del lider:'
                         type='text'
                         name='apellido lider'
-                        defaultValue={queryData.Proyecto.lider.apellido}
+                        defaultValue={queryDataProyecto.Proyecto.lider.apellido}
                         required={true}
                     />     
                     <Input
                         label='Presupuesto del proyecto:'
                         type='string'
                         name='presupuesto'
-                        defaultValue={queryData.Proyecto.presupuesto}
+                        defaultValue={queryDataProyecto.Proyecto.presupuesto}
                         required={true}
                     />
-
                     <DropDown
                         label='Estado del proyecto:'
                         name='estado'
-                        defaultValue={queryData.Proyecto.estado}
+                        defaultValue={queryDataProyecto.Proyecto.estado}
                         required={true}
                         options={Enum_EstadoProyecto}
                     />
                     <DropDown
                         label='Fase del proyecto:'
                         name='fase'
-                        defaultValue={queryData.Proyecto.fase}
+                        defaultValue={queryDataProyecto.Proyecto.fase}
                         required={true}
                         options={Enum_FaseProyecto}
                     />
@@ -144,34 +114,98 @@ function EditarProyecto() {
                         label='Fecha Inicio:'
                         type='text'
                         name='fechaInicio'
-                        defaultValue={queryData.Proyecto.fechaInicio}
+                        defaultValue={queryDataProyecto.Proyecto.fechaInicio}
                         required={true}
                     />
                     <Input
                         label='Fecha Fin:'
                         type='text'
                         name='fechaFin'
-                        defaultValue={queryData.Proyecto.fechaFin}
+                        defaultValue={queryDataProyecto.Proyecto.fechaFin}
                         required={true}
                     />
-
-                    <div>
-                          <Accordion>
-                            <AccordionSummary>Ver avances</AccordionSummary>
-                            {queryDataAvances.buscarAvances.map( (u)=>{
-                              return (<AccordionDetails> {u.descripcion}</AccordionDetails>)
-                            })}
-                          </Accordion>
-                    </div>
-                
+                    <VerAvancesProyecto 
+                        avances={queryDataProyecto.Proyecto.avances}
+                    />
                     <ButtonLoading
                         disabled={Object.keys(formData).length === 0}
                         loading={mutationLoading}
                         text='Confirmar'
                     /> 
             </form>
-      </div>
-    )
+            <InscricpionProyecto
+                idProyecto={queryDataProyecto.Proyecto._id}
+                estado={queryDataProyecto.Proyecto.estado}
+                inscripciones={queryDataProyecto.Proyecto.inscripciones}
+              />
+        </div>
+     )};
+    return <></>;
+};
+
+
+const VerAvancesProyecto= ({avances})=>{
+    return(
+        <>                    
+            <Accordion>
+                <AccordionSummary>Ver avances</AccordionSummary>
+                    {avances.map( (u)=>{
+                            return (<AccordionDetails> {u.descripcion}</AccordionDetails>)
+                    })}
+            </Accordion>                 
+        </>
+    );
 }
+
+
+const InscricpionProyecto= ({ idProyecto,estado, inscripciones }) => {
+
+    const [estadoInscripcion, setEstadoInscripcion] = useState('');
+    
+    const [crearInscripcion, {data:mutationDataInscripcion, loading:mutationLoadingInscripcion, error:mutationErrorInscripcion}] = useMutation(CREAR_INSCRIPCION);
+
+    const _idUsuario='61b7f9e48fc52fceee3b5e09'
+
+    const{data:queryDataUsuario,error:queryErrorUsuario,loading:queryLoadingUsuario}=useQuery(GET_USUARIO,{variables:{_id:_idUsuario} } ); 
+
+    useEffect(() => {
+        if (inscripciones) {
+            const flt = inscripciones.filter((el) => el._id === _idUsuario);
+            if (flt.length > 0) {
+            setEstadoInscripcion(flt[0].estado);
+            }
+        }
+        }, [inscripciones]);
+
+    const confirmarInscripcion=()=>{
+        crearInscripcion({variables:{estudiante:_idUsuario, proyecto: idProyecto}})  
+    }
+
+    useEffect(()=>{
+        if (mutationDataInscripcion){
+            toast.success('Inscripcion realizada con exito', {position: "top-right",autoClose: 2000,hideProgressBar: true,closeOnClick: true});
+        }
+    }, [mutationDataInscripcion])    
+    
+    if (queryLoadingUsuario) return <div> Cargando...</div>
+
+    return(
+        <>
+            {estadoInscripcion !=='' ? (<span className='flex flex-col items-center justify-center'>Ya estas inscrito en este proyecto y el estado es {estadoInscripcion} </span>
+            ):(
+                <div onClick={()=>confirmarInscripcion()} className='flex flex-col items-center justify-center' >
+                    <ButtonLoading
+                                disabled={estado==='INACTIVO'}
+                                loading={mutationLoadingInscripcion}
+                                text='Inscribirme'
+                            /> 
+                </div>
+                ) 
+            }           
+        </>
+    );
+};
+
+
 
 export default EditarProyecto;

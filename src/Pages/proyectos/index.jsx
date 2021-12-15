@@ -26,7 +26,7 @@ const Proyectos= () => {
 
   return (
     <div>
-        Datos Proyectos:
+        <h1 className='m-4 text-3xl text-gray-800 font-bold text-center'>Lista de Proyectos</h1>
         <table className='tabla'>
           <thead>
             <tr>
