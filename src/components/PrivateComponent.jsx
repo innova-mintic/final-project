@@ -5,7 +5,7 @@ const PrivateComponent = ({roleList, children}) => {
 
     const { userData } = useUser();
 
-    console.log('user data desde el pruvate component', userData)
+    console.log('user data desde el private component', userData)
 
     if (roleList.includes(userData.rol)){
         return children;

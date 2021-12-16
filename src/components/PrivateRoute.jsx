@@ -10,12 +10,13 @@ const PrivateRoute = ({ children }) => {
     useEffect(() => {
         const fetchAuth0Token = async() => {
             const accessToken = await getAccessTokenSilently({
-                audience: 'innova-mintic-api',
+                audience: `innova-mintic-api`,
             });
             localStorage.setItem('token', accessToken);
-            console.log(accessToken);
+            console.log('token:', accessToken);
             await obtenerDatosUsuariosIngresados(
                 (res) => {
+                    console.log('obtener datos usuario ingresado')
                     console.log('response datos usuarios', res);
                     setUserData(res.data);
                 },

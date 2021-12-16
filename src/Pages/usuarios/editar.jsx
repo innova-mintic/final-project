@@ -118,11 +118,6 @@ function EditarUsuario() {
                     text='Confirmar'
                     
                 /> 
-                <ButtonLoading
-                    disabled={false}
-                    loading={mutationLoadingEliminar}
-                    text='Eliminar'
-                /> 
             </form>
       </div>
     )

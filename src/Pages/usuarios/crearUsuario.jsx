@@ -10,7 +10,6 @@ import DropDown from 'components/Dropdown';
 
 import { Enum_Rol , Enum_EstadoUsuario } from 'utils/enums';
 import { CREAR_USUARIO } from 'graphql/usuarios/mutations';
-
 import PrivateComponent from 'components/PrivateComponent'
 
 const CrearUsuario= () => {
@@ -42,7 +41,6 @@ const CrearUsuario= () => {
 
     return (
         <>
-        <PrivateComponent roleList={['rol']}>
             <div className='flew flex-col w-full h-full items-center justify-center p-10'>
                 <h1 className='m-4 text-3xl text-gray-800 font-bold text-center'>Creacion de usuario</h1>
                 <form
@@ -97,7 +95,7 @@ const CrearUsuario= () => {
                 </form>
                 
             </div>
-        </PrivateComponent>
+            
             
         </>
         
