@@ -1,32 +1,33 @@
 import React  from 'react';
 import { useQuery } from '@apollo/client';
 import 'react-toastify/dist/ReactToastify.css';
-import PrivateComponent from 'components/PrivateComponent';
 
 import { Enum_EstadoInscripcion } from 'utils/enums';
 import { GET_INSCRIPCIONES } from 'graphql/inscripcion/queries';
 import { GET_USUARIO } from 'graphql/usuarios/queries';
 
 
-const Solicitudes= () => {
+const MisInscripciones= () => {
 
-  const _id='61ae26807de7e64c94128677'
+  const _id='61b940251ff3c450b7b85a8f'
 
   const{data:queryDataUsuario,error:queryErrorUsuario,loading:queryLoadingUsuario}=useQuery(GET_USUARIO,{
       variables:{_id}
   });
 
   const{data:queryData,error:queryError,loading:queryLoading}=useQuery(GET_INSCRIPCIONES);
-  
+
   if (queryLoadingUsuario) return <div> Cargando solicitudes...</div>
   if (queryLoading) return <div> Cargando solicitudes...</div>
+
+  console.log("estudiante",queryDataUsuario ) ;
 
   console.log("los datos son",queryData.Inscripciones.map( (u)=> u.estudiante.nombre ) ) ; 
 
     return (
       <div>
-          <h1 className='m-4 text-3xl text-gray-800 font-bold text-center'>Lista de solicitudes de estudiantes:</h1>
-          <span className='uppercase flex flex-col items-center justify-center text-blue-600'>Lider del proyecto: {queryDataUsuario.Usuario.nombre + ' ' + queryDataUsuario.Usuario.apellido}</span>
+          <h1 className='m-4 text-3xl text-gray-800 font-bold text-center'>Inscripciones realizadas:</h1>
+          <span className='uppercase flex flex-col items-center justify-center text-blue-600'>Estudiante: {queryDataUsuario.Usuario.nombre + ' ' + queryDataUsuario.Usuario.apellido}</span>
           <table className='tabla'>
             <thead>
               <tr>
@@ -59,4 +60,4 @@ const Solicitudes= () => {
     )
   };
 
-export default Solicitudes;
+export default MisInscripciones;

@@ -60,12 +60,11 @@ const Usuarios= () => {
                           <Link to={`/usuarios/editar/${u._id}`}>
                             <i className='fas fa-pen text-yellow-600 hover:text-yellow-400 cursor-pointer' />
                           </Link>
-                          <Tooltip title='Eliminar producto' arrow>   
-                            <i onClick={()=>setOpenDialog(true) } className='fas fa-trash text-red-700 hover:text-red-500'  />
-                          </Tooltip>
+
 
 
                         </div>
+
 
                       </td>
                     </tr>

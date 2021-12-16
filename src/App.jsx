@@ -17,13 +17,13 @@ import EditarPerfil from 'Pages/usuarios/perfil';
 import Usuarios from 'Pages/usuarios/index';
 import EditarUsuario from 'Pages/usuarios/editar';
 
-import Solicitudes from 'Pages/proyectos/solicitudes';
 
 import Proyectos from 'Pages/proyectos/index';
 import MisProyectos from 'Pages/proyectos/misProyectos';
 import CrearProyecto from 'Pages/proyectos/crearProyecto';
 import EditarProyecto from 'Pages/proyectos/editar';
-
+import Solicitudes from 'Pages/proyectos/solicitudes';
+import MisInscripciones from 'Pages/proyectos/misInscripciones';
 
 
 import { UserContext } from 'context/user';
@@ -49,9 +49,12 @@ function App() {
        <Auth0Provider
           domain="innova-mintic.us.auth0.com"
           clientId="4OfDznBV7xftZ5kCuQm2VNebA4mXk5Rp"
-          redirectUri={'https://mysterious-hollows-06532.herokuapp.com/inicio'}
+          /* redirectUri={'https://mysterious-hollows-06532.herokuapp.com/inicio'} */
+          redirectUri={'http://localhost:3000/inicio'}
           audience= 'innova-mintic-api'
         >
+
+
           <div>
           <UserContext.Provider value={{userData, setUserData}}>
             <Router>
@@ -61,15 +64,18 @@ function App() {
                 </Route>
                 
                 <Route  path='/' element={<LayoutAdmin/>}>
-                  <Route  path='inicio' element={<Dashboard/>}/>
-                  <Route  path='creacion' element={<CrearUsuario/>}/>
-                  <Route  path='perfil' element={<EditarPerfil/>}/>
-                  <Route  path='proyectos' element={<Proyectos/>}/>
-                  <Route  path='proyectos/editar/:_id' element={<EditarProyecto/>}/>
-                  <Route  path='creacionProyecto' element={<CrearProyecto/>}/>
-                  <Route  path='usuarios' element={<Usuarios/>}/>
-                  <Route  path='usuarios/editar/:_id' element={<EditarUsuario/>}/>
-                  <Route  path='/solicitudes' element={<Solicitudes/>}/>       
+                  <Route  path='/inicio' element={<Dashboard/>}/>
+                  <Route  path='/crearUsuario' element={<CrearUsuario/>}/>
+                  <Route  path='/perfil' element={<EditarPerfil/>}/>
+                  <Route  path='/usuarios' element={<Usuarios/>}/>
+                  <Route  path='/usuarios/editar/:_id' element={<EditarUsuario/>}/>
+                  
+                  <Route  path='/proyectos' element={<Proyectos/>}/>
+                  <Route  path='/proyectos/editar/:_id' element={<EditarProyecto/>}/>
+                  <Route  path='/misProyectos' element={<MisProyectos/>}/>
+                  <Route  path='/crearProyecto' element={<CrearProyecto/>}/>
+                  <Route  path='/solicitudes' element={<Solicitudes/>}/>      
+                  <Route  path='/misInscripciones' element={<MisInscripciones/>}/>     
                 </Route>
               </Routes>
             </Router>

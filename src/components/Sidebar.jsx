@@ -22,18 +22,21 @@ const SidebarLinks = () => {
   return (
     <ul className='mt-12'>
       <SidebarRoute to='inicio' title='Inicio' icon='fas fa-home' />
+
       <PrivateComponent roleList={['ADMINISTRADOR']}>
         <SidebarRoute to='creacion' title='Registro' icon='fas fa-smile-wink' />
       </PrivateComponent>
+
       <PrivateComponent roleList={['ADMINISTRADOR']}>
         <SidebarRoute to='perfil' title='Perfil' icon='fas fa-smile-wink' />
       </PrivateComponent>
+
       <PrivateComponent roleList={['ADMINISTRADOR', 'LIDER']}>
         <SidebarRoute to='usuarios' title='Usuarios' icon='fas fa-user' />
       </PrivateComponent>
-      <PrivateComponent roleList={['ADMINISTRADOR', 'LIDER']}>
-        <SidebarRoute to='usuarios2' title='Usuarios2' icon='fas fa-user' />
-      </PrivateComponent>
+
+      <Acordeon />
+
       <PrivateComponent roleList={['ADMINISTRADOR', 'LIDER']}>
         <div class="accordion accordion-flush" id="accordionFlushExample">
           <div class="accordion-item">
@@ -43,15 +46,19 @@ const SidebarLinks = () => {
               </button>
             </h2>
             <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+
               <PrivateComponent roleList={['ADMINISTRADOR', 'LIDER', 'ESTUDIANTE']}>
                 <SidebarRoute to='proyectos' title='Proyectos creados' icon='fas fa-book-open' />
               </PrivateComponent>
+
               <PrivateComponent roleList={['ADMINISTRADOR', 'LIDER']}>
                 <SidebarRoute to='creacionProyecto' title='Crear proyectos' icon='fas fa-book-open' />
               </PrivateComponent>
+
               <PrivateComponent roleList={['ADMINISTRADOR', 'LIDER']}>
                 <SidebarRoute to='solicitudes' title='Solicitudes' icon='fas fa-book-open' />
               </PrivateComponent>
+
             </div>
           </div>
         </div>
@@ -59,7 +66,7 @@ const SidebarLinks = () => {
       
       
       <div className="logout">
-        <button className="btn btn-outline-primary" onClick={() => cerrarSesion()}>
+        <button className="btn btn-outline-primary fas fa-sign-out-alt" onClick={() => cerrarSesion()}>
           Log Out
         </button>
       </div>
@@ -71,7 +78,7 @@ const SidebarLinks = () => {
 const Logo = () => {
   return (
     <div className='py-3 w-full flex flex-col items-center justify-center'>
-      <img src='logo.png' alt='Logo' className='h-16' />
+      <img src='icon.png' alt='Logo' className='h-24' />
       <span className='my-2 text-xl font-bold text-center'>Gestor de Proyectos</span>
     </div>
   );
@@ -122,8 +129,8 @@ const SidebarRoute = ({ to, title, icon }) => {
         to={to}
         className={({ isActive }) =>
           isActive
-            ? 'sidebar-route text-white bg-indigo-700'
-            : 'sidebar-route text-gray-900 hover:text-white hover:bg-indigo-400'
+            ? 'sidebar-route text-white bg-blue-400'
+            : 'sidebar-route text-gray-900 hover:text-white hover:bg-blue-300'
         }
       >
         <div className='flex items-center'>
@@ -145,9 +152,23 @@ const Acordeon = () => {
             </button>
           </h2>
           <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-            <SidebarRoute to='misProyectos' title='Ver mis proyectos' icon='fas fa-book-open' />
-            <SidebarRoute to='crearProyecto' title='Crear proyecto' icon='fas fa-book-open' />
-            <SidebarRoute to='solicitudes' title='Solicitudes' icon='fas fa-book-open' />
+
+            <PrivateComponent roleList={['ADMINISTRADOR', 'LIDER', 'ESTUDIANTE']}>
+              <SidebarRoute to='misProyectos' title='Ver mis proyecto' icon='fab fa-readme' />
+            </PrivateComponent>
+
+            <PrivateComponent roleList={['ADMINISTRADOR', 'LIDER']}>
+              <SidebarRoute to='crearProyecto' title='Crear proyectos' icon='fas fa-folder-plus' />
+            </PrivateComponent>
+
+            <PrivateComponent roleList={['ADMINISTRADOR', 'LIDER']}>
+              <SidebarRoute to='solicitudes' title='Solicitudes de Estudiantes' icon='fas fa-user-plus' />
+            </PrivateComponent>
+
+            <PrivateComponent roleList={['ADMINISTRADOR', 'LIDER']}>
+              <SidebarRoute to='misInscripciones' title='Mis Inscripciones' icon='fas fa-address-card' />
+            </PrivateComponent>
+
           </div>
         </div>
       </div>
