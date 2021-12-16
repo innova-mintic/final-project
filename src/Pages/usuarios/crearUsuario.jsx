@@ -10,12 +10,7 @@ import DropDown from 'components/Dropdown';
 
 import { Enum_Rol , Enum_EstadoUsuario } from 'utils/enums';
 import { CREAR_USUARIO } from 'graphql/usuarios/mutations';
-<<<<<<< HEAD:src/Pages/usuarios/crearUsuario.jsx
-=======
-import useFormData from 'hook/useFormData';
-import {useParams, Link} from 'react-router-dom'
 import PrivateComponent from 'components/PrivateComponent'
->>>>>>> jesus:src/Pages/creacion/index.jsx
 
 const CrearUsuario= () => {
 
@@ -83,7 +78,6 @@ const CrearUsuario= () => {
                         required={true}
                     />
 
-<<<<<<< HEAD:src/Pages/usuarios/crearUsuario.jsx
                 <DropDown
                     label='Rol:'
                     name='rol'
@@ -97,27 +91,6 @@ const CrearUsuario= () => {
                     loading={mutationLoading}
                     text='Crear Usuario'
                 /> 
-=======
-                    <DropDown
-                        label='Rol:'
-                        name='rol'
-                        defaultValue={''}
-                        required={true}
-                        options={Enum_Rol}
-                    />
-                    <DropDown
-                        label='Estado:'
-                        name='estado'
-                        defaultValue={''}
-                        required={true}
-                        options={Enum_EstadoUsuario}
-                    />        
-                    <ButtonLoading
-                        disabled={''}
-                        loading={mutationLoading}
-                        text='Crear Usuario'
-                    /> 
->>>>>>> jesus:src/Pages/creacion/index.jsx
 
                 </form>
                 

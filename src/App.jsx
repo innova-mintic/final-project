@@ -16,17 +16,16 @@ import CrearUsuario from 'Pages/usuarios/crearUsuario';
 import EditarPerfil from 'Pages/usuarios/perfil';
 import Usuarios from 'Pages/usuarios/index';
 import EditarUsuario from 'Pages/usuarios/editar';
-import ListaUsuarios from 'Pages/ListaUsuarios';
-import LayoutAdmin from 'layouts/LayoutAdmin';
-import ListaUsuariosC4 from 'Pages/ListaUsuarios';
-import Solicitudes from 'Pages/solicitudes';
+
+import Solicitudes from 'Pages/proyectos/solicitudes';
 
 import Proyectos from 'Pages/proyectos/index';
 import MisProyectos from 'Pages/proyectos/misProyectos';
 import CrearProyecto from 'Pages/proyectos/crearProyecto';
 import EditarProyecto from 'Pages/proyectos/editar';
-import Creacion from 'Pages/creacion';
-import CreacionProyecto from 'Pages/crearProyecto';
+
+
+
 import { UserContext } from 'context/user';
 import PublicLayout from 'layouts/PublicLayout';
 
@@ -63,14 +62,13 @@ function App() {
                 
                 <Route  path='/' element={<LayoutAdmin/>}>
                   <Route  path='inicio' element={<Dashboard/>}/>
-                  <Route  path='creacion' element={<Creacion/>}/>
-                  <Route  path='perfil' element={<Perfil/>}/>
+                  <Route  path='creacion' element={<CrearUsuario/>}/>
+                  <Route  path='perfil' element={<EditarPerfil/>}/>
                   <Route  path='proyectos' element={<Proyectos/>}/>
                   <Route  path='proyectos/editar/:_id' element={<EditarProyecto/>}/>
-                  <Route  path='creacionProyecto' element={<CreacionProyecto/>}/>
+                  <Route  path='creacionProyecto' element={<CrearProyecto/>}/>
                   <Route  path='usuarios' element={<Usuarios/>}/>
                   <Route  path='usuarios/editar/:_id' element={<EditarUsuario/>}/>
-                  <Route  path='usuarios2' element={<ListaUsuariosC4/>}/>
                   <Route  path='/solicitudes' element={<Solicitudes/>}/>       
                 </Route>
               </Routes>

@@ -1,5 +1,4 @@
 import React,{useEffect,useState} from 'react'
-import {useParams, Link} from 'react-router-dom'
 import { useQuery, useMutation } from '@apollo/client';
 import useFormData from 'hook/useFormData';
 import {toast } from 'react-toastify';
@@ -7,19 +6,13 @@ import { nanoid } from 'nanoid';
 
 import Input from 'components/Input'
 import ButtonLoading from 'components/ButtonLoading';
-import DropDown from 'components/Dropdown';
+
 
 import { CREAR_PROYECTO } from 'graphql/proyectos/mutations';
 import { GET_USUARIO } from 'graphql/usuarios/queries';
 
-import { Enum_FaseProyecto } from 'utils/enums';
-import { Enum_EstadoProyecto } from 'utils/enums';
-<<<<<<< HEAD:src/Pages/proyectos/crearProyecto.jsx
-import { Enum_TipoObjetivo } from 'utils/enums';
-=======
-import {toast } from 'react-toastify';
+
 import PrivateComponent from 'components/PrivateComponent';
->>>>>>> jesus:src/Pages/crearProyecto/index.jsx
 
 import { ObjContext } from 'context/objContext';
 import { useObj } from 'context/objContext';
@@ -67,105 +60,56 @@ const CrearProyecto= () => {
     return (
         <>
             <div className='flew flex-col w-full h-full items-center justify-center p-10'>
-                        <h1 className='m-4 text-3xl text-gray-800 font-bold text-center'>Creacion de Proyecto</h1>
-                        <form
-                            onSubmit={submitForm}
-                            onChange={updateFormData}
-                            ref={form} 
-                            className='flex flex-col items-center justify-center'
-                        >
+                <h1 className='m-4 text-3xl text-gray-800 font-bold text-center'>Creacion de Proyecto</h1>
+                <form
+                    onSubmit={submitForm}
+                    onChange={updateFormData}
+                    ref={form} 
+                    className='flex flex-col items-center justify-center'
+                >
+                    <span className='uppercase'>Lider del proyecto: {queryData.Usuario.nombre + ' ' + queryData.Usuario.apellido}</span>
+                    <Input
+                        label='Nombre del proyecto:'
+                        type='text'
+                        name='nombre'
+                        defaultValue={''}
+                        required={true}
+                        className='input widthInput'
+                    />
+                    <Input
+                        label='Presupuesto:'
+                        type='text'
+                        name='presupuesto'
+                        defaultValue={''}
+                        required={true}
+                    />
+                    <Input
+                        label='Fecha de inicio:'
+                        type='date'
+                        name='fechaInicio'
+                        defaultValue={''}
+                        required={true}
+                    />
+                    <Input
+                        label='Objetivo general:'
+                        type='text'
+                        name='objetivoGeneral'
+                        defaultValue={''}
+                        required={true}
+                        className='input widthInput '
+                    />
+                    <Objetivos />
 
-<<<<<<< HEAD:src/Pages/proyectos/crearProyecto.jsx
-                <span className='uppercase'>Lider del proyecto: {queryData.Usuario.nombre + ' ' + queryData.Usuario.apellido}</span>
-                <Input
-                    label='Nombre del proyecto:'
-                    type='text'
-                    name='nombre'
-                    defaultValue={''}
-                    required={true}
-                    className='input widthInput'
-                />
-                <Input
-                    label='Presupuesto:'
-                    type='text'
-                    name='presupuesto'
-                    defaultValue={''}
-                    required={true}
-                />
-                <Input
-                    label='Fecha de inicio:'
-                    type='date'
-                    name='fechaInicio'
-                    defaultValue={''}
-                    required={true}
-                />
-                <Input
-                    label='Objetivo general:'
-                    type='text'
-                    name='objetivoGeneral'
-                    defaultValue={''}
-                    required={true}
-                    className='input widthInput '
-                />
-                <Objetivos />
-
-                <ButtonLoading
-                    disabled={Object.keys(formData).length === 0}
-                    loading={mutationLoading}
-                    text='Crear Proyecto'
-                /> 
-=======
-                            {/* <span className='uppercase'>Lider del proyecto: {queryData.Usuario.nombre + ' ' + queryData.Usuario.apellido}</span> */}
-                            <Input
-                                label='Nombre del proyecto:'
-                                type='text'
-                                name='nombre'
-                                defaultValue={''}
-                                required={true}
-                            />
-                            <Input
-                                label='Presupuesto:'
-                                type='text'
-                                name='presupuesto'
-                                defaultValue={''}
-                                required={true}
-                            />
-                            <Input
-                                label='Fecha de inicio:'
-                                type='date'
-                                name='fechaInicio'
-                                defaultValue={''}
-                                required={true}
-                            />
-
-                            <DropDown
-                                label='Estado:'
-                                name='estado'
-                                defaultValue={''}
-                                required={true}
-                                options={Enum_EstadoProyecto}
-                            />
-                            <DropDown
-                                label='Fase:'
-                                name='fase'
-                                defaultValue={''}
-                                required={true}
-                                options={Enum_FaseProyecto}
-                            />        
-                            <ButtonLoading
-                                disabled={''}
-                                loading={mutationLoading}
-                                text='Crear Proyecto'
-                            /> 
->>>>>>> jesus:src/Pages/crearProyecto/index.jsx
-
-                        </form>
-                        
-                    </div>
-        </>
-        
+                    <ButtonLoading
+                        disabled={Object.keys(formData).length === 0}
+                        loading={mutationLoading}
+                        text='Crear Proyecto'
+                    /> 
+                </form>        
+            </div>
+        </> 
     )
-    };
+};
 
 
 const Objetivos=()=>{
@@ -174,13 +118,11 @@ const Objetivos=()=>{
     const eliminarObjetivo =(id)=>{
         setListaObjetivos(listaObjetivos.filter(el=>el.props.id !== id));
     }
-
-
     const componenteObjetivoAgregado =()=>{
         const id =nanoid();
         return <FormObjetivo key={id} id={id} />
-        
     }
+
     return (
         <ObjContext.Provider value={{eliminarObjetivo}}>
             <div>
@@ -196,7 +138,6 @@ const Objetivos=()=>{
         </ObjContext.Provider>
     );
 }
-
 
 const FormObjetivo=({id})=>{
     const {eliminarObjetivo} =useObj();
