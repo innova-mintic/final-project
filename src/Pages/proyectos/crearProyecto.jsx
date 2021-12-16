@@ -1,20 +1,14 @@
 import React,{useEffect,useState} from 'react'
-import {useParams, Link} from 'react-router-dom'
 import { useQuery, useMutation } from '@apollo/client';
 import useFormData from 'hook/useFormData';
-import {toast} from 'react-toastify';
+import {toast } from 'react-toastify';
 import { nanoid } from 'nanoid';
 
 import Input from 'components/Input'
 import ButtonLoading from 'components/ButtonLoading';
-import DropDown from 'components/Dropdown';
 
 import { CREAR_PROYECTO } from 'graphql/proyectos/mutations';
 import { GET_USUARIO } from 'graphql/usuarios/queries';
-
-import { Enum_FaseProyecto } from 'utils/enums';
-import { Enum_EstadoProyecto } from 'utils/enums';
-import { Enum_TipoObjetivo } from 'utils/enums';
 
 
 import PrivateComponent from 'components/PrivateComponent';
@@ -38,7 +32,9 @@ const CrearProyecto= () => {
         e.preventDefault(); 
         console.log("fg",formData)
         formData.lider=_id;
-        formData.objetivos = Object.values(formData.objetivos);
+        if (formData.objetivosEspecificos){
+            formData.objetivosEspecificos = Object.values(formData.objetivos);
+        }
 
         console.log("fg2",formData)
         
@@ -61,55 +57,59 @@ const CrearProyecto= () => {
     if (queryLoading) return <div> Cargando ...</div>
 
     return (
-        <>
-            <PrivateComponent roleList={['rol']}>
-                <div className='flew flex-col w-full h-full items-center justify-center p-10'>
-                    <h1 className='m-4 text-3xl text-gray-800 font-bold text-center'>Creacion de Proyecto</h1>
-                    <form
-                        onSubmit={submitForm}
-                        onChange={updateFormData}
-                        ref={form} 
-                        className='flex flex-col items-center justify-center'
-                    >
-                        <span className='uppercase'>Lider del proyecto: {queryData.Usuario.nombre + ' ' + queryData.Usuario.apellido}</span>
-                        <Input
-                            label='Nombre del proyecto:'
-                            type='text'
-                            name='nombre'
-                            defaultValue={''}
-                            required={true}
-                            disabled={false}
-                        />
-                        <Input
-                            label='Presupuesto:'
-                            type='text'
-                            name='presupuesto'
-                            defaultValue={''}
-                            required={true}
-                            disabled={false}
-                        />
-                        <Input
-                            label='Fecha de inicio:'
-                            type='date'
-                            name='fechaInicio'
-                            defaultValue={''}
-                            required={true}
-                            disabled={false}
-                        />
-                        <Objetivos />
-                        <ButtonLoading
-                            disabled={''}
-                            loading={mutationLoading}
-                            text='Crear Proyecto'
-                        /> 
+        <div className='flew flex-col w-full h-full items-center justify-center p-10'>
+            <h1 className='m-4 text-3xl text-gray-800 font-bold text-center'>Creacion de Proyecto</h1>
+            <form
+                onSubmit={submitForm}
+                onChange={updateFormData}
+                ref={form} 
+                className='flex flex-col items-center justify-center'
+            >
 
-                    </form>                   
-                </div>
-            </PrivateComponent>
-        </>
-        
+                <span className='uppercase text-blue-600'>Lider del proyecto: {queryData.Usuario.nombre + ' ' + queryData.Usuario.apellido}</span>
+                <Input
+                    label='Nombre del proyecto:'
+                    type='text'
+                    name='nombre'
+                    defaultValue={''}
+                    required={true}
+                    className='input widthInput'
+                />
+                <Input
+                    label='Presupuesto:'
+                    type='text'
+                    name='presupuesto'
+                    defaultValue={''}
+                    required={true}
+                />
+                <Input
+                    label='Fecha de inicio:'
+                    type='date'
+                    name='fechaInicio'
+                    defaultValue={''}
+                    required={true}
+                />
+                <Input
+                    label='Objetivo general:'
+                    type='text'
+                    name='objetivoGeneral'
+                    defaultValue={''}
+                    required={true}
+                    className='input widthInput '
+                />
+                <Objetivos />
+
+                <ButtonLoading
+                    disabled={Object.keys(formData).length === 0}
+                    loading={mutationLoading}
+                    text='Crear Proyecto'
+                /> 
+
+            </form>
+            
+    </div>
     )
-    };
+};
 
 
 const Objetivos=()=>{
@@ -118,17 +118,15 @@ const Objetivos=()=>{
     const eliminarObjetivo =(id)=>{
         setListaObjetivos(listaObjetivos.filter(el=>el.props.id !== id));
     }
-
-
     const componenteObjetivoAgregado =()=>{
         const id =nanoid();
         return <FormObjetivo key={id} id={id} />
-        
     }
+
     return (
         <ObjContext.Provider value={{eliminarObjetivo}}>
             <div>
-                <span> Objetivos del proyecto</span>
+                <span> Objetivos especificos</span>
                 <i
                     onClick={()=>setListaObjetivos([...listaObjetivos,componenteObjetivoAgregado()])}
                     className='fas fa-plus rounded-full bg-green-500 hover:bg-green-400 text-white p-2 mx-2 cursor-pointer'
@@ -141,7 +139,6 @@ const Objetivos=()=>{
     );
 }
 
-
 const FormObjetivo=({id})=>{
     const {eliminarObjetivo} =useObj();
 
@@ -153,12 +150,6 @@ const FormObjetivo=({id})=>{
                 type='text' 
                 required={true} 
                 />
-            <DropDown 
-                name={`nested||objetivos||${id}||tipo`}
-                options={Enum_TipoObjetivo} 
-                label='Tipo de Objetivo' 
-                required={true} 
-            />
             <i onClick={()=>eliminarObjetivo(id)} className='fas fa-minus rounded-full bg-red-500 hover:bg-red-400 text-white p-2 mx-2 cursor-pointer mt-6' />
         </div>
     )

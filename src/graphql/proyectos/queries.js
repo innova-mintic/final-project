@@ -19,19 +19,51 @@ const GET_PROYECTOS= gql`
 const GET_PROYECTO=gql`
     query BuscarUnProyecto($_id: String!) {
         Proyecto(_id: $_id) {
+        _id
         nombre
         presupuesto
         fechaInicio
         fechaFin
         estado
         fase
+        objetivoGeneral
+        objetivosEspecificos{
+            descripcion
+                }
         lider {
             nombre
             apellido
             }
+        inscripciones {
+            _id
+            estado
+            estudiante{
+                _id
+                }
+             }
+        avances {
+             descripcion
+             }
         }
     }
 `;
+
+const GET_PROYECTO_LIDER=gql`
+    query FiltrarProyectoPorLider($_id: String!) {
+    FiltrarProyectoPorLider(_id: $_id) {
+        _id
+        nombre
+        lider {
+        nombre
+        apellido
+        }
+        fase
+        estado
+    }
+    }
+`;
+
+
 
 
 const GET_AVANCES=gql`
@@ -44,4 +76,4 @@ const GET_AVANCES=gql`
 
 
 
-export {GET_PROYECTOS,GET_PROYECTO,GET_AVANCES};
+export {GET_PROYECTOS,GET_PROYECTO,GET_PROYECTO_LIDER,GET_AVANCES};

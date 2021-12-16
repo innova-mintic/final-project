@@ -16,28 +16,28 @@ import CrearUsuario from 'Pages/usuarios/crearUsuario';
 import EditarPerfil from 'Pages/usuarios/perfil';
 import Usuarios from 'Pages/usuarios/index';
 import EditarUsuario from 'Pages/usuarios/editar';
-import ListaUsuarios from 'Pages/ListaUsuarios';
+
 
 import Proyectos from 'Pages/proyectos/index';
+import MisProyectos from 'Pages/proyectos/misProyectos';
 import CrearProyecto from 'Pages/proyectos/crearProyecto';
 import EditarProyecto from 'Pages/proyectos/editar';
 import Solicitudes from 'Pages/proyectos/solicitudes';
+import MisInscripciones from 'Pages/proyectos/misInscripciones';
 
 
 import { UserContext } from 'context/user';
-//import PrivateLayout from 'layouts/PrivateLayout';
-//import PublicLayout from 'layouts/PublicLayout';
-
-
-const client= new ApolloClient({
-  uri:'https://innova1.herokuapp.com/graphql',
-  cache:new InMemoryCache(),
-});
+import PublicLayout from 'layouts/PublicLayout';
 
 /* const client= new ApolloClient({
+  uri:'https://innova1.herokuapp.com/graphql',
+  cache:new InMemoryCache(),
+}); */
+
+const client= new ApolloClient({
   uri:'http://localhost:4000/graphql',
   cache:new InMemoryCache(),
-});  */
+}); 
 
 function App() {
 
@@ -49,31 +49,39 @@ function App() {
        <Auth0Provider
           domain="innova-mintic.us.auth0.com"
           clientId="4OfDznBV7xftZ5kCuQm2VNebA4mXk5Rp"
+          /* redirectUri={'https://mysterious-hollows-06532.herokuapp.com/inicio'} */
           redirectUri={'http://localhost:3000/inicio'}
-          audience='innova-mintic-api'
+          audience= 'innova-mintic-api'
         >
-          <div>
-            <UserContext.Provider value={{userData, setUserData}}>
-              <Router>
-                <Routes>
-                  <Route  path='/' element={<Home/>}/>
-                  <Route  path='/' element={<LayoutAdmin/>}>
-                      <Route  path='/inicio' element={<Dashboard/>}/>
-                      <Route  path='/crearUsuario' element={<CrearUsuario/>}/>
-                      <Route  path='/perfil' element={<EditarPerfil/>}/>
-                      <Route  path='/usuarios' element={<Usuarios/>}/>
-                      <Route  path='/usuarios/editar/:_id' element={<EditarUsuario/>}/>
-                      <Route  path='/usuarios2' element={<ListaUsuarios/>}/>
 
-                      <Route  path='/proyectos' element={<Proyectos/>}/>
-                      <Route  path='/proyectos/editar/:_id' element={<EditarProyecto/>}/>
-                      <Route  path='/crearProyecto' element={<CrearProyecto/>}/>
-                      <Route  path='/solicitudes' element={<Solicitudes/>}/>                   
-                  </Route>
-                </Routes>
-              </Router>
-            </UserContext.Provider>
-          </div>      
+
+          <div>
+          <UserContext.Provider value={{userData, setUserData}}>
+            <Router>
+              <Routes>
+                <Route path='/' element={<PublicLayout />}>
+                  <Route  path='' element={<Home/>}/>
+                </Route>
+                
+                <Route  path='/' element={<LayoutAdmin/>}>
+                  <Route  path='/inicio' element={<Dashboard/>}/>
+                  <Route  path='/crearUsuario' element={<CrearUsuario/>}/>
+                  <Route  path='/perfil' element={<EditarPerfil/>}/>
+                  <Route  path='/usuarios' element={<Usuarios/>}/>
+                  <Route  path='/usuarios/editar/:_id' element={<EditarUsuario/>}/>
+                  
+                  <Route  path='/proyectos' element={<Proyectos/>}/>
+                  <Route  path='/proyectos/editar/:_id' element={<EditarProyecto/>}/>
+                  <Route  path='/misProyectos' element={<MisProyectos/>}/>
+                  <Route  path='/crearProyecto' element={<CrearProyecto/>}/>
+                  <Route  path='/solicitudes' element={<Solicitudes/>}/>      
+                  <Route  path='/misInscripciones' element={<MisInscripciones/>}/>     
+                </Route>
+              </Routes>
+            </Router>
+          </UserContext.Provider>
+          </div>
+          
         </Auth0Provider>
     </ApolloProvider>   
   );

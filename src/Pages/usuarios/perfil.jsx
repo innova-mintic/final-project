@@ -11,8 +11,6 @@ import DropDown from 'components/Dropdown';
 import { GET_USUARIO } from 'graphql/usuarios/queries';
 import { EDITAR_PERFIL} from 'graphql/perfil/mutations';
 
-import PrivateComponent from 'components/PrivateComponent';
-
 const EditarPerfil= () => {
 
     const{form, formData,updateFormData} = useFormData(null);
@@ -60,59 +58,59 @@ const EditarPerfil= () => {
     if (queryLoading) return <div> Cargando ...</div>
 
   return (
-    <>
-        <PrivateComponent roleList={['lider']}>
-            <div className='flew flex-col w-full h-full items-center justify-center p-10'>
-                <h1 className='m-4 text-3xl text-gray-800 font-bold text-center'>Editar Perfil</h1>
-                <form
-                        onSubmit={submitForm}
-                        onChange={updateFormData}
-                        ref={form} 
-                        className='flex flex-col items-center justify-center'
-                >
-                    <Input
-                        label='Nombre:'
-                        type='text'
-                        name='nombre'
-                        defaultValue={queryData.Usuario.nombre}
-                        required={true}
-                        disabled={false}
-                    />
-                    <Input
-                        label='Apellido:'
-                        type='text'
-                        name='apellido'
-                        defaultValue={queryData.Usuario.apellido}
-                        required={true}
-                        disabled={false}
-                    />
-                    <Input
-                        label='Identificacion:'
-                        type='text'
-                        name='identificacion'
-                        defaultValue={queryData.Usuario.identificacion}
-                        required={true}
-                        disabled={false}
-                    />
-                    <Input
-                        label='Correo:'
-                        type='email'
-                        name='correo'
-                        defaultValue={queryData.Usuario.correo}
-                        required={true}
-                        disabled={false}
-                    />
+    <div className='flew flex-col w-full h-full items-center justify-center p-10'>
+        <h1 className='m-4 text-3xl text-gray-800 font-bold text-center'>Editar Perfil</h1>
+        <form
+                onSubmit={submitForm}
+                onChange={updateFormData}
+                ref={form} 
+                className='flex flex-col items-center justify-center'
+        >
+            <Input
+                label='Nombre:'
+                type='text'
+                name='nombre'
+                defaultValue={queryData.Usuario.nombre}
+                required={true}
+                disabled={false}
+            />
+            <Input
+                label='Apellido:'
+                type='text'
+                name='apellido'
+                defaultValue={queryData.Usuario.apellido}
+                required={true}
+                disabled={false}
+            />
+            <Input
+                label='Identificacion:'
+                type='text'
+                name='identificacion'
+                defaultValue={queryData.Usuario.identificacion}
+                required={true}
+                disabled={false}
+            />
+            <Input
+                label='Correo:'
+                type='email'
+                name='correo'
+                defaultValue={queryData.Usuario.correo}
+                required={true}
+                disabled={false}
+            />
 
-                    <ButtonLoading
-                            disabled={Object.keys(formData).length === 0}
-                            loading={mutationLoadingPerfil}
-                            text='Confirmar'
-                    /> 
+             <ButtonLoading
+                    disabled={Object.keys(formData).length === 0}
+                    loading={mutationLoadingPerfil}
+                    text='Confirmar'
+            /> 
 
-                </form>   
-            </div>
-        </PrivateComponent>
-    </>
+
+
+
+        </form>
+        
+  </div>
 )
 };
 
