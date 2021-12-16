@@ -1,21 +1,24 @@
 import {gql} from '@apollo/client'
 
 const GET_INSCRIPCIONES= gql`
-    query SolicitudesInscripcion($_id: String!) {
-    SolicitudesInscripcion(_id: $_id) {
+    query buscarInscripciones {
+    Inscripciones {
+        estado
+        proyecto {
+        _id
         nombre
-        proyectosLiderados {
-        nombre
-        inscripciones {
-            estudiante {
-            nombre
-            apellido
-            }
+        lider {
+            _id
         }
+        }
+        estudiante {
+        _id
+        nombre
+        apellido
+        correo
         }
     }
     }
-
 `;
 
 

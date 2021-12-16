@@ -69,7 +69,7 @@ const CrearProyecto= () => {
                 className='flex flex-col items-center justify-center'
             >
 
-                <span className='uppercase'>Lider del proyecto: {queryData.Usuario.nombre + ' ' + queryData.Usuario.apellido}</span>
+                <span className='uppercase text-blue-600'>Lider del proyecto: {queryData.Usuario.nombre + ' ' + queryData.Usuario.apellido}</span>
                 <Input
                     label='Nombre del proyecto:'
                     type='text'

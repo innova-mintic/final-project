@@ -26,8 +26,8 @@ const SidebarLinks = () => {
       <SidebarRoute to='usuarios' title='Usuarios' icon='fas fa-user' />
       <SidebarRoute to='proyectos' title='Lista de proyectos' icon='fas fa-book-open' />
       <Acordeon />
-      <div className="logout">
-        <button className="btn btn-outline-primary" onClick={() => cerrarSesion()}>
+      <div className="logout" icon='fab fa-readme'>
+        <button className="btn btn-outline-primary fas fa-sign-out-alt" onClick={() => cerrarSesion()} >
           Log Out
         </button>
       </div>
@@ -39,7 +39,7 @@ const SidebarLinks = () => {
 const Logo = () => {
   return (
     <div className='py-3 w-full flex flex-col items-center justify-center'>
-      <img src='logo.png' alt='Logo' className='h-16' />
+      <img src='icon.png' alt='Logo' className='h-24' />
       <span className='my-2 text-xl font-bold text-center'>Gestor de Proyectos</span>
     </div>
   );
@@ -90,8 +90,8 @@ const SidebarRoute = ({ to, title, icon }) => {
         to={to}
         className={({ isActive }) =>
           isActive
-            ? 'sidebar-route text-white bg-indigo-700'
-            : 'sidebar-route text-gray-900 hover:text-white hover:bg-indigo-400'
+            ? 'sidebar-route text-white bg-blue-400'
+            : 'sidebar-route text-gray-900 hover:text-white hover:bg-blue-300'
         }
       >
         <div className='flex items-center'>
@@ -113,9 +113,10 @@ const Acordeon = () => {
             </button>
           </h2>
           <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-            <SidebarRoute to='misProyectos' title='Ver mis proyectos' icon='fas fa-book-open' />
-            <SidebarRoute to='crearProyecto' title='Crear proyecto' icon='fas fa-book-open' />
-            <SidebarRoute to='solicitudes' title='Solicitudes' icon='fas fa-book-open' />
+            <SidebarRoute to='misProyectos' title='Ver mis proyectos' icon='fab fa-readme' />
+            <SidebarRoute to='crearProyecto' title='Crear proyecto' icon='fas fa-folder-plus' />
+            <SidebarRoute to='solicitudes' title='Solicitudes de Estudiantes' icon='fas fa-user-plus' />
+            <SidebarRoute to='misInscripciones' title='Mis Inscripciones' icon='fas fa-address-card' />
           </div>
         </div>
       </div>

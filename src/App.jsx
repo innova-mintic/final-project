@@ -23,7 +23,7 @@ import MisProyectos from 'Pages/proyectos/misProyectos';
 import CrearProyecto from 'Pages/proyectos/crearProyecto';
 import EditarProyecto from 'Pages/proyectos/editar';
 import Solicitudes from 'Pages/proyectos/solicitudes';
-
+import MisInscripciones from 'Pages/proyectos/misInscripciones';
 
 /* const client= new ApolloClient({
   uri:'https://innova1.herokuapp.com/graphql',
@@ -61,7 +61,8 @@ function App() {
                         <Route  path='/proyectos/editar/:_id' element={<EditarProyecto/>}/>
                         <Route  path='/misProyectos' element={<MisProyectos/>}/>
                         <Route  path='/crearProyecto' element={<CrearProyecto/>}/>
-                        <Route  path='/solicitudes' element={<Solicitudes/>}/>        
+                        <Route  path='/solicitudes' element={<Solicitudes/>}/>      
+                        <Route  path='/misInscripciones' element={<MisInscripciones/>}/>    
                       </Route>
               </Routes>
           </Router>

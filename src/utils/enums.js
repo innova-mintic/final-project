@@ -28,4 +28,10 @@ const Enum_TipoObjetivo={
   ESPECIFICO:'Especifico',
 }
 
-  export { Enum_Rol, Enum_EstadoUsuario, Enum_EstadoProyecto , Enum_FaseProyecto,Enum_TipoObjetivo};
+const Enum_EstadoInscripcion={
+  ACEPTADO:'Aceptado',
+  RECHAZADO:'Rechazado',
+  PENDIENTE:'Pendiente',
+}
+
+  export { Enum_Rol, Enum_EstadoUsuario, Enum_EstadoProyecto , Enum_FaseProyecto,Enum_TipoObjetivo,Enum_EstadoInscripcion};
