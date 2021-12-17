@@ -25,3 +25,10 @@
   .tabla tr:hover {
     background-color: #ddd;
   }
+
+.tabla2 {
+    width: 60%;
+    margin-left:20%; 
+    margin-right:20%;
+    overflow-y: scroll;
+  }

@@ -9,6 +9,7 @@ import ButtonLoading from 'components/ButtonLoading';
 import DropDown from 'components/Dropdown';
 
 import { GET_USUARIO } from 'graphql/usuarios/queries';
+import { GET_USUARIOS } from 'graphql/usuarios/queries';
 import { EDITAR_USUARIO, ELIMINAR_USUARIO } from 'graphql/usuarios/mutations';
 import { Enum_EstadoUsuario } from 'utils/enums';
 
@@ -17,16 +18,13 @@ function EditarUsuario() {
 
     const {_id}=useParams();
 
-    const{data:queryData,error:queryError,loading:queryLoading}=useQuery(GET_USUARIO,{
-        variables:{_id}
-    });
+    const{data:queryData,error:queryError,loading:queryLoading}=useQuery(GET_USUARIO,{ variables:{_id}});
     
     console.log("el id es",_id); 
     console.log("los datos son",queryData); 
 
-    const [editarUsuario, {data:mutationData, loading:mutationLoading, error:mutationError}] = useMutation(EDITAR_USUARIO);
-
-    const [eliminarUsuario, {data:mutationDataEliminar, loading:mutationLoadingEliminar, error:mutationErrorEliminar}] = useMutation(ELIMINAR_USUARIO);
+    const [editarUsuario, {data:mutationData, loading:mutationLoading, error:mutationError}] = useMutation(EDITAR_USUARIO,
+        {refetchQueries:[{query:GET_USUARIOS} ] } );
 
     const submitForm = (e)=>{
         e.preventDefault(); 
@@ -39,12 +37,7 @@ function EditarUsuario() {
     
     useEffect(()=>{
         if (mutationData){
-            toast.success('Usuario modificado con exito',{
-                position: "top-right",
-                autoClose: 2000,
-                hideProgressBar: true,
-                closeOnClick: true,
-            });
+            toast.success('Usuario modificado con exito',{position: "top-right",autoClose: 2000, hideProgressBar: true,closeOnClick: true,});
         }
     }, [mutationData])
 

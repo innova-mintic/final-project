@@ -38,7 +38,6 @@ const MisProyectos= () => {
               <th>Fase</th>
               <th>Estado</th>
               <th>Nombre Lider</th>
-              <th>Ver mas</th>
             </tr>
           </thead>
           <tbody>
@@ -47,15 +46,14 @@ const MisProyectos= () => {
                 {queryDataProyecto.FiltrarProyectoPorLider.map((u) => {
                   return (
                     <tr key={u._id}>
-                      <td>{u.nombre}</td>
+                      <td>{u.nombre}
+                        <Link to={`/proyectos/editar/${u._id}`}>
+                          <i className='fas fa-book-reader text-yellow-600 hover:text-yellow-400 cursor-pointer px-3' />
+                        </Link> 
+                      </td>
                       <td>{Enum_EstadoProyecto[u.estado]}</td>
                       <td>{Enum_FaseProyecto[u.fase]}</td>
                       <td>{u.lider.nombre} {u.lider.apellido}</td>
-                      <td>
-                        <Link to={`/proyectos/editar/${u._id}`}>
-                          <i className='fas fa-book-reader text-yellow-600 hover:text-yellow-400 cursor-pointer' />
-                        </Link>
-                      </td>
                     </tr>
                   );
                 })}

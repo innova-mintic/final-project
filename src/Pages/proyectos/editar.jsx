@@ -1,5 +1,5 @@
 import React,{useEffect,useState} from 'react'
-import {useParams, Link} from 'react-router-dom'
+import {useParams, Link , useNavigate} from 'react-router-dom'
 import { useQuery, useMutation } from '@apollo/client';
 import useFormData from 'hook/useFormData';
 import {toast } from 'react-toastify';
@@ -13,11 +13,14 @@ import DropDown from 'components/Dropdown';
 
 import { Enum_EstadoProyecto , Enum_FaseProyecto} from 'utils/enums';
 import { GET_PROYECTO } from 'graphql/proyectos/queries';
+import { GET_PROYECTOS } from 'graphql/proyectos/queries';
 import {APROBAR_PROYECTO} from 'graphql/proyectos/mutations';
 import { CREAR_INSCRIPCION } from 'graphql/inscripcion/mutations';
-import { GET_USUARIO } from 'graphql/usuarios/queries';
+
 
 function EditarProyecto() {
+
+    const navigate  = useNavigate();
 
     const{form, formData,updateFormData} = useFormData(null);
     
@@ -25,7 +28,8 @@ function EditarProyecto() {
 
     const{data:queryDataProyecto,error:queryErrorProyecto,loading:queryLoadingProyecto}=useQuery(GET_PROYECTO,{variables:{_id} } );
 
-    const [editarProyecto, {data:mutationData, loading:mutationLoading, error:mutationError}] = useMutation(APROBAR_PROYECTO);
+    const [editarProyecto, {data:mutationData, loading:mutationLoading, error:mutationError}] = useMutation(APROBAR_PROYECTO,
+        {refetchQueries:[{query:GET_PROYECTOS} ] });
 
     const submitForm = (e)=>{
         e.preventDefault() 
@@ -59,9 +63,11 @@ function EditarProyecto() {
     if (queryDataProyecto.Proyecto) {
     return (
         <div className='flew flex-col w-full h-full items-center justify-center p-10'>
-            <Link to='/proyectos'>
+
+            <button onClick={() => navigate(-1)}>
                 <i className='fas fa-arrow-left text-gray-600 cursor-pointer font-bold text-xl hover:text-gray-900' />
-            </Link>
+            </button>
+
             <h1 className='m-4 text-3xl text-gray-800 font-bold text-center'>Informacion del Proyecto</h1>
             <form
                 onSubmit={submitForm}

@@ -32,8 +32,8 @@ const Proyectos= () => {
             <tr>
               <th>Nombre Proyecto</th>
               <th>Nombre Lider</th>
-              <th>Fase</th>
-              <th>Estado</th>
+              <th>Fase del Proyecto</th>
+              <th>Estado del Proyecto</th>
               <th>Ver mas</th>
             </tr>
           </thead>
