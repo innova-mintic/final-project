@@ -25,11 +25,10 @@ function EditarInscripcion() {
     const{data:queryDataInscripcion,error:queryErrorInscripcion,loading:queryLoadingInscripcion}=useQuery(GET_INSCRIPCION,{variables:{_id}});
     
     const [aprobarInscripcion, {data:mutationData, loading:mutationLoading, error:mutationError}] = useMutation(APROBAR_INSCRIPCION,
-        {refetchQueries:[{query:GET_INSCRIPCIONES},{query:GET_INSCRIPCION} ] } );
+        {refetchQueries:[{query:GET_INSCRIPCIONES},{query:GET_INSCRIPCION,variables:{_id}} ] } );
 
     const submitForm = (e)=>{
         e.preventDefault(); 
-        console.log("fg",formData)
         aprobarInscripcion({
             variables:{_id,...formData}
         })

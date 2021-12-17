@@ -64,6 +64,47 @@ const EDITAR_PROYECTO = gql`
     }
 `;
 
+const CREAR_OBJETIVO = gql`
+    mutation CrearObjetivoHU06(
+    $idProyecto: String!, 
+    $campos: camposObjetivo!
+    ) {
+    crearObjetivo(
+        idProyecto: $idProyecto, 
+        campos: $campos
+        ) {
+        objetivosEspecificos {
+        _id
+        descripcion
+        }
+    }
+    }
+`;
+
+
+
+const EDITAR_OBJETIVO = gql`
+mutation EditarObjetivo(
+    $idProyecto: String!, 
+    $indexObjetivo: Int!, 
+    $descripcion: String!
+    ) {
+    editarObjetivo(
+        idProyecto: $idProyecto, 
+        indexObjetivo: $indexObjetivo, 
+        descripcion: $descripcion
+        ) {
+        nombre
+        objetivoGeneral
+        objetivosEspecificos {
+        _id
+        descripcion
+        }
+    }
+    }
+`;
+
+
 const ELIMINAR_OBJETIVO = gql`
     mutation EliminarObjetivo(
     $idProyecto: String!, $idObjetivo: String!
@@ -83,4 +124,5 @@ const ELIMINAR_OBJETIVO = gql`
 `;
 
 
-export { EDITAR_PROYECTO,CREAR_PROYECTO,APROBAR_PROYECTO,ELIMINAR_OBJETIVO  };
+
+export { EDITAR_PROYECTO,CREAR_PROYECTO,APROBAR_PROYECTO,CREAR_OBJETIVO,EDITAR_OBJETIVO,ELIMINAR_OBJETIVO  };

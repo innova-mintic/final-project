@@ -17,6 +17,9 @@ import { GET_PROYECTOS } from 'graphql/proyectos/queries';
 import {APROBAR_PROYECTO} from 'graphql/proyectos/mutations';
 import { CREAR_INSCRIPCION } from 'graphql/inscripcion/mutations';
 import { GET_AVANCES } from 'graphql/proyectos/queries';
+import { Dialog } from '@mui/material';
+import { EDITAR_OBJETIVO } from 'graphql/proyectos/mutations';
+import { CREAR_OBJETIVO } from 'graphql/proyectos/mutations';
 
 function EditarProyecto() {
 
@@ -113,6 +116,7 @@ function EditarProyecto() {
                     />
                     <VerObjetivosEspecificos
                         objetivos={queryDataProyecto.Proyecto.objetivosEspecificos}
+                        idProyecto={queryDataProyecto.Proyecto._id}
                     />
                     <VerEstudiantes
                         inscripciones={queryDataProyecto.Proyecto.inscripciones}
@@ -152,9 +156,14 @@ function EditarProyecto() {
     return <></>;
 };
 
-const VerObjetivosEspecificos= ({objetivos})=>{
+
+
+const VerObjetivosEspecificos= ({objetivos,idProyecto})=>{
+
+    const [showEditDialog, setShowEditDialog]=useState(false);
+
     return(
-        <>                    
+        <>         
             <Accordion className='mt-3'>
                 <AccordionSummary className='flex flex-col items-center justify-center'>Ver objetivos especificos</AccordionSummary>
                     <table className='tabla tabla3' >
@@ -165,23 +174,152 @@ const VerObjetivosEspecificos= ({objetivos})=>{
                         </tr>
                         </thead>
                         <tbody>
-                        {objetivos.map((u,i) => {
-                            return (
-                                <tr key={u._id}>
-                                    <td>{i+1}</td>
-                                    <td>{u.descripcion}
-                                        <Link to={`/solicitudes/editar/${u._id}`}>
-                                            <i className='fas fa-pen text-yellow-600 hover:text-yellow-400 cursor-pointer px-3' />
-                                        </Link> 
-                                    </td>
-                                </tr>
-                            )
-                        })}
+                        {objetivos.map((u,i) =>(
+                            <Objetivo 
+                                _id={u._id}
+                                descripcion={u.descripcion}
+                                index={i}
+                                idProyecto={idProyecto}          
+                            />
+                        ))}
                         </tbody>
-                    </table>    
+                    </table>   
+                    <i
+                        onClick={()=>setShowEditDialog(true)}
+                        className='fas fa-plus rounded-full bg-green-500 hover:bg-green-400 text-white p-2 mx-20 cursor-pointer flex flex-col items-center justify-center '
+                     />
+                    <Dialog open={showEditDialog} onClose={()=>setShowEditDialog(false)}>
+                        <AgregarObjetivo
+                            idProyecto={idProyecto}  
+
+                        />
+                     </Dialog>
+
+
             </Accordion>                 
         </>
     );
+}
+
+
+
+const Objetivo =({_id,descripcion,index,idProyecto})=>{
+    
+    const [showEditDialog, setShowEditDialog]=useState(false);
+    
+    return (
+        <tr key={_id}>
+            <td>{index+1}</td>
+            <td>{descripcion}
+                <i 
+                    onClick={()=>setShowEditDialog(true)}
+                    className='fas fa-pen text-yellow-600 hover:text-yellow-400 cursor-pointer px-3' 
+                    />
+                <Dialog open={showEditDialog} onClose={()=>setShowEditDialog(false)}>
+                    <EditarObjetivo 
+                        descripcion={descripcion}
+                        index={index}
+                        idProyecto={idProyecto}
+                        />
+                </Dialog>
+            </td>
+        </tr>
+    )
+}
+const AgregarObjetivo=({idProyecto})=>{
+
+    const {_id}=useParams();
+
+    const{form, formData,updateFormData} = useFormData(null);
+
+    const [crearObjetivo, {data:mutationDataObjetivoNuevo, loading:mutationLoadingObjetivoNuevo, error:mutationErrorObjetivoNuevo}] = useMutation(CREAR_OBJETIVO,
+        {refetchQueries:[{query:GET_PROYECTO,variables:{_id} } ] });
+
+    const submitForm = (e)=>{
+        e.preventDefault() 
+        console.log('form:',formData)
+        crearObjetivo({ 
+            variables:{
+                idProyecto:idProyecto, 
+                campos:{
+                        descripcion:formData.descripcion
+                }
+            } 
+        } )    
+    };
+
+    return(
+        <div className='p-4'>
+            <h1 className='text-2xl font-bold-text-gray-900 text-blue-600 flex flex-col items-center justify-center'>Nuevo objetivo</h1>
+            <form
+                onSubmit={submitForm}
+                onChange={updateFormData}
+                ref={form} 
+                className='flex flex-col items-center justify-center'
+            >    
+                <Input
+                        label='Descripcion:'
+                        type='text'
+                        name='descripcion'
+                        defaultValue={false}
+                        required={true}
+                        className='input widthInput'
+                />
+                <ButtonLoading
+                        disabled={Object.keys(formData).length === 0}
+                        loading={mutationLoadingObjetivoNuevo}
+                        text='Confirmar'
+                /> 
+            </form>    
+        </div>
+    ) 
+}
+
+const EditarObjetivo=({descripcion,index,idProyecto})=>{
+
+    const {_id}=useParams();
+    
+    const{form, formData,updateFormData} = useFormData(null);
+
+    const [editarObjetivo, {data:mutationDataObjetivo, loading:mutationLoadingObjetivo, error:mutationErrorObjetivo}] = useMutation(EDITAR_OBJETIVO,
+        {refetchQueries:[{query:GET_PROYECTO,variables:{_id} } ] });
+
+    const submitForm = (e)=>{
+        e.preventDefault() 
+        console.log('form2:',formData)
+        editarObjetivo({ 
+            variables:{
+                idProyecto:idProyecto, 
+                indexObjetivo:index, 
+                descripcion:formData.descripcion
+            } 
+        } )    
+    };
+    return(
+        <div className='p-4'>
+            <h1 className='text-2xl font-bold-text-gray-900 text-blue-600 flex flex-col items-center justify-center'>Editar objetivo</h1>
+            <form
+                onSubmit={submitForm}
+                onChange={updateFormData}
+                ref={form} 
+                className='flex flex-col items-center justify-center'
+            >    
+                <Input
+                        label='Descripcion:'
+                        type='text'
+                        name='descripcion'
+                        defaultValue={descripcion}
+                        required={true}
+                        className='input widthInput'
+                />
+                <ButtonLoading
+                        disabled={Object.keys(formData).length === 0}
+                        loading={mutationLoadingObjetivo}
+                        text='Confirmar'
+                /> 
+            </form>    
+        </div>
+    ) 
 }
 
 const VerEstudiantes= ({inscripciones})=>{
@@ -213,6 +351,8 @@ const VerEstudiantes= ({inscripciones})=>{
         </>
     );
 }
+
+
 const VerAvancesProyecto= ({idProyecto})=>{
 
     const{data:queryDataAvances,error:queryErrorAvances,loading:queryLoadingAvances}=useQuery(GET_AVANCES,{variables:{_id:idProyecto} } );
