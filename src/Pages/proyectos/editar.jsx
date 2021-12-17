@@ -16,7 +16,7 @@ import { GET_PROYECTO } from 'graphql/proyectos/queries';
 import { GET_PROYECTOS } from 'graphql/proyectos/queries';
 import {APROBAR_PROYECTO} from 'graphql/proyectos/mutations';
 import { CREAR_INSCRIPCION } from 'graphql/inscripcion/mutations';
-
+import { GET_AVANCES } from 'graphql/proyectos/queries';
 
 function EditarProyecto() {
 
@@ -33,7 +33,6 @@ function EditarProyecto() {
 
     const submitForm = (e)=>{
         e.preventDefault() 
-        console.log("los datos son:",formData)
         editarProyecto({ variables:{_id,...formData} } )    
     };
 
@@ -55,10 +54,6 @@ function EditarProyecto() {
 
     if (queryLoadingProyecto) return <div> Cargando...</div>
 
-    
-    /* console.log('los avances son:',queryDataAvances.buscarAvances.map( (u)=> u.descripcion ) ) */
-      console.log('el id es:',queryDataProyecto.Proyecto._id)
-    /* console.log('los avances con el otro query son:',queryDataProyecto.Proyecto.avances.map( (u)=> u.descripcion ) ) */
 
     if (queryDataProyecto.Proyecto) {
     return (
@@ -100,14 +95,14 @@ function EditarProyecto() {
                         required={true}
                         disabled={true}
                     />
-                    <Input
+{/*                     <Input
                         label='Fecha Fin:'
                         type='text'
                         name='fechaFin'
                         defaultValue={queryDataProyecto.Proyecto.fechaFin}
                         required={true}
                         disabled={true}
-                    />
+                    /> */}
                     <Input
                         label='Objetivo General:'
                         type='text'
@@ -116,12 +111,14 @@ function EditarProyecto() {
                         required={true}
                         className='input widthInput'
                     />
-                     <VerObjetivosEspecificos
-
+                    <VerObjetivosEspecificos
                         objetivos={queryDataProyecto.Proyecto.objetivosEspecificos}
                     />
+                    <VerEstudiantes
+                        inscripciones={queryDataProyecto.Proyecto.inscripciones}
+                    />
                     <VerAvancesProyecto 
-                        avances={queryDataProyecto.Proyecto.avances}
+                        idProyecto={queryDataProyecto.Proyecto._id}
                     />
                     <DropDown
                         label='Estado del proyecto:'
@@ -159,23 +156,95 @@ const VerObjetivosEspecificos= ({objetivos})=>{
     return(
         <>                    
             <Accordion className='mt-3'>
-                <AccordionSummary>Ver objetivos especificos</AccordionSummary>
-                    {objetivos.map( (u)=>{
-                            return (<AccordionDetails> {u.descripcion}</AccordionDetails>)
-                    })}
+                <AccordionSummary className='flex flex-col items-center justify-center'>Ver objetivos especificos</AccordionSummary>
+                    <table className='tabla tabla3' >
+                        <thead>
+                        <tr>
+                            <th>Numero</th>
+                            <th>Descripcion</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {objetivos.map((u,i) => {
+                            return (
+                                <tr key={u._id}>
+                                    <td>{i+1}</td>
+                                    <td>{u.descripcion}
+                                        <Link to={`/solicitudes/editar/${u._id}`}>
+                                            <i className='fas fa-pen text-yellow-600 hover:text-yellow-400 cursor-pointer px-3' />
+                                        </Link> 
+                                    </td>
+                                </tr>
+                            )
+                        })}
+                        </tbody>
+                    </table>    
             </Accordion>                 
         </>
     );
 }
 
-const VerAvancesProyecto= ({avances})=>{
+const VerEstudiantes= ({inscripciones})=>{
+    const inscripcionesAceptadas = inscripciones.filter((el)=>el.estado==='ACEPTADO')
+    
     return(
         <>                    
             <Accordion className='mt-3'>
-                <AccordionSummary>Ver avances</AccordionSummary>
-                    {avances.map( (u)=>{
-                            return (<AccordionDetails> {u.descripcion}</AccordionDetails>)
-                    })}
+                <AccordionSummary className='flex flex-col items-center justify-center'>Ver estudiantes aceptados</AccordionSummary>
+                    <table className='tabla tabla3' >
+                        <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Fecha de Ingreso</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {inscripcionesAceptadas.map((u) => {
+                            return (
+                                <tr key={u._id}>
+                                    <td>{u.estudiante.nombre} {u.estudiante.apellido}</td>
+                                    <td>{u.fechaIngreso.slice(0,-14)} </td>
+                                </tr>
+                            )
+                        })}
+                        </tbody>
+                    </table>    
+            </Accordion>                 
+        </>
+    );
+}
+const VerAvancesProyecto= ({idProyecto})=>{
+
+    const{data:queryDataAvances,error:queryErrorAvances,loading:queryLoadingAvances}=useQuery(GET_AVANCES,{variables:{_id:idProyecto} } );
+
+    if (queryLoadingAvances) return <div> Cargando...</div>
+
+    return(
+        <>                    
+            <Accordion className='mt-3'>
+                <AccordionSummary className='flex flex-col items-center justify-center'>Ver avances</AccordionSummary>
+                    <table className='tabla tabla3' >
+                        <thead>
+                        <tr>
+                            <th>Numero</th>
+                            <th>Descripcion</th>
+                            <th>Creado Por</th>
+                            <th>Fecha de Creacion</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {queryDataAvances.buscarAvances.map((u,i) => {
+                            return (
+                                <tr key={u._id}>
+                                    <td>{i+1}</td>
+                                    <td>{u.descripcion}</td>
+                                    <td>{u.creadoPor.nombre} {u.creadoPor.apellido}</td>
+                                    <td>{u.fecha.slice(0,-14)}</td>
+                                </tr>
+                            )
+                        })}
+                        </tbody>
+                    </table>    
             </Accordion>                 
         </>
     );
@@ -196,8 +265,6 @@ const InscricpionProyecto= ({ idProyecto,estado, inscripciones }) => {
     useEffect(() => {
         if (inscripciones) {
             const flt = inscripciones.filter((el) => el.estudiante._id === _idUsuario);
-            console.log('filt:',inscripciones.map( (u)=> u.estudiante._id));
-            console.log('filt:',flt)
             if (flt.length > 0) {
             setEstadoInscripcion(flt[0].estado);
             }
@@ -218,7 +285,7 @@ const InscricpionProyecto= ({ idProyecto,estado, inscripciones }) => {
 
     return(
         <>
-            {estadoInscripcion !=='' ? (<span className='flex flex-col items-center justify-center'>Ya estas inscrito en este proyecto y el estado es {estadoInscripcion} </span>
+            {estadoInscripcion !=='' ? (<span className='flex flex-col items-center justify-center text-red-400'>Ya estas inscrito en este proyecto y el estado es: {estadoInscripcion} </span>
             ):(
                 <div onClick={()=>confirmarInscripcion()} className='flex flex-col items-center justify-center' >
                     <ButtonLoading

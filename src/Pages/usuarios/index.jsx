@@ -12,19 +12,22 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Tooltip, Dialog } from '@material-ui/core';
 
 import { GET_USUARIOS } from 'graphql/usuarios/queries';
-import { ELIMINAR_USUARIO } from 'graphql/usuarios/mutations';
+import { GET_ESTUDIANTES } from 'graphql/usuarios/queries';
 import { Enum_Rol , Enum_EstadoUsuario } from 'utils/enums';
 
 
 
 const Usuarios= () => {
-  const {data, error, loading}=useQuery(GET_USUARIOS);
-  const [eliminarUsuario, {data:mutationData, loading:mutationLoading, error:mutationError}] = useMutation(ELIMINAR_USUARIO);
 
-  console.log("los datos son",data); 
-  const [openDialog, setOpenDialog] = useState(false);
+  const {data, error, loading}=useQuery(GET_USUARIOS);
+
+  const {data:dataEstudiantes, error:errorEstudiantes, loading:loadingEstudiantes}=useQuery(GET_ESTUDIANTES,{ variables:{rol:'ESTUDIANTE'}});
 
   if (loading) return <div> Cargando usuarios...</div>
+  if (loadingEstudiantes) return <div> Cargando estudiantes...</div>
+
+  console.log("los datos son", data); 
+  console.log("los datos son", dataEstudiantes); 
 
   return (
     <div>
