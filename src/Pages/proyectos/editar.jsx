@@ -6,6 +6,7 @@ import {toast } from 'react-toastify';
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
+import { Dialog } from '@mui/material';
 
 import Input from 'components/Input'
 import ButtonLoading from 'components/ButtonLoading';
@@ -16,10 +17,12 @@ import { GET_PROYECTO } from 'graphql/proyectos/queries';
 import { GET_PROYECTOS } from 'graphql/proyectos/queries';
 import {APROBAR_PROYECTO} from 'graphql/proyectos/mutations';
 import { CREAR_INSCRIPCION } from 'graphql/inscripcion/mutations';
-import { GET_AVANCES } from 'graphql/proyectos/queries';
-import { Dialog } from '@mui/material';
 import { EDITAR_OBJETIVO } from 'graphql/proyectos/mutations';
 import { CREAR_OBJETIVO } from 'graphql/proyectos/mutations';
+import { GET_AVANCES } from 'graphql/avances/queries';
+import { CREAR_AVANCE } from 'graphql/avances/mutations';
+import { ELIMINAR_OBJETIVO } from 'graphql/proyectos/mutations';
+
 
 function EditarProyecto() {
 
@@ -176,7 +179,7 @@ const VerObjetivosEspecificos= ({objetivos,idProyecto})=>{
                         <tbody>
                         {objetivos.map((u,i) =>(
                             <Objetivo 
-                                _id={u._id}
+                                idObjetivo={u._id}
                                 descripcion={u.descripcion}
                                 index={i}
                                 idProyecto={idProyecto}          
@@ -188,10 +191,11 @@ const VerObjetivosEspecificos= ({objetivos,idProyecto})=>{
                         onClick={()=>setShowEditDialog(true)}
                         className='fas fa-plus rounded-full bg-green-500 hover:bg-green-400 text-white p-2 mx-20 cursor-pointer flex flex-col items-center justify-center '
                      />
+
                     <Dialog open={showEditDialog} onClose={()=>setShowEditDialog(false)}>
                         <AgregarObjetivo
                             idProyecto={idProyecto}  
-
+                            setShowEditDialog={setShowEditDialog}
                         />
                      </Dialog>
 
@@ -203,41 +207,55 @@ const VerObjetivosEspecificos= ({objetivos,idProyecto})=>{
 
 
 
-const Objetivo =({_id,descripcion,index,idProyecto})=>{
+const Objetivo =({idObjetivo,descripcion,index,idProyecto})=>{
+    
     
     const [showEditDialog, setShowEditDialog]=useState(false);
     
+    const [showEditDialogDelete, setShowEditDialogDelete]=useState(false);
+
+
     return (
-        <tr key={_id}>
+        <tr key={idObjetivo}>
             <td>{index+1}</td>
             <td>{descripcion}
                 <i 
                     onClick={()=>setShowEditDialog(true)}
                     className='fas fa-pen text-yellow-600 hover:text-yellow-400 cursor-pointer px-3' 
                     />
+                <i
+                    onClick={()=>setShowEditDialogDelete(true)}
+                    className='fas fa-trash rounded-full bg-red-200 hover:bg-red-400 cursor-pointer px-2 '
+                />   
                 <Dialog open={showEditDialog} onClose={()=>setShowEditDialog(false)}>
                     <EditarObjetivo 
                         descripcion={descripcion}
                         index={index}
                         idProyecto={idProyecto}
+                        setShowEditDialog={setShowEditDialog}
+                        />
+                </Dialog>
+
+                <Dialog open={showEditDialogDelete} onClose={()=>setShowEditDialogDelete(false)}>
+                    <EliminarObjetivo
+                        idObjetivo={idObjetivo}
+                        idProyecto={idProyecto}
+                        setShowEditDialogDelete={setShowEditDialogDelete}
                         />
                 </Dialog>
             </td>
         </tr>
     )
 }
-const AgregarObjetivo=({idProyecto})=>{
-
-    const {_id}=useParams();
+const AgregarObjetivo=({idProyecto,setShowEditDialog})=>{
 
     const{form, formData,updateFormData} = useFormData(null);
 
     const [crearObjetivo, {data:mutationDataObjetivoNuevo, loading:mutationLoadingObjetivoNuevo, error:mutationErrorObjetivoNuevo}] = useMutation(CREAR_OBJETIVO,
-        {refetchQueries:[{query:GET_PROYECTO,variables:{_id} } ] });
+        {refetchQueries:[{query:GET_PROYECTO,variables:{_id:idProyecto} } ] });
 
     const submitForm = (e)=>{
         e.preventDefault() 
-        console.log('form:',formData)
         crearObjetivo({ 
             variables:{
                 idProyecto:idProyecto, 
@@ -247,6 +265,12 @@ const AgregarObjetivo=({idProyecto})=>{
             } 
         } )    
     };
+
+    useEffect(() => {
+        if(mutationLoadingObjetivoNuevo){
+            setShowEditDialog(false);
+        }
+    }, [mutationLoadingObjetivoNuevo])
 
     return(
         <div className='p-4'>
@@ -261,7 +285,7 @@ const AgregarObjetivo=({idProyecto})=>{
                         label='Descripcion:'
                         type='text'
                         name='descripcion'
-                        defaultValue={false}
+                        defaultValue=''
                         required={true}
                         className='input widthInput'
                 />
@@ -275,18 +299,16 @@ const AgregarObjetivo=({idProyecto})=>{
     ) 
 }
 
-const EditarObjetivo=({descripcion,index,idProyecto})=>{
 
-    const {_id}=useParams();
-    
+const EditarObjetivo=({descripcion,index,idProyecto,setShowEditDialog})=>{
+
     const{form, formData,updateFormData} = useFormData(null);
 
     const [editarObjetivo, {data:mutationDataObjetivo, loading:mutationLoadingObjetivo, error:mutationErrorObjetivo}] = useMutation(EDITAR_OBJETIVO,
-        {refetchQueries:[{query:GET_PROYECTO,variables:{_id} } ] });
+        {refetchQueries:[{query:GET_PROYECTO,variables:{_id:idProyecto} } ] });
 
     const submitForm = (e)=>{
         e.preventDefault() 
-        console.log('form2:',formData)
         editarObjetivo({ 
             variables:{
                 idProyecto:idProyecto, 
@@ -295,6 +317,13 @@ const EditarObjetivo=({descripcion,index,idProyecto})=>{
             } 
         } )    
     };
+
+    useEffect(() => {
+        if(mutationLoadingObjetivo){
+            setShowEditDialog(false);
+        }
+    }, [mutationLoadingObjetivo])
+
     return(
         <div className='p-4'>
             <h1 className='text-2xl font-bold-text-gray-900 text-blue-600 flex flex-col items-center justify-center'>Editar objetivo</h1>
@@ -318,6 +347,36 @@ const EditarObjetivo=({descripcion,index,idProyecto})=>{
                         text='Confirmar'
                 /> 
             </form>    
+        </div>
+    ) 
+}
+
+const EliminarObjetivo=({idObjetivo,idProyecto,setShowEditDialogDelete})=>{
+
+    const [eliminarObjetivo, {data:mutationDataObjetivoEliminar, loading:mutationLoadingObjetivoEliminar, error:mutationErrorObjetivoEliminar}] = useMutation(ELIMINAR_OBJETIVO,
+        {refetchQueries:[{query:GET_PROYECTO,variables:{_id:idProyecto} } ] });
+
+    const confirmarEliminacion=()=>{
+        eliminarObjetivo({variables:{idObjetivo,idProyecto}})  
+    }
+
+    useEffect(() => {
+        if(mutationLoadingObjetivoEliminar){
+            setShowEditDialogDelete(false);
+        }
+    }, [mutationLoadingObjetivoEliminar])
+
+    return(
+        <div className='p-4'>
+            <h1 className='text-2xl font-bold-text-gray-900 text-blue-600 flex flex-col items-center justify-center'>¿Seguro que desea eliminar el objetivo?</h1>
+            <div onClick={()=>confirmarEliminacion()} className='flex flex-col items-center justify-center' >
+                <ButtonLoading
+                        disabled={false}
+                        loading={mutationLoadingObjetivoEliminar}
+                        text='Si'
+                /> 
+            </div>
+       
         </div>
     ) 
 }
@@ -355,6 +414,8 @@ const VerEstudiantes= ({inscripciones})=>{
 
 const VerAvancesProyecto= ({idProyecto})=>{
 
+    const [showEditDialog, setShowEditDialog]=useState(false);
+
     const{data:queryDataAvances,error:queryErrorAvances,loading:queryLoadingAvances}=useQuery(GET_AVANCES,{variables:{_id:idProyecto} } );
 
     if (queryLoadingAvances) return <div> Cargando...</div>
@@ -384,10 +445,69 @@ const VerAvancesProyecto= ({idProyecto})=>{
                             )
                         })}
                         </tbody>
-                    </table>    
+                    </table>
+                    <i
+                        onClick={()=>setShowEditDialog(true)}
+                        className='fas fa-plus rounded-full bg-green-500 hover:bg-green-400 text-white p-2 mx-20 cursor-pointer flex flex-col items-center justify-center '
+                     />
+                    <Dialog open={showEditDialog} onClose={()=>setShowEditDialog(false)}>
+                        <AgregarAvance
+                            idProyecto={idProyecto}  
+                        />
+                     </Dialog>
+
+
             </Accordion>                 
         </>
     );
+}
+
+const AgregarAvance=({idProyecto})=>{
+
+    const idEstudiante="61b2d874306e8c15bf8f4533"
+
+    const{form, formData,updateFormData} = useFormData(null);
+
+    const [crearAvance, {data:mutationDataAvance, loading:mutationLoadingAvance, error:mutationErrorAvance}] = useMutation(CREAR_AVANCE,
+        {refetchQueries:[{query:GET_AVANCES,variables:{_id:idProyecto} } ] });
+
+    const submitForm = (e)=>{
+        e.preventDefault() 
+        crearAvance({ 
+            variables:{
+                proyecto:idProyecto, 
+                creadoPor:idEstudiante,
+                descripcion:formData.descripcion
+
+            } 
+        } )    
+    };
+
+    return(
+        <div className='p-4'>
+            <h1 className='text-2xl font-bold-text-gray-900 text-blue-600 flex flex-col items-center justify-center'>Nuevo Avance</h1>
+            <form
+                onSubmit={submitForm}
+                onChange={updateFormData}
+                ref={form} 
+                className='flex flex-col items-center justify-center'
+            >    
+                <Input
+                        label='Descripcion:'
+                        type='text'
+                        name='descripcion'
+                        defaultValue=''
+                        required={true}
+                        className='input widthInput'
+                />
+                <ButtonLoading
+                        disabled={Object.keys(formData).length === 0}
+                        loading={mutationLoadingAvance}
+                        text='Confirmar'
+                /> 
+            </form>    
+        </div>
+    ) 
 }
 
 

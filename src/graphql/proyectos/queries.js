@@ -28,6 +28,7 @@ const GET_PROYECTO=gql`
         fase
         objetivoGeneral
         objetivosEspecificos{
+            _id
             descripcion
                 }
         lider {
@@ -67,25 +68,4 @@ const GET_PROYECTO_LIDER=gql`
 `;
 
 
-
-
-const GET_AVANCES=gql`
-    query BuscarAvances(
-    $_id: String!
-    ) {
-    buscarAvances(
-        _id: $_id
-        ) {
-        descripcion
-        fecha
-        creadoPor {
-            nombre
-            apellido
-        }
-    }
-    }
-`;
-
-
-
-export {GET_PROYECTOS,GET_PROYECTO,GET_PROYECTO_LIDER,GET_AVANCES};
+export {GET_PROYECTOS,GET_PROYECTO,GET_PROYECTO_LIDER};
