@@ -2,6 +2,9 @@
   "name": "project",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "14.x"
+  },
   "dependencies": {
     "@apollo/client": "^3.5.5",
     "@auth0/auth0-react": "^1.8.0",
