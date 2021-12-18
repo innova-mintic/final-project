@@ -1,34 +1,5 @@
 import {gql} from '@apollo/client'
 
-const EDITAR_PROYECTO = gql`
-    mutation EditarProyecto(
-    $nombre: String, 
-    $presupuesto: String, 
-    $fechaInicio: Date, 
-    $fechaFin: Date, 
-    $estado: Enum_EstadoProyecto, 
-    $fase: Enum_FaseProyecto, 
-    $lider: String
-    ) {
-    editarProyecto(
-        _id: $_id, 
-        nombre: $nombre, 
-        presupuesto: $presupuesto, 
-        fechaInicio: $fechaInicio, 
-        fechaFin: $fechaFin, 
-        estado: $estado, 
-        fase: $fase, 
-        lider: $lider
-        ) {
-            nombre
-            fase
-            presupuesto
-            fechaInicio
-            fechaFin
-            estado
-    }
-}
-`;
 
 const CREAR_PROYECTO = gql`
     mutation CrearProyecto(
@@ -73,6 +44,85 @@ const APROBAR_PROYECTO = gql`
     }
 `;
 
+const EDITAR_PROYECTO = gql`
+    mutation EditarProyecto(
+    $id: String!, 
+    $nombre: String!, 
+    $presupuesto: String!, 
+    $objetivoGeneral: String!
+    ) {
+    editarProyecto(
+        _id: $id, 
+        nombre: $nombre, 
+        presupuesto: $presupuesto,
+        objetivoGeneral: 
+        $objetivoGeneral
+        ) {
+        nombre
+        objetivoGeneral
+    }
+    }
+`;
+
+const CREAR_OBJETIVO = gql`
+    mutation CrearObjetivoHU06(
+    $idProyecto: String!, 
+    $campos: camposObjetivo!
+    ) {
+    crearObjetivo(
+        idProyecto: $idProyecto, 
+        campos: $campos
+        ) {
+        objetivosEspecificos {
+        _id
+        descripcion
+        }
+    }
+    }
+`;
 
 
-export { EDITAR_PROYECTO,CREAR_PROYECTO,APROBAR_PROYECTO };
+
+const EDITAR_OBJETIVO = gql`
+mutation EditarObjetivo(
+    $idProyecto: String!, 
+    $indexObjetivo: Int!, 
+    $descripcion: String!
+    ) {
+    editarObjetivo(
+        idProyecto: $idProyecto, 
+        indexObjetivo: $indexObjetivo, 
+        descripcion: $descripcion
+        ) {
+        nombre
+        objetivoGeneral
+        objetivosEspecificos {
+        _id
+        descripcion
+        }
+    }
+    }
+`;
+
+
+const ELIMINAR_OBJETIVO = gql`
+    mutation EliminarObjetivo(
+    $idProyecto: String!, $idObjetivo: String!
+    ) {
+    eliminarObjetivo(
+        idProyecto: $idProyecto, 
+        idObjetivo: $idObjetivo
+        ) {
+        nombre
+        objetivoGeneral
+        objetivosEspecificos {
+        _id
+        descripcion
+        }
+    }
+    }
+`;
+
+
+
+export { EDITAR_PROYECTO,CREAR_PROYECTO,APROBAR_PROYECTO,CREAR_OBJETIVO,EDITAR_OBJETIVO,ELIMINAR_OBJETIVO  };

@@ -16,7 +16,19 @@ const CREAR_INSCRIPCION= gql`
     }
 `;
 
+const APROBAR_INSCRIPCION= gql`
+    mutation AprobarInscripcion(
+    $_id: String!, 
+    $estado: Enum_EstadoInscripcion!
+    ) {
+    aprobarInscripcion(
+        _id: $_id, 
+        estado: $estado
+        ) {
+        estado
+    }
+    }
+`;
 
 
-
-export { CREAR_INSCRIPCION };
+export { CREAR_INSCRIPCION,APROBAR_INSCRIPCION };

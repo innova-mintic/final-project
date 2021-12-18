@@ -28,8 +28,18 @@ const GET_USUARIO=gql`
     }
 `;
 
+const GET_ESTUDIANTES=gql`
+    query BuscarEstudiantes($rol: Enum_Rol!){
+    Estudiantes(rol: $rol) {
+        nombre
+        apellido
+        identificacion
+        correo
+        rol
+    }
+    }
+`;
 
 
 
-
-export {GET_USUARIOS,GET_USUARIO};
+export {GET_USUARIOS,GET_USUARIO,GET_ESTUDIANTES};
