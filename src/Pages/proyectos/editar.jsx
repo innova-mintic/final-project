@@ -23,6 +23,10 @@ import { GET_AVANCES } from 'graphql/avances/queries';
 import { CREAR_AVANCE } from 'graphql/avances/mutations';
 import { ELIMINAR_OBJETIVO } from 'graphql/proyectos/mutations';
 
+import { GET_USUARIO } from 'graphql/usuarios/queries';
+import {EDITAR_PROYECTO} from 'graphql/proyectos/mutations';
+import PrivateComponent from 'components/PrivateComponent';
+
 
 function EditarProyecto() {
 

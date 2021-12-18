@@ -17,6 +17,8 @@ import { Enum_Rol , Enum_EstadoUsuario } from 'utils/enums';
 
 
 
+import PrivateComponent from 'components/PrivateComponent';
+
 const Usuarios= () => {
 
   const {data, error, loading}=useQuery(GET_USUARIOS);
@@ -69,6 +71,7 @@ const Usuarios= () => {
             )}
           </tbody>
         </table>
+        
     </div>
   )
 };

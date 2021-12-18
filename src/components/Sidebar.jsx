@@ -7,6 +7,7 @@ import '../styles/sidebar.css'
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
+import PrivateComponent from './PrivateComponent';
 
 
 const SidebarLinks = () => {
@@ -20,14 +21,30 @@ const SidebarLinks = () => {
 
   return (
     <ul className='mt-12'>
+
       <SidebarRoute to='inicio' title='Inicio' icon='fas fa-home' />
-      <SidebarRoute to='crearUsuario' title='Registro' icon='fas fa-smile-wink' />
-      <SidebarRoute to='perfil' title='Perfil' icon='fas fa-smile-wink' />
-      <SidebarRoute to='usuarios' title='Usuarios' icon='fas fa-user' />
-      <SidebarRoute to='proyectos' title='Lista de proyectos' icon='fas fa-book-open' />
+
+      <PrivateComponent roleList={['ADMINISTRADOR', 'LIDER','ESTUDIANTE']}>
+        <SidebarRoute to='crearUsuario' title='Registro' icon='fas fa-smile-wink' />
+      </PrivateComponent>
+
+      <PrivateComponent roleList={['ADMINISTRADOR', 'LIDER','ESTUDIANTE']}>
+        <SidebarRoute to='perfil' title='Perfil' icon='fas fa-smile-wink' />
+      </PrivateComponent>
+
+      <PrivateComponent roleList={['ADMINISTRADOR', 'LIDER']}>
+        <SidebarRoute to='usuarios' title='Usuarios' icon='fas fa-user' />
+      </PrivateComponent>
+
+      
+      <PrivateComponent roleList={['ADMINISTRADOR', 'LIDER','ESTUDIANTE']}>
+        <SidebarRoute to='proyectos' title='Lista de Proyectos' icon='fas fa-book-open' />
+      </PrivateComponent>
+
       <Acordeon />
-      <div className="logout" icon='fab fa-readme'>
-        <button className="btn btn-outline-primary fas fa-sign-out-alt" onClick={() => cerrarSesion()} >
+
+      <div className="logout">
+        <button className="btn btn-outline-primary fas fa-sign-out-alt" onClick={() => cerrarSesion()}>
           Log Out
         </button>
       </div>
@@ -113,10 +130,23 @@ const Acordeon = () => {
             </button>
           </h2>
           <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-            <SidebarRoute to='misProyectos' title='Ver mis proyectos' icon='fab fa-readme' />
-            <SidebarRoute to='crearProyecto' title='Crear proyecto' icon='fas fa-folder-plus' />
-            <SidebarRoute to='solicitudes' title='Solicitudes de Estudiantes' icon='fas fa-user-plus' />
-            <SidebarRoute to='misInscripciones' title='Mis Inscripciones' icon='fas fa-address-card' />
+
+            <PrivateComponent roleList={['LIDER', 'ESTUDIANTE']}>
+              <SidebarRoute to='misProyectos' title='Ver mis proyecto' icon='fab fa-readme' />
+            </PrivateComponent>
+
+            <PrivateComponent roleList={['LIDER']}>
+              <SidebarRoute to='crearProyecto' title='Crear proyectos' icon='fas fa-folder-plus' />
+            </PrivateComponent>
+
+            <PrivateComponent roleList={['LIDER']}>
+              <SidebarRoute to='solicitudes' title='Solicitudes de Estudiantes' icon='fas fa-user-plus' />
+            </PrivateComponent>
+
+            <PrivateComponent roleList={['ESTUDIANTE']}>
+              <SidebarRoute to='misInscripciones' title='Mis Inscripciones' icon='fas fa-address-card' />
+            </PrivateComponent>
+
           </div>
         </div>
       </div>

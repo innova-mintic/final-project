@@ -2,6 +2,7 @@ import React  from 'react';
 import { useQuery } from '@apollo/client';
 import {useParams, Link} from 'react-router-dom'
 import 'react-toastify/dist/ReactToastify.css';
+import PrivateComponent from 'components/PrivateComponent';
 
 import { Enum_EstadoInscripcion } from 'utils/enums';
 import { GET_INSCRIPCIONES } from 'graphql/inscripcion/queries';

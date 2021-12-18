@@ -33,6 +33,7 @@ function EditarUsuario() {
         editarUsuario({
             variables:{_id,...formData}
         })
+        window.location="/usuarios";
     };
     
     useEffect(()=>{

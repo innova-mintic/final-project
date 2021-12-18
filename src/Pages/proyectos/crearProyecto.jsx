@@ -1,5 +1,4 @@
 import React,{useEffect,useState} from 'react'
-import {useParams, Link} from 'react-router-dom'
 import { useQuery, useMutation } from '@apollo/client';
 import useFormData from 'hook/useFormData';
 import {toast } from 'react-toastify';
@@ -7,14 +6,13 @@ import { nanoid } from 'nanoid';
 
 import Input from 'components/Input'
 import ButtonLoading from 'components/ButtonLoading';
-import DropDown from 'components/Dropdown';
+
 
 import { CREAR_PROYECTO } from 'graphql/proyectos/mutations';
 import { GET_USUARIO } from 'graphql/usuarios/queries';
 
-import { Enum_FaseProyecto } from 'utils/enums';
-import { Enum_EstadoProyecto } from 'utils/enums';
-import { Enum_TipoObjetivo } from 'utils/enums';
+
+import PrivateComponent from 'components/PrivateComponent';
 
 import { ObjContext } from 'context/objContext';
 import { useObj } from 'context/objContext';
@@ -112,7 +110,7 @@ const CrearProyecto= () => {
             
     </div>
     )
-    };
+};
 
 
 const Objetivos=()=>{
@@ -121,13 +119,11 @@ const Objetivos=()=>{
     const eliminarObjetivo =(id)=>{
         setListaObjetivos(listaObjetivos.filter(el=>el.props.id !== id));
     }
-
-
     const componenteObjetivoAgregado =()=>{
         const id =nanoid();
         return <FormObjetivo key={id} id={id} />
-        
     }
+
     return (
         <ObjContext.Provider value={{eliminarObjetivo}}>
             <div>
@@ -143,7 +139,6 @@ const Objetivos=()=>{
         </ObjContext.Provider>
     );
 }
-
 
 const FormObjetivo=({id})=>{
     const {eliminarObjetivo} =useObj();
