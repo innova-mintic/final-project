@@ -1,5 +1,6 @@
 import React  from 'react';
 import { useQuery } from '@apollo/client';
+import {useParams, Link} from 'react-router-dom'
 import 'react-toastify/dist/ReactToastify.css';
 import PrivateComponent from 'components/PrivateComponent';
 
@@ -16,7 +17,6 @@ const Solicitudes= () => {
 
   return (
     <div>
-      <PrivateComponent roleList={['rol']}>
         Lista de solicitudes:
         <table className='tabla'>
           <thead>
@@ -46,7 +46,7 @@ const Solicitudes= () => {
             )}
           </tbody>
         </table>
-      </PrivateComponent>
+ 
         
     </div>
   )

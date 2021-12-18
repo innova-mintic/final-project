@@ -1,28 +1,25 @@
 import React  from 'react';
+import {useParams, Link} from 'react-router-dom'
 import { useQuery } from '@apollo/client';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { Enum_EstadoInscripcion } from 'utils/enums';
-import { GET_INSCRIPCIONES } from 'graphql/inscripcion/queries';
+import { GET_INSCRIPCIONES_ESTUDIANTE } from 'graphql/inscripcion/queries';
 import { GET_USUARIO } from 'graphql/usuarios/queries';
 
 
 const MisInscripciones= () => {
 
-  const _id='61b940251ff3c450b7b85a8f'
+  const _id='61be06a9179749635239e3ca'
 
   const{data:queryDataUsuario,error:queryErrorUsuario,loading:queryLoadingUsuario}=useQuery(GET_USUARIO,{
       variables:{_id}
   });
 
-  const{data:queryData,error:queryError,loading:queryLoading}=useQuery(GET_INSCRIPCIONES);
+  const{data:queryData,error:queryError,loading:queryLoading}=useQuery(GET_INSCRIPCIONES_ESTUDIANTE,{variables:{_id} });
 
-  if (queryLoadingUsuario) return <div> Cargando solicitudes...</div>
-  if (queryLoading) return <div> Cargando solicitudes...</div>
-
-  console.log("estudiante",queryDataUsuario ) ;
-
-  console.log("los datos son",queryData.Inscripciones.map( (u)=> u.estudiante.nombre ) ) ; 
+  if (queryLoadingUsuario) return <div> Cargando inscripciones...</div>
+  if (queryLoading) return <div> Cargando inscripciones...</div>
 
     return (
       <div>
@@ -31,22 +28,34 @@ const MisInscripciones= () => {
           <table className='tabla'>
             <thead>
               <tr>
-                <th>Estudiante</th>
-                <th>Correo</th>
-                <th>Proyecto</th>
-                <th>Estado</th>
+                <th>Proyecto Solicitado</th>
+                <th>Lider</th>
+                <th>Estado de Inscripcion</th>
+                <th>Fecha de ingreso</th>
               </tr>
             </thead>
             <tbody>
-              {queryData && queryData.Inscripciones ? (
+              {queryData && queryData.FiltrarInscripcionPorEstudiante ? (
                 <>
-                  {queryData.Inscripciones.map((u) => {
+                  {queryData.FiltrarInscripcionPorEstudiante.map((u) => {
                     return (
                       <tr key={u._id}>
-                        <td>{u.estudiante.nombre} {u.estudiante.apellido}</td>
-                        <td>{u.estudiante.correo}</td>
-                        <td>{u.proyecto.nombre}</td>
+                        <td>{u.proyecto.nombre}
+                        <Link to={`/proyectos/editar/${u.proyecto._id}`}>
+                            <i className='fas fa-external-link-square-alt text-gray-600 hover:text-yellow-400 cursor-pointer px-3' />
+                        </Link>
+                        </td>    
+                        <td>{u.proyecto.lider.nombre} {u.proyecto.lider.apellido}</td>
                         <td>{Enum_EstadoInscripcion[u.estado]}</td>
+                        <td>
+                          {u.fechaIngreso ?(
+                            <>
+                              {u.fechaIngreso.slice(0,-14)}
+                            </>
+                            ):(
+                              <>Sin aceptar</>
+                            )}    
+                        </td>
                       </tr>
                     );
                   })}

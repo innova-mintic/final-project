@@ -24,22 +24,21 @@ const SidebarLinks = () => {
 
       <SidebarRoute to='inicio' title='Inicio' icon='fas fa-home' />
 
-      <PrivateComponent roleList={['ADMINISTRADOR', 'LIDER','ESTUDIANTE']}>
-        <SidebarRoute to='crearUsuario' title='Registro' icon='fas fa-smile-wink' />
-      </PrivateComponent>
+ 
+      <SidebarRoute to='crearUsuario' title='Registro' icon='fas fa-smile-wink' />
+    
 
-      <PrivateComponent roleList={['ADMINISTRADOR', 'LIDER','ESTUDIANTE']}>
-        <SidebarRoute to='perfil' title='Perfil' icon='fas fa-smile-wink' />
-      </PrivateComponent>
+      <SidebarRoute to='perfil' title='Perfil' icon='fas fa-smile-wink' />
+  
 
-      <PrivateComponent roleList={['ADMINISTRADOR', 'LIDER']}>
-        <SidebarRoute to='usuarios' title='Usuarios' icon='fas fa-user' />
-      </PrivateComponent>
+    
+      <SidebarRoute to='usuarios' title='Usuarios' icon='fas fa-user' />
+    
 
       
-      <PrivateComponent roleList={['ADMINISTRADOR', 'LIDER','ESTUDIANTE']}>
-        <SidebarRoute to='proyectos' title='Lista de Proyectos' icon='fas fa-book-open' />
-      </PrivateComponent>
+     
+      <SidebarRoute to='proyectos' title='Lista de Proyectos' icon='fas fa-book-open' />
+   
 
       <Acordeon />
 
@@ -131,21 +130,19 @@ const Acordeon = () => {
           </h2>
           <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
 
-            <PrivateComponent roleList={['LIDER', 'ESTUDIANTE']}>
-              <SidebarRoute to='misProyectos' title='Ver mis proyecto' icon='fab fa-readme' />
-            </PrivateComponent>
+     
+            <SidebarRoute to='misProyectos' title='Ver mis proyecto' icon='fab fa-readme' />
 
-            <PrivateComponent roleList={['LIDER']}>
-              <SidebarRoute to='crearProyecto' title='Crear proyectos' icon='fas fa-folder-plus' />
-            </PrivateComponent>
 
-            <PrivateComponent roleList={['LIDER']}>
-              <SidebarRoute to='solicitudes' title='Solicitudes de Estudiantes' icon='fas fa-user-plus' />
-            </PrivateComponent>
 
-            <PrivateComponent roleList={['ESTUDIANTE']}>
-              <SidebarRoute to='misInscripciones' title='Mis Inscripciones' icon='fas fa-address-card' />
-            </PrivateComponent>
+            <SidebarRoute to='crearProyecto' title='Crear proyectos' icon='fas fa-folder-plus' />
+
+            <SidebarRoute to='solicitudes' title='Solicitudes de Estudiantes' icon='fas fa-user-plus' />
+
+
+
+            <SidebarRoute to='misInscripciones' title='Mis Inscripciones' icon='fas fa-address-card' />
+
 
           </div>
         </div>
