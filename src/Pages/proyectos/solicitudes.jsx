@@ -4,10 +4,18 @@ import {useParams, Link} from 'react-router-dom'
 import 'react-toastify/dist/ReactToastify.css';
 import PrivateComponent from 'components/PrivateComponent';
 
-import { Enum_EstadoProyecto } from 'utils/enums';
-import { GET_PROYECTOS } from 'graphql/proyectos/queries';
+import { Enum_EstadoInscripcion } from 'utils/enums';
+import { GET_INSCRIPCIONES } from 'graphql/inscripcion/queries';
+import { GET_USUARIO } from 'graphql/usuarios/queries';
 
 
+const Solicitudes= () => {
+
+  const _id='61ae26807de7e64c94128677'
+
+  const{data:queryDataUsuario,error:queryErrorUsuario,loading:queryLoadingUsuario}=useQuery(GET_USUARIO,{
+      variables:{_id}
+  });
 
   const{data:queryData,error:queryError,loading:queryLoading}=useQuery(GET_INSCRIPCIONES);
   
