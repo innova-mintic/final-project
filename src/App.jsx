@@ -26,15 +26,16 @@ import Solicitudes from 'Pages/proyectos/solicitudes';
 import MisInscripciones from 'Pages/proyectos/misInscripciones';
 import EditarInscripcion from 'Pages/proyectos/editarInscripcion';
 
-/* const client= new ApolloClient({
+const client= new ApolloClient({
   uri:'https://innova1.herokuapp.com/graphql',
   cache:new InMemoryCache(),
-});  */
+}); 
 
- const client= new ApolloClient({
+
+/*  const client= new ApolloClient({
   uri:'http://localhost:4000/graphql',
   cache:new InMemoryCache(),
-}); 
+});  */
 
 function App() {
   return (

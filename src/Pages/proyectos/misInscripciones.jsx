@@ -10,7 +10,7 @@ import { GET_USUARIO } from 'graphql/usuarios/queries';
 
 const MisInscripciones= () => {
 
-  const _id='61b940251ff3c450b7b85a8f'
+  const _id='61be06a9179749635239e3ca'
 
   const{data:queryDataUsuario,error:queryErrorUsuario,loading:queryLoadingUsuario}=useQuery(GET_USUARIO,{
       variables:{_id}

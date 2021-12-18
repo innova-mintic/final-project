@@ -518,7 +518,7 @@ const InscricpionProyecto= ({ idProyecto,estado, inscripciones }) => {
     
     const [crearInscripcion, {data:mutationDataInscripcion, loading:mutationLoadingInscripcion, error:mutationErrorInscripcion}] = useMutation(CREAR_INSCRIPCION);
 
-    const _idUsuario='61b940251ff3c450b7b85a8f'
+    const _idUsuario='61be06a9179749635239e3ca'
 
     /* const{data:queryDataUsuario,error:queryErrorUsuario,loading:queryLoadingUsuario}=useQuery(GET_USUARIO,{variables:{_id:_idUsuario} } );  */
 
