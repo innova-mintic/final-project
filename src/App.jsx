@@ -6,29 +6,17 @@ import 'styles/globals.css';
 import 'styles/tabla.css';
 /* import 'styles/styles.css'; */
 
-import PrivateRoute from 'components/PrivateRoute';
-
 import LayoutAdmin from 'layouts/LayoutAdmin';
 import Home from 'Pages/Home';
 import Dashboard from 'Pages/inicio/index';
-
-import CrearUsuario from 'Pages/usuarios/crearUsuario';
-import EditarPerfil from 'Pages/usuarios/perfil';
 import Usuarios from 'Pages/usuarios/index';
 import EditarUsuario from 'Pages/usuarios/editar';
-import ListaUsuarios from 'Pages/ListaUsuarios';
-import LayoutAdmin from 'layouts/LayoutAdmin';
 import ListaUsuariosC4 from 'Pages/ListaUsuarios';
-import Solicitudes from 'Pages/solicitudes';
-
 import Proyectos from 'Pages/proyectos/index';
-import MisProyectos from 'Pages/proyectos/misProyectos';
-import CrearProyecto from 'Pages/proyectos/crearProyecto';
 import EditarProyecto from 'Pages/proyectos/editar';
-import Creacion from 'Pages/creacion';
-import CreacionProyecto from 'Pages/crearProyecto';
 import { UserContext } from 'context/user';
 import PublicLayout from 'layouts/PublicLayout';
+import Perfil from './Pages/perfil/index'
 
 const client= new ApolloClient({
   uri:'https://innova1.herokuapp.com/graphql',
@@ -50,7 +38,7 @@ function App() {
        <Auth0Provider
           domain="innova-mintic.us.auth0.com"
           clientId="4OfDznBV7xftZ5kCuQm2VNebA4mXk5Rp"
-          redirectUri={'https://mysterious-hollows-06532.herokuapp.com/inicio'}
+          redirectUri={'http://localhost:3000/inicio'}
           audience= 'innova-mintic-api'
         >
           <div>
@@ -63,15 +51,12 @@ function App() {
                 
                 <Route  path='/' element={<LayoutAdmin/>}>
                   <Route  path='inicio' element={<Dashboard/>}/>
-                  <Route  path='creacion' element={<Creacion/>}/>
                   <Route  path='perfil' element={<Perfil/>}/>
                   <Route  path='proyectos' element={<Proyectos/>}/>
                   <Route  path='proyectos/editar/:_id' element={<EditarProyecto/>}/>
-                  <Route  path='creacionProyecto' element={<CreacionProyecto/>}/>
                   <Route  path='usuarios' element={<Usuarios/>}/>
                   <Route  path='usuarios/editar/:_id' element={<EditarUsuario/>}/>
-                  <Route  path='usuarios2' element={<ListaUsuariosC4/>}/>
-                  <Route  path='/solicitudes' element={<Solicitudes/>}/>       
+                  <Route  path='usuarios2' element={<ListaUsuariosC4/>}/>     
                 </Route>
               </Routes>
             </Router>

@@ -6,7 +6,7 @@ export const getToken = () => {
 
 export const obtenerDatosUsuariosIngresados = async (successCallback, errorCallback) => {
     const options = { method: 'GET', 
-    url: 'http://localhost:4000/usuarios/self',
+    url: 'https://frozen-depths-16809.herokuapp.com/usuarios/self',
     headers:{
     Authorization : getToken() 
     }, 
