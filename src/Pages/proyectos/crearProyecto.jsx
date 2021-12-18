@@ -7,7 +7,6 @@ import { nanoid } from 'nanoid';
 import Input from 'components/Input'
 import ButtonLoading from 'components/ButtonLoading';
 
-
 import { CREAR_PROYECTO } from 'graphql/proyectos/mutations';
 import { GET_USUARIO } from 'graphql/usuarios/queries';
 
@@ -151,7 +150,6 @@ const FormObjetivo=({id})=>{
                 type='text' 
                 required={true} 
                 />
-
             <i onClick={()=>eliminarObjetivo(id)} className='fas fa-minus rounded-full bg-red-500 hover:bg-red-400 text-white p-2 mx-2 cursor-pointer mt-6' />
         </div>
     )

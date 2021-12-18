@@ -38,7 +38,7 @@ const client= new ApolloClient({
 /* const client= new ApolloClient({
   uri:'http://localhost:4000/graphql',
   cache:new InMemoryCache(),
-}); */
+});  */
 
 function App() {
 
@@ -50,8 +50,8 @@ function App() {
        <Auth0Provider
           domain="innova-mintic.us.auth0.com"
           clientId="4OfDznBV7xftZ5kCuQm2VNebA4mXk5Rp"
-          /* redirectUri={'https://mysterious-hollows-06532.herokuapp.com/inicio'} */
-          redirectUri={'http://localhost:3000/inicio'}
+          redirectUri={'https://mysterious-hollows-06532.herokuapp.com/inicio'}
+          /* redirectUri={'http://localhost:3000/inicio'} */
           audience= 'innova-mintic-api'
         >
 
@@ -86,10 +86,7 @@ function App() {
           </div>
           
         </Auth0Provider>
-    </ApolloProvider>  
-      
-   
-      
+    </ApolloProvider>   
   );
 }
 

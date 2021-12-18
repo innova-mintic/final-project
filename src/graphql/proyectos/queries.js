@@ -67,5 +67,5 @@ const GET_PROYECTO_LIDER=gql`
     }
 `;
 
-
 export {GET_PROYECTOS,GET_PROYECTO,GET_PROYECTO_LIDER};
+

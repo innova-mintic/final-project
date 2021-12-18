@@ -34,4 +34,4 @@ const Enum_EstadoInscripcion={
   PENDIENTE:'Pendiente',
 }
 
-  export { Enum_Rol, Enum_EstadoUsuario, Enum_EstadoProyecto , Enum_FaseProyecto,Enum_TipoObjetivo,Enum_EstadoInscripcion};
+export { Enum_Rol, Enum_EstadoUsuario, Enum_EstadoProyecto , Enum_FaseProyecto,Enum_TipoObjetivo,Enum_EstadoInscripcion};

@@ -26,6 +26,7 @@ import { ELIMINAR_OBJETIVO } from 'graphql/proyectos/mutations';
 import { GET_USUARIO } from 'graphql/usuarios/queries';
 import {EDITAR_PROYECTO} from 'graphql/proyectos/mutations';
 import PrivateComponent from 'components/PrivateComponent';
+import { GET_AVANCES } from 'graphql/proyectos/queries';
 
 
 function EditarProyecto() {
