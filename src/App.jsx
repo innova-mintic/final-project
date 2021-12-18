@@ -70,7 +70,7 @@ function App() {
                         <Route  path='/perfil' element={<EditarPerfil/>}/>
                         <Route  path='/usuarios' element={<Usuarios/>}/>
                         <Route  path='/usuarios/editar/:_id' element={<EditarUsuario/>}/>
-                        <Route  path='/usuarios2' element={<ListaUsuarios/>}/>
+                        //<Route  path='/usuarios2' element={<ListaUsuarios/>}/>
 
                         <Route  path='/proyectos' element={<Proyectos/>}/>
                         <Route  path='/proyectos/editar/:_id' element={<EditarProyecto/>}/>
