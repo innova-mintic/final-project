@@ -11,9 +11,20 @@ import Home from 'Pages/Home';
 import Dashboard from 'Pages/inicio/index';
 import Usuarios from 'Pages/usuarios/index';
 import EditarUsuario from 'Pages/usuarios/editar';
-import ListaUsuariosC4 from 'Pages/ListaUsuarios';
+import CrearUsuario from 'Pages/usuarios/crearUsuario';
+import EditarPerfil from 'Pages/usuarios/perfil';
+import ListaUsuarios from 'Pages/ListaUsuarios';
+import MisProyectos from 'Pages/proyectos/misProyectos';
+import CrearProyecto from 'Pages/proyectos/crearProyecto';
+
+
 import Proyectos from 'Pages/proyectos/index';
 import EditarProyecto from 'Pages/proyectos/editar';
+import Solicitudes from 'Pages/proyectos/solicitudes';
+import MisInscripciones from 'Pages/proyectos/misInscripciones';
+import EditarInscripcion from 'Pages/proyectos/editarInscripcion';
+
+
 import { UserContext } from 'context/user';
 import PublicLayout from 'layouts/PublicLayout';
 import Perfil from './Pages/perfil/index'
@@ -26,7 +37,7 @@ const client= new ApolloClient({
 /* const client= new ApolloClient({
   uri:'http://localhost:4000/graphql',
   cache:new InMemoryCache(),
-}); */
+});  */
 
 function App() {
 
@@ -38,36 +49,43 @@ function App() {
        <Auth0Provider
           domain="innova-mintic.us.auth0.com"
           clientId="4OfDznBV7xftZ5kCuQm2VNebA4mXk5Rp"
-          redirectUri={'http://localhost:3000/inicio'}
+          redirectUri={'https://mysterious-hollows-06532.herokuapp.com/inicio'}
+          /* redirectUri={'http://localhost:3000/inicio'} */
           audience= 'innova-mintic-api'
         >
+
+
           <div>
           <UserContext.Provider value={{userData, setUserData}}>
             <Router>
-              <Routes>
-                <Route path='/' element={<PublicLayout />}>
-                  <Route  path='' element={<Home/>}/>
-                </Route>
-                
-                <Route  path='/' element={<LayoutAdmin/>}>
-                  <Route  path='inicio' element={<Dashboard/>}/>
-                  <Route  path='perfil' element={<Perfil/>}/>
-                  <Route  path='proyectos' element={<Proyectos/>}/>
-                  <Route  path='proyectos/editar/:_id' element={<EditarProyecto/>}/>
-                  <Route  path='usuarios' element={<Usuarios/>}/>
-                  <Route  path='usuarios/editar/:_id' element={<EditarUsuario/>}/>
-                  <Route  path='usuarios2' element={<ListaUsuariosC4/>}/>     
-                </Route>
+                <Routes>
+                      <Route path='/' element={<PublicLayout />}>
+                        <Route  path='' element={<Home/>}/>
+                      </Route>
+                      <Route  path='/' element={<LayoutAdmin/>}>
+                        <Route  path='/inicio' element={<Dashboard/>}/>
+
+                        <Route  path='/crearUsuario' element={<CrearUsuario/>}/>
+                        <Route  path='/perfil' element={<EditarPerfil/>}/>
+                        <Route  path='/usuarios' element={<Usuarios/>}/>
+                        <Route  path='/usuarios/editar/:_id' element={<EditarUsuario/>}/>
+                        //<Route  path='/usuarios2' element={<ListaUsuarios/>}/>
+
+                        <Route  path='/proyectos' element={<Proyectos/>}/>
+                        <Route  path='/proyectos/editar/:_id' element={<EditarProyecto/>}/>
+                        <Route  path='/misProyectos' element={<MisProyectos/>}/>
+                        <Route  path='/crearProyecto' element={<CrearProyecto/>}/>
+                        <Route  path='/solicitudes' element={<Solicitudes/>}/>      
+                        <Route  path='/misInscripciones' element={<MisInscripciones/>}/>    
+                        <Route  path='/solicitudes/editar/:_id' element={<EditarInscripcion/>}/>  
+                      </Route>
               </Routes>
             </Router>
           </UserContext.Provider>
           </div>
           
         </Auth0Provider>
-    </ApolloProvider>  
-      
-   
-      
+    </ApolloProvider>   
   );
 }
 

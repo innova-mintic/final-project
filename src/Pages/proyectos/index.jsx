@@ -17,6 +17,9 @@ import { Enum_EstadoProyecto , Enum_FaseProyecto } from 'utils/enums';
 import { GET_PROYECTOS } from 'graphql/proyectos/queries';
 
 import PrivateComponent from 'components/PrivateComponent';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 
 const Proyectos= () => {
   const {data, error, loading}=useQuery(GET_PROYECTOS);
@@ -33,8 +36,8 @@ const Proyectos= () => {
             <tr>
               <th>Nombre Proyecto</th>
               <th>Nombre Lider</th>
-              <th>Fase</th>
-              <th>Estado</th>
+              <th>Fase del Proyecto</th>
+              <th>Estado del Proyecto</th>
               <th>Ver mas</th>
             </tr>
           </thead>

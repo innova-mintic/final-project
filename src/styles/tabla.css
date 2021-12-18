@@ -1,5 +1,5 @@
 .tabla {
-    width: 100%;
+    width: 98%;
     margin: 10px;
     overflow-y: scroll;
   }
@@ -11,7 +11,7 @@
   }
   
   .tabla th {
-    background-color: #04aa46;
+    background-color: cornflowerblue;
     color: white;
     padding-top: 12px;
     padding-bottom: 12px;
@@ -24,4 +24,18 @@
   
   .tabla tr:hover {
     background-color: #ddd;
+  }
+
+.tabla2 {
+    width: 60%;
+    margin-left:20%; 
+    margin-right:20%;
+    overflow-y: scroll;
+  }
+
+.tabla3 {
+    width: 100%;
+    margin-left:auto; 
+    margin-right:auto;
+    overflow-y: scroll;
   }
