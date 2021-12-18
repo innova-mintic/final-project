@@ -12,7 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Tooltip, Dialog } from '@material-ui/core';
 
 import { GET_USUARIOS } from 'graphql/usuarios/queries';
-import { ELIMINAR_USUARIO } from 'graphql/usuarios/mutations';
+import { GET_ESTUDIANTES } from 'graphql/usuarios/queries';
 import { Enum_Rol , Enum_EstadoUsuario } from 'utils/enums';
 
 
@@ -20,13 +20,16 @@ import { Enum_Rol , Enum_EstadoUsuario } from 'utils/enums';
 import PrivateComponent from 'components/PrivateComponent';
 
 const Usuarios= () => {
-  const {data, error, loading}=useQuery(GET_USUARIOS);
-  const [eliminarUsuario, {data:mutationData, loading:mutationLoading, error:mutationError}] = useMutation(ELIMINAR_USUARIO);
 
-  console.log("los datos son",data); 
-  const [openDialog, setOpenDialog] = useState(false);
+  const {data, error, loading}=useQuery(GET_USUARIOS);
+
+  const {data:dataEstudiantes, error:errorEstudiantes, loading:loadingEstudiantes}=useQuery(GET_ESTUDIANTES,{ variables:{rol:'ESTUDIANTE'}});
 
   if (loading) return <div> Cargando usuarios...</div>
+  if (loadingEstudiantes) return <div> Cargando estudiantes...</div>
+
+  console.log("los datos son", data); 
+  console.log("los datos son", dataEstudiantes); 
 
   return (
     <div>
@@ -40,7 +43,7 @@ const Usuarios= () => {
               <th>Identificación</th>
               <th>Rol</th>
               <th>Estado</th>
-              <th>Acciones</th>
+
             </tr>
           </thead>
           <tbody>
@@ -54,18 +57,10 @@ const Usuarios= () => {
                       <td>{u.correo}</td>
                       <td>{u.identificacion}</td>
                       <td>{Enum_Rol[u.rol]}</td>
-                      <td>{Enum_EstadoUsuario[u.estado]}</td>
-                      <td>
-                        <div>
+                      <td>{Enum_EstadoUsuario[u.estado]}
                           <Link to={`/usuarios/editar/${u._id}`}>
-                            <i className='fas fa-pen text-yellow-600 hover:text-yellow-400 cursor-pointer' />
-                          </Link>
-
-
-
-                        </div>
-
-
+                            <i className='fas fa-pen text-yellow-600 hover:text-yellow-400 cursor-pointer px-3' />
+                          </Link>         
                       </td>
                     </tr>
                   );

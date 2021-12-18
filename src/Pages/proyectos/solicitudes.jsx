@@ -1,5 +1,6 @@
 import React  from 'react';
 import { useQuery } from '@apollo/client';
+import {useParams, Link} from 'react-router-dom'
 import 'react-toastify/dist/ReactToastify.css';
 import PrivateComponent from 'components/PrivateComponent';
 
@@ -21,8 +22,6 @@ const Solicitudes= () => {
   if (queryLoadingUsuario) return <div> Cargando solicitudes...</div>
   if (queryLoading) return <div> Cargando solicitudes...</div>
 
-  console.log("los datos son",queryData.Inscripciones.map( (u)=> u.estudiante.nombre ) ) ; 
-
     return (
       <div>
           <h1 className='m-4 text-3xl text-gray-800 font-bold text-center'>Lista de solicitudes de estudiantes:</h1>
@@ -32,8 +31,8 @@ const Solicitudes= () => {
               <tr>
                 <th>Estudiante</th>
                 <th>Correo</th>
-                <th>Proyecto</th>
-                <th>Estado</th>
+                <th>Proyecto Solicitado</th>
+                <th>Estado de Inscripcion</th>
               </tr>
             </thead>
             <tbody>
@@ -45,7 +44,11 @@ const Solicitudes= () => {
                         <td>{u.estudiante.nombre} {u.estudiante.apellido}</td>
                         <td>{u.estudiante.correo}</td>
                         <td>{u.proyecto.nombre}</td>
-                        <td>{Enum_EstadoInscripcion[u.estado]}</td>
+                        <td>{Enum_EstadoInscripcion[u.estado]}
+                          <Link to={`/solicitudes/editar/${u._id}`}>
+                            <i className='fas fa-pen text-yellow-600 hover:text-yellow-400 cursor-pointer px-3' />
+                          </Link> 
+                        </td>
                       </tr>
                     );
                   })}
